@@ -1,0 +1,54 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
+			"style": {
+				"navigationBarTitleText": "吃喝玩乐",
+				"navigationStyle": "custom",
+				"onReachBottomDistance": 200
+			}
+		},
+		{
+			"path": "uni_modules/samciu-coupon-arrive/pages/shop/shop",
+			"style": {
+				"navigationBarTitleText": "店铺详情",
+				"enablePullDownRefresh": false
+			}
+		}
+	    ,{
+            "path" : "uni_modules/samciu-coupon-arrive/pages/user/user",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"backgroundColor": "#F7F7FA",
+		"color": "#707070",
+		"selectedColor": "#ffad00",
+		"borderStyle": "white",
+		"list": [{
+				"pagePath": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
+				"text": "首页",
+				"iconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/fuli.png",
+				"selectedIconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/fuli_fill.png"
+			},
+			{
+				"pagePath": "uni_modules/samciu-coupon-arrive/pages/user/user",
+				"text": "我的",
+				"iconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/user.png",
+				"selectedIconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/user_fill.png"
+			}
+		],
+		"custom": true
+	}
+}
