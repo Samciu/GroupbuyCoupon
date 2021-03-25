@@ -84,10 +84,13 @@
 </template>
 
 <script>
-import productList from "../../components/samciu-coupon-arrive/components/product-list";
+import productList from "../../components/product-list/product-list";
 import { getShopDetail } from "../../request";
 
 export default {
+  components: {
+    productList,
+  },
   data() {
     return {
       shopList: [],
@@ -123,7 +126,7 @@ export default {
         title: "震惊！小明天天出来玩，竟然只花1分钱",
         path: "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
         imageUrl:
-          "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/f95fbd20-57cf-11eb-bdc1-8bd33eb6adaa.jpg",
+          "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
       };
     },
   },

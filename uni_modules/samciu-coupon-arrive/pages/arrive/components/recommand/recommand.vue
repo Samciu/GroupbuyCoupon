@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getCouponList } from "../../../request";
+import { getCouponList } from "../../../../request";
 
 export default {
   data() {
