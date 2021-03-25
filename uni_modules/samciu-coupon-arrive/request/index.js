@@ -1,6 +1,8 @@
 
-const baseUrl = "https://zy-api.wxthe.com";
 
+import config from '../config';
+
+const { Appid, baseUrl } = config
 
 const request = (opts) => {
     const url = `${baseUrl}${opts.url}`
@@ -9,7 +11,7 @@ const request = (opts) => {
     return uni.request({
         ...opts, url,
         header: {
-            'Appid': 'zy36aab89b0773212d'
+            'Appid': Appid
         },
     })
 }
