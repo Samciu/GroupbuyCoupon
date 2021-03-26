@@ -158,11 +158,21 @@
       @click="closeMenu"
     ></view>
     <view class="product-body">
-      <product-list
-        ref="productList"
-        :list="shopList"
-        baseUrl="/uni_modules/samciu-coupon-arrive/pages/shop/shop"
-      ></product-list>
+      <view class="empty" v-if="isListEmpty">
+        <image
+          class="empty-image"
+          mode="widthFix"
+          src="../../static/img_empty.png"
+        ></image>
+        <view class="empty-text">暂无商家</view>
+      </view>
+      <block v-else>
+        <product-list
+          ref="productList"
+          :list="shopList"
+          baseUrl="/uni_modules/samciu-coupon-arrive/pages/shop/shop"
+        ></product-list>
+      </block>
     </view>
     <uni-popup id="popup" ref="popup" type="bottom" animation="true">
       <view class="popup-content" @click="closePopup">
@@ -188,11 +198,13 @@
 </template>
 <script>
 import productList from "../../components/product-list/product-list";
+import recommand from "./components/recommand/recommand";
 import { getArea, getCity, getCategory, getShopList } from "../../request";
 
 export default {
   components: {
     productList,
+    recommand
   },
   data() {
     return {
@@ -310,6 +322,7 @@ export default {
         { id: 2, title: "优惠比例" },
         { id: 3, title: "满减优惠" },
       ],
+      isListEmpty: false
     };
   },
   onLoad(e) {
@@ -385,6 +398,7 @@ export default {
           scrollTop: 0,
           duration: 500,
         });
+        this.isListEmpty = false
       }
       uni.showLoading({ title: "加载优惠中" });
       const {
@@ -418,6 +432,8 @@ export default {
       const [err, res] = await getShopList(data);
       const shopList = res?.data?.data?.records || [];
       this.shopList = concat ? this.shopList.concat(shopList) : shopList;
+      // 没有商家数据
+      this.isListEmpty = !concat && !shopList.length
       uni.hideLoading();
     },
 
@@ -767,6 +783,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
   }
   .arrow {
     margin-left: 6rpx;
@@ -776,7 +793,21 @@ export default {
     transform: rotate(-180deg);
   }
 }
-
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32rpx;
+  
+  .empty-image {
+    width: 300rpx;
+  }
+  .empty-text {
+    padding-top: 30rpx;
+    color: #666;
+    font-size: 30rpx;
+  }
+}
 .dropdown {
   .item {
     margin: 0 28rpx;
