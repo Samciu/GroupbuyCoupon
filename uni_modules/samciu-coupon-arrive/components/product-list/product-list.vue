@@ -4,7 +4,7 @@
       class="list-item"
       @click="navTo(item)"
       v-for="item in list"
-      :key="item.dealBaseInfo.dealGroupId"
+      :key="item.shopInfo.shopId"
     >
       <view class="image-wrapper">
         <image :src="item.dealBaseInfo.defaultPic" mode="aspectFill"></image>
