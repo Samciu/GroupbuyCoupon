@@ -1,0 +1,487 @@
+<template>
+  <view class="take-out">
+    <view class="banner">
+      <view class="bg">
+        <view class="up-space"></view>
+        <view class="down-space"></view>
+      </view>
+      <view class="hover">
+        <swiper
+          :autoplay="true"
+          :circular="true"
+          class="swiper"
+          indicatorActiveColor="#fff"
+          indicatorColor="#ccc"
+          :indicatorDots="true"
+        >
+          <swiper-item
+            class="swiper-item"
+            :key="i"
+            @click="handleClickBanner(banner)"
+          >
+            <image
+              class="img"
+              mode="aspectFill"
+              src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/fa46653b-44a7-41c3-9bca-c733c6e7536e.png"
+            ></image>
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+
+    <view class="list">
+      <view @click="openDialog(i)" class="item animated fadeIn">
+        <view class="left">
+          <image
+            class="label ele"
+            mode="widthFix"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/c9d9b660-57ce-11eb-8d54-21c4ca4ce5d7.png"
+          ></image>
+          <image
+            class="mark ele"
+            mode="heightFix"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/cb5c10a0-57ce-11eb-b997-9918a5dda011.png"
+          ></image>
+          <view class="content">
+            <view class="title">饿了么外卖红包天天领</view>
+            <view class="info">
+              <text class="price">66</text>
+              <text class="unit">元</text>
+              <text class="tip">天天领66红包</text>
+            </view>
+          </view>
+        </view>
+        <view class="right">
+          <view class="btn red">免费领取</view>
+        </view>
+      </view>
+      <view @click="openDialog(i)" class="item animated fadeIn">
+        <view class="left">
+          <image
+            class="label ele"
+            mode="widthFix"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/ca96c4d0-57ce-11eb-b997-9918a5dda011.png"
+          ></image>
+          <image
+            class="mark ele"
+            mode="heightFix"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/cc101e60-57ce-11eb-b997-9918a5dda011.png"
+          ></image>
+          <view class="content">
+            <view class="title">美团外卖红包天天领</view>
+            <view class="info">
+              <text class="price">66</text>
+              <text class="unit">元</text>
+              <text class="tip">天天领66红包</text>
+            </view>
+          </view>
+        </view>
+        <view class="right">
+          <view class="btn yellow">免费领取</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="shop-recommand-wrap" v-if="recommandList.length">
+      <view class="shop-recommand-title">天天特价</view>
+      <view class="shop-recommand">
+        <view
+          class="shop-recommand-item"
+          v-for="(item, index) in recommandList"
+          :key="index"
+          @click="handleRecommandClick(item)"
+        >
+          <image :src="item.shopLogo" mode="aspectFill" class="pic"></image>
+          <view class="desc">
+            <view class="shop-name">{{ item.shopName }}</view>
+            <view class="discount">{{ item.discount }}</view>
+            <text class="tip">预估返1元</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <customTabBar tab="takeout"></customTabBar>
+  </view>
+</template>
+
+<script>
+import { getRecommand } from "../../request";
+
+export default {
+  data() {
+    return {
+      recommandList: [],
+    };
+  },
+  onLoad(e) {
+    this.initLocation();
+  },
+  methods: {
+    async getRecommand(data) {
+      const [err, res] = await getRecommand(data);
+      this.recommandList = res?.data?.data || [];
+    },
+    async initLocation() {
+      const authorize = await this.getAuthorize();
+      if (!authorize) return;
+
+      uni.showLoading({ title: "加载优惠中" });
+
+      const [locationErr, locationRes] = await uni.getLocation();
+      const { latitude, longitude } = locationRes;
+      await this.getRecommand({
+        lat: latitude,
+        lng: longitude,
+      });
+
+      uni.hideLoading();
+    },
+
+    async authorizeWarning() {
+      const [modalErr, modalRes] = await uni.showModal({
+        title: "是否授权当前位置",
+        content: "需要获取您的地理位置，请确认授权，否则功能将无法使用",
+      });
+      if (!modalRes.confirm) {
+        return this.authorizeWarning();
+      }
+      await uni.openSetting();
+      const [settingErr, settingRes] = await uni.getSetting();
+      if (!settingRes.authSetting["scope.userLocation"]) {
+        return this.authorizeWarning();
+      }
+      return true;
+    },
+
+    async getAuthorize() {
+      // 获取授权
+      const [authorizeErr, authorizeRes] = await uni.authorize({
+        scope: "scope.userLocation",
+      });
+      console.log(authorizeErr, authorizeRes);
+      // 授权失败
+      if (authorizeErr) {
+        return this.authorizeWarning();
+      }
+      return true;
+    },
+
+    handleRecommandClick(item) {
+      uni.navigateToMiniProgram({
+        appId: item.package.minapp.appid,
+        path: item.package.minapp.path,
+      });
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+page {
+  background: #f3f3f3;
+}
+
+.take-out {
+  padding-bottom: 200rpx;
+
+  .banner {
+    position: relative;
+    background-color: #fff;
+
+    .bg {
+      height: 100%;
+      position: absolute;
+      width: 100%;
+
+      .up-space {
+        height: 55%;
+        background-color: #ff536f;
+      }
+
+      .down-space {
+        height: 40rpx;
+        background-color: #ff536f;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+      }
+    }
+
+    .hover {
+      top: 0;
+      right: 0;
+      left: 0;
+      padding: 20rpx 0 0;
+
+      .swiper {
+        height: 250rpx;
+
+        .swiper-item {
+          padding: 0 25rpx;
+          box-sizing: border-box;
+          height: 250rpx;
+
+          .img {
+            display: block;
+            width: 700rpx;
+            height: 250rpx;
+            border-radius: 30rpx;
+          }
+        }
+      }
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 25rpx;
+    margin-top: 28rpx;
+
+    .item {
+      display: flex;
+      flex-wrap: nowrap;
+      border-radius: 28rpx;
+      margin-bottom: 20rpx;
+      -ms-flex-align: center;
+      align-items: center;
+      overflow: hidden;
+      height: 180rpx;
+
+      .left {
+        width: 72%;
+        height: 180rpx;
+        position: relative;
+        background-color: #fff;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          right: -12rpx;
+          width: 24rpx;
+          height: 24rpx;
+          border-radius: 50%;
+          background-color: #f3f3f3;
+        }
+
+        &::before {
+          top: -12rpx;
+        }
+
+        &::after {
+          bottom: -12rpx;
+        }
+
+        .label {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          &.ele {
+            width: 106rpx;
+            height: 106rpx;
+          }
+
+          &.mt {
+            width: 107rpx;
+            height: 107rpx;
+          }
+        }
+
+        .mark {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+
+          &.ele {
+            height: 68rpx;
+          }
+          &.mt {
+            width: 119rpx;
+          }
+        }
+
+        .content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          height: 180rpx;
+          z-index: 1;
+          display: -ms-flexbox;
+          display: flex;
+          flex-direction: column;
+          -ms-flex-pack: center;
+          justify-content: center;
+          padding-left: 84rpx;
+
+          .title {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 30rpx;
+
+            .corner {
+              width: 5rpx;
+              height: 7rpx;
+              margin: 0 7rpx;
+              position: relative;
+
+              &.left-top {
+                top: -10rpx;
+              }
+              &.right-bottom {
+                top: 10rpx;
+              }
+            }
+
+            .new {
+              width: 71rpx;
+              height: 30rpx;
+              margin-left: 2rpx;
+              position: relative;
+              top: -11rpx;
+            }
+          }
+          .info {
+            font-size: 26rpx;
+
+            .price {
+              color: #ff304d;
+              font-size: 52rpx;
+              font-weight: 700;
+              position: relative;
+              top: 4rpx;
+              margin-right: 6rpx;
+              font-family: PingFang SC;
+            }
+
+            .unit {
+              color: #ff304d;
+              margin-right: 6rpx;
+            }
+
+            .tip {
+              background-color: #ffebe3;
+              padding: 4rpx 8rpx;
+              border-radius: 4rpx;
+              color: #aa1e3b;
+            }
+          }
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        width: 28%;
+        height: 180rpx;
+        position: relative;
+        background-color: #fff;
+        border-left: 4rpx dashed #eee;
+        justify-content: center;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          left: -12rpx;
+          width: 24rpx;
+          height: 24rpx;
+          border-radius: 50%;
+          background-color: #f3f3f3;
+        }
+
+        &::before {
+          top: -12rpx;
+        }
+
+        &::after {
+          bottom: -12rpx;
+        }
+
+        .btn {
+          width: 80%;
+          height: 64rpx;
+          line-height: 64rpx;
+          border-radius: 32rpx;
+          font-size: 26rpx;
+          text-align: center;
+
+          &.red {
+            background-color: #ff5b73;
+            color: #fff;
+          }
+
+          &.yellow {
+            background-color: #fcd530;
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+
+  .shop-recommand-title {
+    padding: 20rpx 25rpx;
+    font-size: 32rpx;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .shop-recommand-wrap {
+    margin-top: 8rpx;
+    background: #fff;
+  }
+
+  .shop-recommand {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 25rpx;
+
+    &-item {
+      margin-bottom: 24rpx;
+      width: 220rpx;
+      box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+      background: #fff;
+
+      .pic {
+        display: block;
+        width: 220rpx;
+        height: 220rpx;
+      }
+
+      .shop-name {
+        font-size: 28rpx;
+        font-weight: 500;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+      .desc {
+        padding: 14rpx 10rpx 20rpx;
+      }
+
+      .discount {
+        padding: 12rpx 0 8rpx;
+        font-size: 30rpx;
+        color: #ff536f;
+        font-weight: 600;
+      }
+
+      .tip {
+        font-size: 24rpx;
+        background-color: #ffebe3;
+        padding: 4rpx 8rpx;
+        border-radius: 4rpx;
+        color: #aa1e3b;
+      }
+    }
+  }
+}
+</style>

@@ -5,15 +5,21 @@ import config from '../config';
 const { Appid, baseUrl } = config
 
 const request = (opts) => {
-    const url = `${baseUrl}${opts.url}`
+    const url = opts.url.includes('http') ? opts.url : `${baseUrl}${opts.url}`
     const accountInfo = uni.getAccountInfoSync();
-
     return uni.request({
         ...opts, url,
         header: {
             'Appid': Appid
         },
     })
+}
+
+export const getRecommand = (data) => {
+    return request({
+        url: '/minapp/v1/takeout/shop/recommand?lat=32.16046142578125&lng=118.72357177734375',
+        data
+    });
 }
 
 export const getArea = (data) => {

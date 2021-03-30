@@ -1,11 +1,20 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "uni_modules/samciu-coupon-arrive/pages/takeout/takeout",
+			"style": {
+				"navigationBarTitleText": "天天特权",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#ff536f",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
 			"path": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
 			"style": {
 				"navigationBarTitleText": "吃喝玩乐",
 				"navigationStyle": "custom",
-				"onReachBottomDistance": 200
+				"onReachBottomDistance": 300
 			}
 		},
 		{
@@ -14,17 +23,15 @@
 				"navigationBarTitleText": "店铺详情",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path": "uni_modules/samciu-coupon-arrive/pages/user/user",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 		}
-	    ,{
-            "path" : "uni_modules/samciu-coupon-arrive/pages/user/user",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -36,17 +43,15 @@
 		"color": "#707070",
 		"selectedColor": "#ffad00",
 		"borderStyle": "white",
-		"list": [{
-				"pagePath": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
-				"text": "首页",
-				"iconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/fuli.png",
-				"selectedIconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/fuli_fill.png"
+		"list": [
+			{
+				"pagePath": "uni_modules/samciu-coupon-arrive/pages/takeout/takeout"
 			},
 			{
-				"pagePath": "uni_modules/samciu-coupon-arrive/pages/user/user",
-				"text": "我的",
-				"iconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/user.png",
-				"selectedIconPath": "uni_modules/samciu-coupon-arrive/static/tabbar/user_fill.png"
+				"pagePath": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive"
+			},
+			{
+				"pagePath": "uni_modules/samciu-coupon-arrive/pages/user/user"
 			}
 		],
 		"custom": true

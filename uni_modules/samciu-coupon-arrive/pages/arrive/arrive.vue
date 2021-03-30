@@ -880,6 +880,9 @@ export default {
   z-index: 4;
   background: rgba(0, 0, 0, 0.6);
 }
+.product-body {
+  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+}
 .popup-content {
   margin: 0 auto;
   background: #eee;

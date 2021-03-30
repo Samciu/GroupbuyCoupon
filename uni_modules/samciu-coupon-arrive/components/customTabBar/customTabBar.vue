@@ -1,5 +1,21 @@
 <template>
   <view class="custom-tab-bar">
+     <navigator
+      class="item"
+      :class="{active: tab == 'takeout'}"
+      open-type="switchTab"
+      url="/uni_modules/samciu-coupon-arrive/pages/takeout/takeout"
+    >
+      <image
+        class="icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/f8eca960-f22d-4b74-995c-85a9cd19c6b0.png"
+      ></image>
+      <image
+        class="focus-icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/e09a27a3-8d50-4ea7-8903-4939681fcf8a.png"
+      ></image>
+      <text class="label">点外卖</text>
+    </navigator>
     <navigator
       class="item"
       :class="{active: tab == 'arrive'}"
@@ -14,7 +30,7 @@
         class="focus-icon"
         src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/b0c61e2e-1637-4cfb-a3bc-5421cca1d6a7.png"
       ></image>
-      <text class="label">首页</text>
+      <text class="label">到店吃</text>
     </navigator>
     <navigator
       class="item"
