@@ -2,7 +2,7 @@
  * @Author: dazhao 
  * @Date: 2021-03-31 16:47:47 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-03-31 17:02:52
+ * @Last Modified time: 2021-03-31 18:39:01
  */
 
 import { getCategory } from "../../request";
@@ -16,7 +16,7 @@ export default {
     },
     mutations: {
         setTabList(state, payload) {
-            state.tabList = payload
+            state.tabList = payload.filter(item => item.show)
         }
     },
     actions: {
