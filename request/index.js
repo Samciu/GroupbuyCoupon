@@ -64,3 +64,10 @@ export const getCouponList = (data) => {
         data
     })
 }
+
+export const getIndexCouponList = data => {
+    return request({
+        url: "/minapp/v1/takeout/coupon",
+        data
+    })
+}

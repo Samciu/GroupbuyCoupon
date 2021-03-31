@@ -1,7 +1,7 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "uni_modules/samciu-coupon-arrive/pages/takeout/takeout",
+			"path": "pages/takeout/takeout",
 			"style": {
 				"navigationBarTitleText": "天天特权",
 				"enablePullDownRefresh": false,
@@ -10,7 +10,7 @@
 			}
 		},
 		{
-			"path": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
+			"path": "pages/arrive/arrive",
 			"style": {
 				"navigationBarTitleText": "吃喝玩乐",
 				"navigationStyle": "custom",
@@ -18,14 +18,14 @@
 			}
 		},
 		{
-			"path": "uni_modules/samciu-coupon-arrive/pages/shop/shop",
+			"path": "pages/shop/shop",
 			"style": {
 				"navigationBarTitleText": "店铺详情",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path": "uni_modules/samciu-coupon-arrive/pages/user/user",
+			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
@@ -45,13 +45,13 @@
 		"borderStyle": "white",
 		"list": [
 			{
-				"pagePath": "uni_modules/samciu-coupon-arrive/pages/takeout/takeout"
+				"pagePath": "pages/takeout/takeout"
 			},
 			{
-				"pagePath": "uni_modules/samciu-coupon-arrive/pages/arrive/arrive"
+				"pagePath": "pages/arrive/arrive"
 			},
 			{
-				"pagePath": "uni_modules/samciu-coupon-arrive/pages/user/user"
+				"pagePath": "pages/user/user"
 			}
 		],
 		"custom": true

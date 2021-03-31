@@ -6,11 +6,11 @@
         <view class="rate-cate">
           <uni-rate
             :readonly="true"
-            :value="shopInfo.shopPower / 10"
+            :value="shopInfo.shopPower ? shopInfo.shopPower / 10 : 0"
             size="16"
             active-color="#e62828"
           />
-          <text class="power">{{ shopInfo.shopPower / 10 }}</text>
+          <text class="power">{{ shopInfo.shopPower ? shopInfo.shopPower / 10 : 0 }}</text>
           <view class="cate-name">{{ shopInfo.cateName }}</view>
         </view>
         <view class="address">{{ shopInfo.address }}</view>
@@ -84,49 +84,45 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import productList from "../../components/product-list/product-list";
-import { getShopDetail } from "../../request";
 
 export default {
   components: {
     productList,
   },
   data() {
-    return {
-      shopList: [],
-      shopInfo: {},
-      dealDetail: {},
-      dealBaseInfo: {},
-    };
+    return {};
+  },
+  computed: {
+    ...mapState({
+      shopList: (state) => state.shop.shopList,
+      shopInfo: (state) => state.shop.shopInfo,
+      dealDetail: (state) => state.shop.dealDetail,
+      dealBaseInfo: (state) => state.shop.dealBaseInfo,
+    }),
   },
   components: {
     productList,
   },
   onLoad: function (option) {
-    const { itemInfo } = option;
-    const { shopInfo, dealDetail, dealBaseInfo } = JSON.parse(
-      decodeURIComponent(itemInfo)
-    );
-    this.shopInfo = shopInfo;
-    this.dealDetail = dealDetail;
-    this.dealBaseInfo = dealBaseInfo;
-    this.getShopDetail();
+    const { shopId } = option;
+    this.getShopDetail(shopId);
   },
   methods: {
-    async getShopDetail() {
+    ...mapActions(["fetchShopDetail"]),
+
+    async getShopDetail(shopId) {
       uni.showLoading({ title: "加载优惠中" });
-      const [err, res] = await getShopDetail({
-        shopIds: this.shopInfo.shopId,
+      await this.fetchShopDetail({
+        shopIds: shopId,
       });
-      this.shopList = res.data.data.records;
       uni.hideLoading();
     },
     onShareAppMessage(res) {
       return {
-        title: "震惊！小明天天出来玩，竟然只花1分钱",
-        path: "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
-        imageUrl:
-          "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
+        title: `大众点评优惠券限时抢！${this.shopInfo.shopName}`,
+        imageUrl: this.dealBaseInfo.defaultPic
       };
     },
   },

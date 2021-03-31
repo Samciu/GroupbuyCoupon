@@ -4,7 +4,7 @@
       class="item"
       :class="{active: tab == 'takeout'}"
       open-type="switchTab"
-      url="/uni_modules/samciu-coupon-arrive/pages/takeout/takeout"
+      url="/pages/takeout/takeout"
     >
       <image
         class="icon"
@@ -20,7 +20,7 @@
       class="item"
       :class="{active: tab == 'arrive'}"
       open-type="switchTab"
-      url="/uni_modules/samciu-coupon-arrive/pages/arrive/arrive"
+      url="/pages/arrive/arrive"
     >
       <image
         class="icon"
@@ -36,7 +36,7 @@
       class="item"
       :class="{active: tab == 'user'}"
       open-type="switchTab"
-      url="/uni_modules/samciu-coupon-arrive/pages/user/user"
+      url="/pages/user/user"
     >
       <image
         class="icon"

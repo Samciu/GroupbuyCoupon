@@ -40,7 +40,7 @@
           :key="item.id"
           @click="changeTab(item)"
         >
-          <text>{{ item.title }}</text>
+          <text>{{ item.name }}</text>
         </view>
       </view>
       <!-- 商品分类 -->
@@ -170,7 +170,7 @@
         <product-list
           ref="productList"
           :list="shopList"
-          baseUrl="/uni_modules/samciu-coupon-arrive/pages/shop/shop"
+          baseUrl="/pages/shop/shop"
         ></product-list>
       </block>
     </view>
@@ -197,13 +197,12 @@
   </view>
 </template>
 <script>
-import productList from "../../components/product-list/product-list";
 import recommand from "./components/recommand/recommand";
 import { getArea, getCity, getCategory, getShopList } from "../../request";
+import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
-    productList,
     recommand
   },
   data() {
@@ -215,33 +214,7 @@ export default {
       originAreaList: [], // 存储接口原始城市数据
       city: "选择", // 当前选择城市
       cityId: 0, // 当前选择城市id
-      cat0Id: 226, // 当前选择一级类目id
-      tabList: [
-        {
-          id: 226,
-          title: "餐饮",
-        },
-        {
-          id: 3,
-          title: "娱乐",
-        },
-        // {
-        //   id: 2,
-        //   title: "丽人",
-        // },
-        {
-          id: 289,
-          title: "教育",
-        },
-        {
-          id: 388,
-          title: "结婚",
-        },
-        {
-          id: 389,
-          title: "亲子",
-        },
-      ],
+      cat0Id: 0, // 当前选择一级类目id
       sortList: [
         {
           id: 1,
@@ -325,12 +298,21 @@ export default {
       isListEmpty: false
     };
   },
+
+  computed: {
+    ...mapState({
+      tabList: (state) => state.arrive.tabList,
+    }),
+  },
+
   onLoad(e) {
     this.getNavHeight();
     this.initLocation();
     this.getCityList();
   },
   methods: {
+    ...mapActions(["getAuthorize","fetchTabList"]),
+
     async initLocation() {
       const authorize = await this.getAuthorize();
       if (!authorize) return;
@@ -348,38 +330,14 @@ export default {
       this.lng = longitude;
 
       this.updateCategoryList();
+
+      // 一级tab也通过后端接口返回
+      await this.fetchTabList()
+      this.cat0Id = this.tabList[0].id
+
       this.getShopList();
     },
-
-    async authorizeWarning() {
-      const [modalErr, modalRes] = await uni.showModal({
-        title: "是否授权当前位置",
-        content: "需要获取您的地理位置，请确认授权，否则功能将无法使用",
-      });
-      if (!modalRes.confirm) {
-        return this.authorizeWarning();
-      }
-      await uni.openSetting();
-      const [settingErr, settingRes] = await uni.getSetting();
-      if (!settingRes.authSetting["scope.userLocation"]) {
-        return this.authorizeWarning();
-      }
-      return true;
-    },
-
-    async getAuthorize() {
-      // 获取授权
-      const [authorizeErr, authorizeRes] = await uni.authorize({
-        scope: "scope.userLocation",
-      });
-      console.log(authorizeErr, authorizeRes);
-      // 授权失败
-      if (authorizeErr) {
-        return this.authorizeWarning();
-      }
-      return true;
-    },
-
+    
     /**
      * 请求原始城市数据
      */
@@ -607,7 +565,7 @@ export default {
     onShareAppMessage(res) {
       return {
         title: "震惊！小明天天出来玩，竟然只花1分钱",
-        path: "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
+        path: "pages/arrive/arrive",
         imageUrl:
           "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
       };

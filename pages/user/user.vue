@@ -37,17 +37,23 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   data() {
     return {
       userInfo: {},
     };
   },
-  onLoad() {
-    // this.getUserInfo()
+  computed: {
+    ...mapState(["count"]),
   },
-  onShareAppMessage(res) {},
+  onLoad() {
+    
+  },
   methods: {
+    ...mapActions(["addCountAction"]),
+
     /*登录 */
     onGotUserInfo(e) {
       this.userInfo = e.detail.userInfo;
@@ -62,7 +68,7 @@ export default {
     onShareAppMessage(res) {
       return {
         title: "震惊！小明天天出来玩，竟然只花1分钱",
-        path: "uni_modules/samciu-coupon-arrive/pages/arrive/arrive",
+        path: "pages/arrive/arrive",
         imageUrl:
           "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
       };

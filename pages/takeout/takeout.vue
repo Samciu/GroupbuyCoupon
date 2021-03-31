@@ -28,56 +28,30 @@
         </swiper>
       </view>
     </view>
-
+    <view>{{ text }}</view>
     <view class="list">
-      <view @click="openDialog(i)" class="item animated fadeIn">
+      <view
+        @click="openDialog(i)"
+        v-for="(item, index) in indexCoupons"
+        :key="index"
+        class="item animated fadeIn"
+      >
         <view class="left">
-          <image
-            class="label ele"
-            mode="widthFix"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/c9d9b660-57ce-11eb-8d54-21c4ca4ce5d7.png"
-          ></image>
-          <image
-            class="mark ele"
-            mode="heightFix"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/cb5c10a0-57ce-11eb-b997-9918a5dda011.png"
-          ></image>
+          <image class="label ele" mode="widthFix" :src="item.labelPic"></image>
+          <image class="mark ele" mode="heightFix" :src="item.markPic"></image>
           <view class="content">
-            <view class="title">饿了么外卖红包天天领</view>
+            <view class="title">{{ item.name }}</view>
             <view class="info">
-              <text class="price">66</text>
+              <text class="price">{{ item.money }}</text>
               <text class="unit">元</text>
-              <text class="tip">天天领66红包</text>
+              <text class="tip">{{ item.description }}</text>
             </view>
           </view>
         </view>
         <view class="right">
-          <view class="btn red">免费领取</view>
-        </view>
-      </view>
-      <view @click="openDialog(i)" class="item animated fadeIn">
-        <view class="left">
-          <image
-            class="label ele"
-            mode="widthFix"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/ca96c4d0-57ce-11eb-b997-9918a5dda011.png"
-          ></image>
-          <image
-            class="mark ele"
-            mode="heightFix"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-k3gpzmwscp2i85a06d/cc101e60-57ce-11eb-b997-9918a5dda011.png"
-          ></image>
-          <view class="content">
-            <view class="title">美团外卖红包天天领</view>
-            <view class="info">
-              <text class="price">66</text>
-              <text class="unit">元</text>
-              <text class="tip">天天领66红包</text>
-            </view>
-          </view>
-        </view>
-        <view class="right">
-          <view class="btn yellow">免费领取</view>
+          <view class="btn" :class="item.platform == 'ele' ? 'red' : 'yellow'"
+            >免费领取</view
+          >
         </view>
       </view>
     </view>
@@ -95,7 +69,7 @@
           <view class="desc">
             <view class="shop-name">{{ item.shopName }}</view>
             <view class="discount">{{ item.discount }}</view>
-            <text class="tip">预估返1元</text>
+            <!-- <text class="tip">预估返1元</text> -->
           </view>
         </view>
       </view>
@@ -106,22 +80,25 @@
 </template>
 
 <script>
-import { getRecommand } from "../../request";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
-    return {
-      recommandList: [],
-    };
+    return {};
+  },
+  computed: {
+    ...mapState({
+      indexCoupons: (state) => state.takeout.indexCoupons,
+      recommandList: (state) => state.takeout.recommandList,
+    }),
   },
   onLoad(e) {
     this.initLocation();
+    this.fetchIndexCoupons();
   },
   methods: {
-    async getRecommand(data) {
-      const [err, res] = await getRecommand(data);
-      this.recommandList = res?.data?.data || [];
-    },
+    ...mapActions(["getAuthorize", "fetchIndexCoupons", "fetchShopRecommand"]),
+
     async initLocation() {
       const authorize = await this.getAuthorize();
       if (!authorize) return;
@@ -130,41 +107,12 @@ export default {
 
       const [locationErr, locationRes] = await uni.getLocation();
       const { latitude, longitude } = locationRes;
-      await this.getRecommand({
+      await this.fetchShopRecommand({
         lat: latitude,
         lng: longitude,
       });
 
       uni.hideLoading();
-    },
-
-    async authorizeWarning() {
-      const [modalErr, modalRes] = await uni.showModal({
-        title: "是否授权当前位置",
-        content: "需要获取您的地理位置，请确认授权，否则功能将无法使用",
-      });
-      if (!modalRes.confirm) {
-        return this.authorizeWarning();
-      }
-      await uni.openSetting();
-      const [settingErr, settingRes] = await uni.getSetting();
-      if (!settingRes.authSetting["scope.userLocation"]) {
-        return this.authorizeWarning();
-      }
-      return true;
-    },
-
-    async getAuthorize() {
-      // 获取授权
-      const [authorizeErr, authorizeRes] = await uni.authorize({
-        scope: "scope.userLocation",
-      });
-      console.log(authorizeErr, authorizeRes);
-      // 授权失败
-      if (authorizeErr) {
-        return this.authorizeWarning();
-      }
-      return true;
     },
 
     handleRecommandClick(item) {
@@ -432,6 +380,7 @@ page {
   }
 
   .shop-recommand-wrap {
+    padding-bottom: 60rpx;
     margin-top: 8rpx;
     background: #fff;
   }
@@ -443,7 +392,7 @@ page {
     padding: 0 25rpx;
 
     &-item {
-      margin-bottom: 24rpx;
+      margin-bottom: 36rpx;
       width: 220rpx;
       box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
       background: #fff;
@@ -456,6 +405,7 @@ page {
 
       .shop-name {
         font-size: 28rpx;
+        height: 80rpx;
         font-weight: 500;
         display: -webkit-box;
         -webkit-box-orient: vertical;
