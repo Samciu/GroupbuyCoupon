@@ -31,7 +31,7 @@
     <view>{{ text }}</view>
     <view class="list">
       <view
-        @click="openDialog(i)"
+        @click="jumpCoupon(item)"
         v-for="(item, index) in indexCoupons"
         :key="index"
         class="item animated fadeIn"
@@ -57,7 +57,7 @@
     </view>
 
     <view class="shop-recommand-wrap" v-if="recommandList.length">
-      <view class="shop-recommand-title">天天特价</view>
+      <view class="shop-recommand-title">大家都在吃</view>
       <view class="shop-recommand">
         <view
           class="shop-recommand-item"
@@ -116,6 +116,13 @@ export default {
     },
 
     handleRecommandClick(item) {
+      uni.navigateToMiniProgram({
+        appId: item.package.minapp.appid,
+        path: item.package.minapp.path,
+      });
+    },
+
+    jumpCoupon(item) {
       uni.navigateToMiniProgram({
         appId: item.package.minapp.appid,
         path: item.package.minapp.path,
@@ -380,7 +387,7 @@ page {
   }
 
   .shop-recommand-wrap {
-    padding-bottom: 60rpx;
+    margin: 0 25rpx;
     margin-top: 8rpx;
     background: #fff;
   }
@@ -393,14 +400,16 @@ page {
 
     &-item {
       margin-bottom: 36rpx;
-      width: 220rpx;
+      width: 200rpx;
       box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
       background: #fff;
+      border-radius: 12rpx;
+      overflow: hidden;
 
       .pic {
         display: block;
-        width: 220rpx;
-        height: 220rpx;
+        width: 200rpx;
+        height: 150rpx;
       }
 
       .shop-name {
