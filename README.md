@@ -15,7 +15,7 @@
 ### 使用方法
 1. 下载或者 clone 本前端项目，导入到 HBuilderX
 2. 在众佣后台用户中心中初始化开发配置，获得 Appid。并在众佣后台产品中心开通两个产品
-3. 复制 Appid，在 `uni_modules/samciu-coupon-arrive/config.js` 中配置
+3. 复制 Appid，在 `config.js` 中配置
 4. 在HBuilderX顶部菜单点击发行 -> 发行到微信小程序
 5. 上传版本并提交审核
 

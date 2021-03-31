@@ -6,6 +6,7 @@
         v-for="(coupon, i) in couponList"
         :key="i"
         @click="toCoupon(coupon)"
+        :style="{ background: coupon.bgcolor }"
       >
         <image
           :src="coupon.border"
@@ -47,15 +48,15 @@ export default {
   methods: {
     async getCouponList() {
       const [err, res] = await getCouponList();
-      this.couponList = res.data.data.list
+      this.couponList = res.data.data.list;
     },
     toCoupon(item) {
-      console.log(item)
+      console.log(item);
       uni.navigateToMiniProgram({
         appId: item.package.minapp.appid,
         path: item.package.minapp.path,
       });
-    }
+    },
   },
 };
 </script>
@@ -98,12 +99,7 @@ export default {
       border-radius: 8px;
       position: relative;
       line-height: 1;
-      &.ele {
-        background-color: #e2f2ff;
-      }
-      &.meituan {
-        background-color: #fff2d2;
-      }
+
       &-border {
         position: absolute;
         top: 0;

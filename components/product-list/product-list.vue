@@ -37,10 +37,10 @@
           </view>
         </view>
         <view class="coupons-more">
-          <view class="info"
-            >已抢 {{ item.dealDetail.halfYearSale }} 张</view
+          <view class="info">已抢 {{ item.dealDetail.halfYearSale }} 张</view>
+          <view class="coupon-btn"
+            >领券省{{ item.dealBaseInfo.maxDiscount }}元</view
           >
-          <view class="coupon-btn">领券省{{ item.dealBaseInfo.maxDiscount }}元</view>
         </view>
       </view>
     </view>
@@ -68,13 +68,9 @@ export default {
   methods: {
     navTo(item) {
       if (this.baseUrl) {
-        const shopInfo = JSON.stringify(item.shopInfo);
-        const dealDetail = encodeURIComponent(JSON.stringify(item.dealDetail));
-
-        const itemInfo = encodeURIComponent(JSON.stringify(item));
-
+        const { shopId } = item.shopInfo;
         uni.navigateTo({
-          url: `${this.baseUrl}?itemInfo=${itemInfo}`,
+          url: `${this.baseUrl}?shopId=${shopId}`,
         });
       } else {
         uni.navigateToMiniProgram({
