@@ -329,12 +329,12 @@ export default {
       this.lat = latitude;
       this.lng = longitude;
 
-      this.updateCategoryList();
+      
 
       // 一级tab也通过后端接口返回
       await this.fetchTabList();
       this.cat0Id = this.tabList[0].id;
-
+      this.updateCategoryList();
       this.getShopList();
     },
 
