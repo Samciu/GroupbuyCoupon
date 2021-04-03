@@ -3,8 +3,8 @@
     <view
       class="list-item"
       @click="navTo(item)"
-      v-for="item in list"
-      :key="item.shopInfo.shopId"
+      v-for="item,index in list"
+      :key="index"
     >
       <view class="image-wrapper">
         <image :src="item.dealBaseInfo.defaultPic" mode="aspectFill"></image>

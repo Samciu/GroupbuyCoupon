@@ -203,7 +203,7 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
-    recommand
+    recommand,
   },
   data() {
     return {
@@ -295,7 +295,7 @@ export default {
         { id: 2, title: "优惠比例" },
         { id: 3, title: "满减优惠" },
       ],
-      isListEmpty: false
+      isListEmpty: false,
     };
   },
 
@@ -311,7 +311,7 @@ export default {
     this.getCityList();
   },
   methods: {
-    ...mapActions(["getAuthorize","fetchTabList"]),
+    ...mapActions(["getAuthorize", "fetchTabList"]),
 
     async initLocation() {
       const authorize = await this.getAuthorize();
@@ -329,15 +329,15 @@ export default {
       this.lat = latitude;
       this.lng = longitude;
 
-      this.updateCategoryList();
+      
 
       // 一级tab也通过后端接口返回
-      await this.fetchTabList()
-      this.cat0Id = this.tabList[0].id
-
+      await this.fetchTabList();
+      this.cat0Id = this.tabList[0].id;
+      this.updateCategoryList();
       this.getShopList();
     },
-    
+
     /**
      * 请求原始城市数据
      */
@@ -356,7 +356,7 @@ export default {
           scrollTop: 0,
           duration: 500,
         });
-        this.isListEmpty = false
+        this.isListEmpty = false;
       }
       uni.showLoading({ title: "加载优惠中" });
       const {
@@ -391,7 +391,7 @@ export default {
       const shopList = res?.data?.data?.records || [];
       this.shopList = concat ? this.shopList.concat(shopList) : shopList;
       // 没有商家数据
-      this.isListEmpty = !concat && !shopList.length
+      this.isListEmpty = !concat && !shopList.length;
       uni.hideLoading();
     },
 
@@ -503,10 +503,11 @@ export default {
         cat0Id: this.cat0Id,
       });
       const categories = res.data.data.categories;
-      this.allCateList = Object.keys(categories).map((id) => ({
+      const allCateList = Object.keys(categories).map((id) => ({
         id,
         title: categories[id],
       }));
+      this.allCateList = [{ id: "", title: "全部分类" }, ...allCateList];
     },
 
     /**
@@ -756,7 +757,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 32rpx;
-  
+
   .empty-image {
     width: 300rpx;
   }
