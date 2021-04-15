@@ -1,6 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+            "path" : "pages/invite/invite",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "邀请",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
 			"path": "pages/takeout/takeout",
 			"style": {
 				"navigationBarTitleText": "天天特权",
@@ -25,13 +34,6 @@
 			}
 		},
 		{
-			"path": "pages/income/income",
-			"style": {
-				"navigationBarTitleText": "收益",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -47,8 +49,24 @@
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 300
 			}
-		}
-	],
+		},
+		{
+			"path": "pages/income/income",
+			"style": {
+				"navigationBarTitleText": "收益",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+            "path" : "pages/team/team",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的团队",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

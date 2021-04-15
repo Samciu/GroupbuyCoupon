@@ -54,33 +54,40 @@
       <view class="cash-detal-btn" @click="toOrderList"
         ><view class="icon"></view>订单</view
       >
-      <view class="cash-detal-btn"><view class="icon"></view>团队</view>
+      <view class="cash-detal-btn" @click="toTeam"><view class="icon"></view>团队</view>
       <view class="cash-detal-btn"><view class="icon"></view>邀请</view>
     </view>
 
-    <view class="others">
-      <view class="item">
-        <image class="icon" src="../../static/user_share.png"></image>
-        <button class="content share" open-type="share">
-          <view>分享好友</view>
-          <image class="right" src="../../static/right_h.png"></image>
-        </button>
+    <div class="others-wrap">
+      <view class="title">我的服务</view>
+      <view class="others">
+        <view class="item">
+          <image class="icon" src="../../static/user_share.png"></image>
+          <button class="content share" open-type="share">
+            <view>分享好友</view>
+          </button>
+        </view>
+        <view class="item" bindtap="sponsor">
+          <image class="icon" src="../../static/user_hezuo.png"></image>
+          <button class="content share" open-type="contact">
+            <view>官方公众号</view>
+          </button>
+        </view>
+        <view class="item">
+          <image class="icon" src="../../static/user_kefu.png"></image>
+          <button class="content share" open-type="contact">
+            <view>我有建议</view>
+          </button>
+        </view>
+        <view class="item">
+          <image class="icon" src="../../static/user_kefu.png"></image>
+          <button class="content share" open-type="contact">
+            <view>关于</view>
+          </button>
+        </view>
       </view>
-      <view class="item" bindtap="sponsor">
-        <image class="icon" src="../../static/user_hezuo.png"></image>
-        <button class="content share" open-type="contact">
-          <view>我要制作</view>
-          <image class="right" src="../../static/right_h.png"></image>
-        </button>
-      </view>
-      <view class="item">
-        <image class="icon" src="../../static/user_kefu.png"></image>
-        <button class="content share" open-type="contact">
-          <view>我有建议</view>
-          <image class="right" src="../../static/right_h.png"></image>
-        </button>
-      </view>
-    </view>
+    </div>
+
     <view class="version"> v1.0 </view>
     <login />
     <customTabBar tab="user"></customTabBar>
@@ -139,6 +146,15 @@ export default {
         url: "/pages/income/income",
       });
     },
+
+    toTeam() {
+      if (!this.isLogin) {
+        return this.getLoginStatus();
+      }
+      uni.navigateTo({
+        url: "/pages/team/team",
+      });
+    }
   },
 };
 </script>
@@ -208,7 +224,8 @@ page {
   .upgrade {
     display: flex;
     background: #ead777;
-    margin: 30rpx 34rpx;
+    margin: 0 34rpx;
+    margin-top: 30rpx;
     font-size: 26rpx;
     padding: 14rpx 24rpx;
     justify-content: space-between;
@@ -228,6 +245,7 @@ page {
     justify-content: space-between;
     align-items: center;
     margin: 0 30rpx;
+    margin-top: 30rpx;
     padding: 20rpx;
     border-radius: 30rpx 30rpx 0 0;
     background: #1d0e0e;
@@ -276,53 +294,63 @@ page {
 
 .cash-detal-btns {
   margin: 16rpx 30rpx;
-  padding: 26rpx 12rpx;
+  padding: 0 12rpx;
   display: flex;
   background: #fff;
   justify-content: space-around;
 
   .cash-detal-btn {
+    padding: 30rpx;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 26rpx;
+    font-size: 30rpx;
   }
   .icon {
-    margin-bottom: 10rpx;
+    margin-bottom: 24rpx;
     width: 40rpx;
     height: 40rpx;
     background: #999;
   }
 }
 
-.others {
-  margin: 20rpx 0;
+.others-wrap {
   background: #fff;
+  margin: 16rpx 30rpx;
+  
+  .title {
+    padding: 34rpx;
+  }
 }
-.others .item {
+.others {
   display: flex;
-  align-items: center;
-  width: 690rpx;
-  padding: 0 30rpx;
-  border-bottom: 1px solid #ededf0;
+  // justify-content: space-around;
+  flex-wrap: wrap;
+
+  .item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30rpx 0;
+    width: 230rpx;
+
+    .icon {
+      width: 50rpx;
+      height: 50rpx;
+      background: black;
+    }
+    .content {
+      padding-top: 24rpx;
+      display: flex;
+      align-items: center;
+      font-size: 28rpx;
+      color: #333;
+    }
+  }
 }
-.others .item:last-child {
-  border-bottom: none;
-}
-.others .item .icon {
-  width: 50rpx;
-  height: 50rpx;
-  margin-right: 30rpx;
-}
-.others .item .content {
-  width: 620rpx;
-  padding: 30rpx 0;
-  display: flex;
-  align-items: center;
-  font-size: 34rpx;
-  color: #333;
-}
+
 .others .item .content.share {
   background: none;
   text-align: left;

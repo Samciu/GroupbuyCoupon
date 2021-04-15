@@ -109,3 +109,24 @@ export const getOrderList = data => {
         data
     })
 }
+
+export const getIncomeSum = data => {
+    return request({
+        url: "/minapp/v1/income/sum",
+        data
+    })
+}
+
+export const getIncomeOverview = data => {
+    return request({
+        url: "/minapp/v1/income/overview",
+        data
+    })
+}
+
+export const getIncomeDay = data => {
+    return request({
+        url: "/minapp/v1/income/day?type=7",
+        data
+    })
+}
