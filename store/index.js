@@ -4,15 +4,25 @@ import Vuex from 'vuex'
 import takeout from '@/store/modules/takeout'
 import shop from '@/store/modules/shop'
 import arrive from '@/store/modules/arrive'
+import user from '@/store/modules/user'
+import orderList from '@/store/modules/orderList'
+import income from '@/store/modules/income'
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-
+        isLogin: false,
+        loginShow: false, // 展示登陆弹窗
     },
     mutations: {
+        setIsLogin(state, payload) {
+            state.isLogin = payload
+        },
 
+        setLoginShow(state, payload) {
+            state.loginShow = payload
+        },
     },
     actions: {
         /**
@@ -49,9 +59,35 @@ const store = new Vuex.Store({
             }
             return true;
         },
+
+        async setUserData(context, payload) {
+            try {
+                const { token, user } = payload
+                console.log('setUserData', { token, user })
+                uni.setStorage({
+                    key: 'token',
+                    data: token
+                });
+                uni.setStorage({
+                    key: 'userInfo',
+                    data: user
+                });
+            } catch (e) {
+
+            }
+        },
+
+        async getLoginStatus({ dispatch, commit }) {
+            const [err, res] = await uni.getStorage({ key: 'token' });
+            if (res) {
+                commit('setIsLogin', true)
+            } else {
+                commit('setLoginShow', true)
+            }
+        }
     },
     modules: {
-        takeout, shop, arrive
+        takeout, shop, arrive, user, orderList, income
     }
 })
 export default store

@@ -193,6 +193,7 @@
         </picker> -->
       </view>
     </uni-popup>
+    <login />
     <customTabBar tab="arrive"></customTabBar>
   </view>
 </template>
@@ -575,47 +576,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.b-b {
-  position: relative;
-
-  &::after {
-    position: absolute;
-    z-index: 3;
-    left: 0;
-    top: auto;
-    bottom: 0;
-    right: 0;
-    height: 0;
-    content: "";
-    transform: scaleY(0.5);
-    border-bottom: 1px solid #ddd;
-  }
-}
-
-/* 布局 */
-.row {
-  /* #ifndef APP-PLUS-NVUE */
-  display: flex;
-  /* #endif */
-  flex-direction: row;
-  align-items: center;
-}
-.column {
-  /* #ifndef APP-PLUS-NVUE */
-  display: flex;
-  /* #endif */
-  flex-direction: column;
-}
-.center {
-  /* #ifndef APP-PLUS-NVUE */
-  display: flex;
-  /* #endif */
-  align-items: center;
-  justify-content: center;
-}
-.fill {
-  flex: 1;
-}
 .top {
   position: fixed;
   left: 0;

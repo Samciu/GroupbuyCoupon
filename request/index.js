@@ -6,11 +6,13 @@ const { Appid, baseUrl } = config
 
 const request = (opts) => {
     const url = opts.url.includes('http') ? opts.url : `${baseUrl}${opts.url}`
-    const accountInfo = uni.getAccountInfoSync();
+    // const accountInfo = uni.getAccountInfoSync();
+    const token = uni.getStorageSync('token')
     return uni.request({
         ...opts, url,
         header: {
-            'Appid': Appid
+            'Appid': Appid,
+            'Authorization': `Bearer ${token}`
         },
     })
 }
@@ -68,6 +70,42 @@ export const getCouponList = (data) => {
 export const getIndexCouponList = data => {
     return request({
         url: "/minapp/v1/takeout/coupon",
+        data
+    })
+}
+
+export const getUserLogin = data => {
+    return request({
+        url: "/minapp/v1/user/login",
+        data,
+        method: "POST"
+    })
+}
+
+export const getUserIncome = data => {
+    return request({
+        url: "/minapp/v1/user/income",
+        data
+    })
+}
+
+export const getUserBaseInfo = data => {
+    return request({
+        url: "/minapp/v1/user/baseInfo",
+        data
+    })
+}
+
+export const getUserInfo = data => {
+    return request({
+        url: "/minapp/v1/user/info",
+        data
+    })
+}
+
+export const getOrderList = data => {
+    return request({
+        url: "/minapp/v1/order/list",
         data
     })
 }

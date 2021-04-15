@@ -75,14 +75,17 @@
       </view>
     </view>
 
+    <login />
     <customTabBar tab="takeout"></customTabBar>
   </view>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import login from '../../components/login/login.vue';
 
 export default {
+  components: { login },
   data() {
     return {};
   },

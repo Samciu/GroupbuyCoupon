@@ -25,10 +25,27 @@
 			}
 		},
 		{
+			"path": "pages/income/income",
+			"style": {
+				"navigationBarTitleText": "收益",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/user/user",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#f5405e",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/orderList/orderList",
+			"style": {
+				"navigationBarTitleText": "订单列表",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 300
 			}
 		}
 	],
