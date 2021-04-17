@@ -54,7 +54,10 @@ export default {
   },
   computed: {
     ...mapState({
-      loginShow: (state) => state.loginShow,
+      loginShow: (state) => {
+        console.log("loginShow", state.loginShow);
+        return state.loginShow;
+      },
     }),
   },
   mounted() {
@@ -86,6 +89,7 @@ export default {
         code: loginRes.code,
         iv: userProfileRes.iv,
         encryptedData: userProfileRes.encryptedData,
+        fromUid: "208098",
       });
 
       console.log("getUserLogin", res.data);
@@ -100,7 +104,7 @@ export default {
       }
 
       const { token, user } = res.data.data;
-	  this.setUserData({ token, user });
+      this.setUserData({ token, user });
       this.setIsLogin(true);
       this.setLoginShow(false);
       uni.reLaunch({ url: `/${getCurrentPage()}` });

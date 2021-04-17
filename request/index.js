@@ -1,20 +1,36 @@
 
 
 import config from '../config';
+import store from '@/store'
 
 const { Appid, baseUrl } = config
 
-const request = (opts) => {
+const request = async (opts) => {
     const url = opts.url.includes('http') ? opts.url : `${baseUrl}${opts.url}`
     // const accountInfo = uni.getAccountInfoSync();
     const token = uni.getStorageSync('token')
-    return uni.request({
+    const [err, res] = await uni.request({
         ...opts, url,
         header: {
             'Appid': Appid,
             'Authorization': `Bearer ${token}`
         },
     })
+
+    switch (res.data.code) {
+        case 403:
+            uni.setStorage({
+                key: 'token',
+                data: ""
+            });
+            store.commit('getLoginStatus', true)
+            store.commit('setLoginShow', true)
+            break;
+        default:
+            break;
+    }
+
+    return [err, res]
 }
 
 export const getRecommand = (data) => {
@@ -127,6 +143,13 @@ export const getIncomeOverview = data => {
 export const getIncomeDay = data => {
     return request({
         url: "/minapp/v1/income/day?type=7",
+        data
+    })
+}
+
+export const getTeamList = data => {
+    return request({
+        url: "/minapp/v1/team/list",
         data
     })
 }

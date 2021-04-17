@@ -111,7 +111,7 @@ export default {
     ...mapGetters(["level"]),
   },
   onLoad() {
-    // this.init();
+    this.userInit();
   },
   onShow() {
     console.log("user onShow");

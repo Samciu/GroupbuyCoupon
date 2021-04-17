@@ -21,6 +21,7 @@ const store = new Vuex.Store({
         },
 
         setLoginShow(state, payload) {
+            console.log(444444,payload)
             state.loginShow = payload
         },
     },
