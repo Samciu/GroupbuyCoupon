@@ -36,7 +36,7 @@
             <view class="name">{{ item.nickName }}</view>
             <view class="time">注册日期：{{ item.created_at }}</view>
           </view>
-          <view class="level">{{ levelList[item.role - 1] }}</view>
+          <view class="level">{{ levelList[item.role] }}</view>
         </view>
         <view class="income-detail">
           <view class="income-detail-item">
