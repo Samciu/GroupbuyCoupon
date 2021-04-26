@@ -83,6 +83,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import login from '../../components/login/login.vue';
+import getShareMessage from "@/utils/getShareMessage";
 
 export default {
   components: { login },
@@ -133,11 +134,7 @@ export default {
     },
 
     onShareAppMessage(res) {
-      return {
-        title: "震惊！小明天天出来玩，竟然只花1分钱",
-        imageUrl:
-          "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
-      };
+      return getShareMessage()
     },
   },
 };

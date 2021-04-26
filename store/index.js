@@ -7,6 +7,9 @@ import arrive from '@/store/modules/arrive'
 import user from '@/store/modules/user'
 import orderList from '@/store/modules/orderList'
 import income from '@/store/modules/income'
+import withdraw from '@/store/modules/withdraw'
+
+import { getPayToolUserLogin } from "@/request";
 
 Vue.use(Vuex);
 
@@ -21,7 +24,6 @@ const store = new Vuex.Store({
         },
 
         setLoginShow(state, payload) {
-            console.log(444444,payload)
             state.loginShow = payload
         },
     },
@@ -85,10 +87,16 @@ const store = new Vuex.Store({
             } else {
                 commit('setLoginShow', true)
             }
+        },
+
+        async fetchPayToolUserLogin({ dispatch, commit }, payload) {
+            const [err, res] = await getPayToolUserLogin(payload)
+            
+            return res
         }
     },
     modules: {
-        takeout, shop, arrive, user, orderList, income
+        takeout, shop, arrive, user, orderList, income, withdraw
     }
 })
 export default store

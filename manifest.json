@@ -54,10 +54,18 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true,
+        "usingComponents" : {
+            "pay-user-info": "plugin://myPlugin/pay-user-info"
+        },
         "permission" : {
             "scope.userLocation" : {
                 "desc" : "获取商家信息"
+            }
+        },
+        "plugins": {
+            "myPlugin": {
+                "version": "1.2.1",
+                "provider": "wxdbf7b3f193c7c871"
             }
         }
     },

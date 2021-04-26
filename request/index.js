@@ -153,3 +153,25 @@ export const getTeamList = data => {
         data
     })
 }
+
+export const getPayToolUserLogin = data => {
+    return request({
+        url: "/addon/plug/payTool/minapp/user/login",
+        data
+    })
+}
+
+export const getWithdrawInfo = data => {
+    return request({
+        url: "/minapp/v1/withdraw/info",
+        data
+    })
+}
+
+export const getWithdrawDo = data => {
+    return request({
+        url: "/minapp/v1/withdraw/do",
+        data,
+        method: "POST"
+    })
+}

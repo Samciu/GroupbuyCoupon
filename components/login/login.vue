@@ -85,11 +85,12 @@ export default {
       });
       if (userProfileErr) return;
       const [loginErr, loginRes] = await uni.login();
+      const fromUid = uni.getStorageSync('fromUid'); // 邀请来源
       const [err, res] = await getUserLogin({
         code: loginRes.code,
         iv: userProfileRes.iv,
         encryptedData: userProfileRes.encryptedData,
-        fromUid: "208098",
+        fromUid,
       });
 
       console.log("getUserLogin", res.data);

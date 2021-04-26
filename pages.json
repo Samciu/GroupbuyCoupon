@@ -1,6 +1,40 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#EC5959",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+            "path" : "pages/invite/invite",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "邀请",
+                "enablePullDownRefresh": false
+            }
+        },
+		
+		{
+            "path" : "pages/withdraw/withdraw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "提现",
+                "enablePullDownRefresh": false
+            }
+        },
+		{
+			"path": "pages/income/income",
+			"style": {
+				"navigationBarTitleText": "收益",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/takeout/takeout",
 			"style": {
 				"navigationBarTitleText": "天天特权",
@@ -25,15 +59,6 @@
 			}
 		},
 		{
-			"path": "pages/user/user",
-			"style": {
-				"navigationBarTitleText": "个人中心",
-				"navigationBarBackgroundColor": "#f5405e",
-				"navigationBarTextStyle": "white",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/orderList/orderList",
 			"style": {
 				"navigationBarTitleText": "订单列表",
@@ -42,26 +67,10 @@
 			}
 		},
 		{
-			"path": "pages/income/income",
-			"style": {
-				"navigationBarTitleText": "收益",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
             "path" : "pages/team/team",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的团队",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-		{
-            "path" : "pages/invite/invite",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "邀请",
                 "enablePullDownRefresh": false
             }
             

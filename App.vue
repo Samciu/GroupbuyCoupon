@@ -1,7 +1,11 @@
 <script>
 export default {
-  onLaunch: function () {
+  onLaunch: function (e) {
     console.log("App Launch");
+    // 记录邀请来源
+    const { fromUid } = e.query;
+    console.log("fromUid", fromUid);
+    uni.setStorageSync("fromUid", fromUid);
   },
   onShow: function () {
     console.log("App Show");
@@ -27,7 +31,7 @@ export default {
     height: 0;
     content: "";
     transform: scaleY(0.5);
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e5e5e5;
   }
 }
 
@@ -69,7 +73,7 @@ export default {
 }
 
 .animate__animated {
-  animation-duration: .5s;
+  animation-duration: 0.5s;
   animation-fill-mode: both;
 }
 
