@@ -3,9 +3,15 @@ export default {
   onLaunch: function (e) {
     console.log("App Launch");
     // 记录邀请来源
-    const { fromUid } = e.query;
-    console.log("fromUid", fromUid);
-    uni.setStorageSync("fromUid", fromUid);
+    const { fromUid, scene } = e.query;
+    console.log("onLaunch fromUid", fromUid);
+    fromUid && uni.setStorageSync("fromUid", fromUid);
+
+    // 海报二维码方式通过 sceneXXX 方式获取 fromUid
+    if (scene) {
+      console.log("onLaunch scene", scene.split('fromUid')[1]);
+      uni.setStorageSync("fromUid", scene.split('fromUid')[1])
+    }
   },
   onShow: function () {
     console.log("App Show");

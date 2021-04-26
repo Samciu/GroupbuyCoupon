@@ -86,6 +86,7 @@ export default {
       if (userProfileErr) return;
       const [loginErr, loginRes] = await uni.login();
       const fromUid = uni.getStorageSync('fromUid'); // 邀请来源
+      console.log('getUserLogin fromUid:',fromUid)
       const [err, res] = await getUserLogin({
         code: loginRes.code,
         iv: userProfileRes.iv,
@@ -93,7 +94,7 @@ export default {
         fromUid,
       });
 
-      console.log("getUserLogin", res.data);
+      console.log("getUserLogin:", res.data);
 
       if (err || res.data.code != 200) {
         uni.showToast({

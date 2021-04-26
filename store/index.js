@@ -8,6 +8,7 @@ import user from '@/store/modules/user'
 import orderList from '@/store/modules/orderList'
 import income from '@/store/modules/income'
 import withdraw from '@/store/modules/withdraw'
+import team from '@/store/modules/team'
 
 import { getPayToolUserLogin } from "@/request";
 
@@ -81,8 +82,9 @@ const store = new Vuex.Store({
         },
 
         async getLoginStatus({ dispatch, commit }) {
-            const [err, res] = await uni.getStorage({ key: 'token' });
-            if (res) {
+            const token = uni.getStorageSync('token')
+            
+            if (token) {
                 commit('setIsLogin', true)
             } else {
                 commit('setLoginShow', true)
@@ -96,7 +98,7 @@ const store = new Vuex.Store({
         }
     },
     modules: {
-        takeout, shop, arrive, user, orderList, income, withdraw
+        takeout, shop, arrive, user, orderList, income, withdraw, team
     }
 })
 export default store

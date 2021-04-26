@@ -58,11 +58,16 @@
     <view class="canvas">
       <canvas canvasId="prefix" style="width: 750px; height: 1334px"></canvas>
     </view>
+    <view class="face-invie" v-show="showFaceInvie">
+      <view class="mask" @click="closeInvite"></view>
+      <image :src="inviteInfo[active].qrcodeUrl"></image>
+    </view>
   </view>
 </template>
 
 <script>
 import getShareMessage from "@/utils/getShareMessage";
+import { getInviteInfo } from "@/request";
 
 export default {
   data() {
@@ -135,7 +140,16 @@ export default {
           ],
         },
       ],
+      inviteInfo: [],
+      showFaceInvie: false
     };
+  },
+  async onLoad() {
+    const [coupon, team] = await Promise.all([
+      getInviteInfo({ page: "/pages/takeout/takeout", tab: "coupon" }),
+      getInviteInfo({ page: "/pages/takeout/takeout", tab: "team" }),
+    ]);
+    this.inviteInfo = [coupon[1].data.data, team[1].data.data];
   },
   methods: {
     changeTab(index) {
@@ -159,7 +173,13 @@ export default {
       return res.tempFilePath;
     },
 
-    openInvite() {},
+    openInvite() {
+      this.showFaceInvie = true
+    },
+
+    closeInvite() {
+      this.showFaceInvie = false
+    },
 
     async getAuthorize() {
       // 获取授权
@@ -191,14 +211,13 @@ export default {
       const currentIndex = current[active];
       const currentList = list[active].list;
       const currentItem = currentList[currentIndex];
+      const currentInviteInfo = this.inviteInfo[active];
 
       uni.showLoading({ title: "下载中..." });
 
       const [prefixPath, qrcodePath] = await Promise.all([
         this.loadImage(currentItem.url),
-        this.loadImage(
-          "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/0860549f-3d4c-46d6-bb6c-17a51e26a977.jpeg"
-        ),
+        this.loadImage(currentInviteInfo.qrcodeUrl),
       ]);
 
       uni.hideLoading();
@@ -236,7 +255,10 @@ export default {
     },
 
     onShareAppMessage(res) {
-      return getShareMessage();
+      const config = getShareMessage();
+      const currentInviteInfo = this.inviteInfo[this.active];
+
+      return { ...config, ...currentInviteInfo.shareConfig };
     },
   },
 };
@@ -373,5 +395,29 @@ page {
 .canvas {
   position: fixed;
   left: -9999rpx;
+}
+.face-invie {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+
+  .mask {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600rpx;
+    height: 600rpx;
+    background: #fff;
+  }
 }
 </style>
