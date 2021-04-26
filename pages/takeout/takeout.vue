@@ -136,6 +136,8 @@ export default {
           "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
       };
     },
+	
+	handleClickBanner() { },
   },
 };
 </script>
