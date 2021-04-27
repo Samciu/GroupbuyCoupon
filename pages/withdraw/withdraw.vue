@@ -3,8 +3,8 @@
     <view class="balance">
       <view class="balance-head">
         <view class="balance-head-title"> 余额(元) </view>
-        <view class="balance-head-detail">
-          余额明细
+        <view class="balance-head-detail" @click="toHistory">
+          提现记录
           <view class="iconfont iconiconfontjiantou2"> </view>
         </view>
       </view>
@@ -73,9 +73,11 @@
     <pay-user-info
       :show="show"
       :titleText="titleText"
+      :cancelText="cancelText"
       :buttonText="buttonText"
       @loginSuccess="loginSuccess"
       @loginFail="loginFail"
+      @loginCancel="loginCancel"
     ></pay-user-info>
   </view>
 </template>
@@ -87,8 +89,9 @@ export default {
     return {
       itemIndex: 0,
       show: false,
-      titleText: "首次提现需进行登陆验证",
+      titleText: "首次提现需进行帐号安全验证",
       buttonText: "确定",
+      cancelText: "取消",
     };
   },
   computed: {
@@ -111,7 +114,7 @@ export default {
       console.log({ money: this.list[this.itemIndex] });
       const data = await this.withdrawDo({ money: this.list[this.itemIndex] });
       const { code } = data;
-	  // 返回 401，需要跳转插件
+      // 返回 401，需要跳转插件
       if (code == 401) {
         this.show = true;
       } else if (code != 200 && data.msg) {
@@ -155,6 +158,16 @@ export default {
 
     loginFail(res) {
       console.log("loginFail", res);
+    },
+
+    loginCancel() {
+      this.show = false;
+    },
+
+    toHistory() {
+      uni.navigateTo({
+        url: "/pages/withdrawHistory/withdrawHistory",
+      });
     },
   },
 };

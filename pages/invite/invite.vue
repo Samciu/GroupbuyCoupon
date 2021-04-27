@@ -146,8 +146,8 @@ export default {
   },
   async onLoad() {
     const [coupon, team] = await Promise.all([
-      getInviteInfo({ page: "/pages/takeout/takeout", tab: "coupon" }),
-      getInviteInfo({ page: "/pages/takeout/takeout", tab: "team" }),
+      getInviteInfo({ page: "/pages/index/index", tab: "coupon" }),
+      getInviteInfo({ page: "/pages/index/index", tab: "team" }),
     ]);
     this.inviteInfo = [coupon[1].data.data, team[1].data.data];
   },

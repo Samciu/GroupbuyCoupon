@@ -4,7 +4,7 @@
       class="item"
       :class="{active: tab == 'takeout'}"
       open-type="switchTab"
-      url="/pages/takeout/takeout"
+      url="/pages/index/index"
     >
       <image
         class="icon"

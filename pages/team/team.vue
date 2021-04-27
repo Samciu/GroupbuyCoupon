@@ -58,6 +58,8 @@
         </view>
       </view>
     </view>
+
+    <empty-list v-if="list.length == 0" text="暂无成员" />
   </view>
 </template>
 

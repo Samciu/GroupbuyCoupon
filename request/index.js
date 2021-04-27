@@ -183,3 +183,10 @@ export const getInviteInfo = data => {
         method: "POST"
     })
 }
+
+export const getWithdrawList = data => {
+    return request({
+        url: "/minapp/v1/withdraw/list",
+        data,
+    })
+}

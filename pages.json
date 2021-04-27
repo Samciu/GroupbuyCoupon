@@ -10,30 +10,31 @@
 			}
 		},
 		{
-            "path" : "pages/invite/invite",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "邀请",
-                "enablePullDownRefresh": false
-            }
-        },
+			"path": "pages/invite/invite",
+			"style": {
+				"navigationBarTitleText": "邀请",
+				"enablePullDownRefresh": false
+			}
+		},
 		{
-            "path" : "pages/team/team",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的团队",
-                "enablePullDownRefresh": false
-            }
-        },
-		
+			"path": "pages/team/team",
+			"style": {
+				"navigationBarTitleText": "我的团队",
+				"enablePullDownRefresh": false
+			}
+		},
 		{
-            "path" : "pages/withdraw/withdraw",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "提现",
-                "enablePullDownRefresh": false
-            }
-        },
+			"path": "pages/withdraw/withdraw",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"enablePullDownRefresh": false,
+				"mp-weixin": {
+					"usingComponents": {
+						"pay-user-info": "plugin://myPlugin/pay-user-info"
+					}
+				}
+			}
+		},
 		{
 			"path": "pages/income/income",
 			"style": {
@@ -43,7 +44,7 @@
 			}
 		},
 		{
-			"path": "pages/takeout/takeout",
+			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "天天特权",
 				"enablePullDownRefresh": false,
@@ -73,8 +74,17 @@
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 300
 			}
+		},
+		{
+			"path": "pages/withdrawHistory/withdrawHistory",
+			"style": {
+				"navigationBarTitleText": "提现记录",
+				"navigationBarBackgroundColor": "#EC5959",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
 		}
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -88,7 +98,7 @@
 		"borderStyle": "white",
 		"list": [
 			{
-				"pagePath": "pages/takeout/takeout"
+				"pagePath": "pages/index/index"
 			},
 			{
 				"pagePath": "pages/arrive/arrive"

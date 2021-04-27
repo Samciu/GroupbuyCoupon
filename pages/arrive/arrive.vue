@@ -162,7 +162,7 @@
         <image
           class="empty-image"
           mode="widthFix"
-          src="../../static/img_empty.png"
+          src="/static/img_empty.png"
         ></image>
         <view class="empty-text">暂无商家</view>
       </view>
