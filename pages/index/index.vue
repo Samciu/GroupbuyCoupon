@@ -1,88 +1,83 @@
 <template>
-  <view class="take-out">
-    <view class="banner">
-      <view class="bg">
-        <view class="up-space"></view>
-        <view class="down-space"></view>
+  <view class="page-main">
+    <view class="head-picture-area">
+      <uni-nav-bar
+        :fixed="false"
+        :status-bar="true"
+        :border="false"
+        backgroundColor="transparent"
+      >
+        <view class="choose-address" slot="left" @click="openPopup">
+          <view class="icon" />
+          <view class="city">广州市</view>
+        </view>
+      </uni-nav-bar>
+      <image src="/static/index/banner.png" class="header-content" />
+    </view>
+
+    <view class="coupon-top">
+      <view
+        class="coupon-top-item"
+        v-for="(item, index) in productActivityList"
+        :key="index"
+        @click="handleProductClick(item)"
+      >
+        <image class="pic" :src="item.logo" />
+        <view class="text">{{ item.name }}</view>
       </view>
-      <view class="hover">
-        <swiper
-          :autoplay="true"
-          :circular="true"
-          class="swiper"
-          indicatorActiveColor="#fff"
-          indicatorColor="#ccc"
-          :indicatorDots="true"
-        >
-          <swiper-item
-            class="swiper-item"
-            :key="i"
-            @click="handleClickBanner(banner)"
-          >
-            <image
-              class="img"
-              mode="aspectFill"
-              src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/fa46653b-44a7-41c3-9bca-c733c6e7536e.png"
-            ></image>
-          </swiper-item>
-        </swiper>
+      <view class="coupon-top-item">
+        <image class="pic" src="/static/index/fenlei.png" />
+        <view class="text">分类查找</view>
       </view>
     </view>
-    <view>{{ text }}</view>
-    <view class="list">
-      <view
-        @click="jumpCoupon(item)"
-        v-for="(item, index) in indexCoupons"
-        :key="index"
-        class="item animated fadeIn"
-      >
-        <view class="left">
-          <image class="label ele" mode="widthFix" :src="item.labelPic"></image>
-          <image class="mark ele" mode="heightFix" :src="item.markPic"></image>
-          <view class="content">
-            <view class="title">{{ item.name }}</view>
-            <view class="info">
-              <text class="price">{{ item.money }}</text>
-              <text class="unit">元</text>
-              <text class="tip">{{ item.description }}</text>
+
+    <view class="hot-activity">
+      <view class="activity-left">
+        <view class="title">1元拉新拼</view>
+        <image src="/static/index/1.png" />
+      </view>
+      <view class="activity-right">
+        <view class="activity-item">
+          <view class="title">电影游玩</view>
+          <image src="/static/index/2.png" />
+        </view>
+        <view class="activity-item">
+          <view class="title">特价秒杀</view>
+          <image src="/static/index/3.png" />
+        </view>
+      </view>
+    </view>
+
+    <view class="coupon-card">
+      <view class="nav-bar">
+        <view class="nav-item active">精选优惠</view>
+        <view class="nav-item">周边好店</view>
+      </view>
+      <view class="coupon-card-list">
+        <view
+          class="item"
+          @click="handleProductClick(item)"
+          v-for="(item, index) in productHotList"
+          :key="index"
+        >
+          <view class="pic" :style="{ background: `url(${item.bg_card}) no-repeat center/contain` }"></view>
+          <view class="card-content">
+            <view class="title"> {{ item.name }} </view>
+            <view class="control">
+              <view class="btn">{{ item.discountStr }}领取</view>
+              <view class="like"></view>
             </view>
           </view>
         </view>
-        <view class="right">
-          <view class="btn" :class="item.platform == 'ele' ? 'red' : 'yellow'"
-            >免费领取</view
-          >
-        </view>
       </view>
     </view>
-
-    <view class="shop-recommand-wrap" v-if="recommandList.length">
-      <view class="shop-recommand-title">大家都在吃</view>
-      <view class="shop-recommand">
-        <view
-          class="shop-recommand-item"
-          v-for="(item, index) in recommandList"
-          :key="index"
-          @click="handleRecommandClick(item)"
-        >
-          <image :src="item.shopLogo" mode="aspectFill" class="pic"></image>
-          <view class="desc">
-            <view class="shop-name">{{ item.shopName }}</view>
-            <view class="discount">{{ item.discount }}</view>
-            <!-- <text class="tip">预估返1元</text> -->
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <login />
-    <customTabBar tab="takeout"></customTabBar>
+    <customTabBar tab="index"></customTabBar>
   </view>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import login from '../../components/login/login.vue';
+import login from "../../components/login/login.vue";
 import getShareMessage from "@/utils/getShareMessage";
 
 export default {
@@ -92,16 +87,18 @@ export default {
   },
   computed: {
     ...mapState({
-      indexCoupons: (state) => state.takeout.indexCoupons,
-      recommandList: (state) => state.takeout.recommandList,
+      productActivityList: (state) => state.index.productActivityList,
+      productHotList: (state) => state.index.productHotList,
+      // recommandList: (state) => state.takeout.recommandList,
     }),
   },
   onLoad(e) {
     this.initLocation();
-    this.fetchIndexCoupons();
+    this.fetchProductActivity();
+    this.fetchProductHot();
   },
   methods: {
-    ...mapActions(["getAuthorize", "fetchIndexCoupons", "fetchShopRecommand"]),
+    ...mapActions(["getAuthorize", "fetchProductActivity", "fetchProductHot"]),
 
     async initLocation() {
       const authorize = await this.getAuthorize();
@@ -111,30 +108,30 @@ export default {
 
       const [locationErr, locationRes] = await uni.getLocation();
       const { latitude, longitude } = locationRes;
-      await this.fetchShopRecommand({
-        lat: latitude,
-        lng: longitude,
-      });
+      // await this.fetchShopRecommand({
+      //   lat: latitude,
+      //   lng: longitude,
+      // });
 
       uni.hideLoading();
     },
 
-    handleRecommandClick(item) {
-      uni.navigateToMiniProgram({
-        appId: item.package.minapp.appid,
-        path: item.package.minapp.path,
-      });
-    },
-
-    jumpCoupon(item) {
-      uni.navigateToMiniProgram({
-        appId: item.package.minapp.appid,
-        path: item.package.minapp.path,
-      });
+    handleProductClick(data) {
+      const { path, target } = data;
+      if (target == "page") {
+        uni.navigateTo({
+          url: path,
+        });
+      }
+      if (target == "tab") {
+        uni.switchTab({
+          url: path,
+        });
+      }
     },
 
     onShareAppMessage(res) {
-      return getShareMessage()
+      return getShareMessage();
     },
   },
 };
@@ -142,311 +139,205 @@ export default {
 
 <style lang="scss">
 page {
-  background: #f3f3f3;
+  background: #fff;
 }
 
-.take-out {
-  padding-bottom: 200rpx;
+.head-picture-area {
+  position: relative;
 
-  .banner {
-    position: relative;
-    background-color: #fff;
-
-    .bg {
-      height: 100%;
-      position: absolute;
-      width: 100%;
-
-      .up-space {
-        height: 55%;
-        background-color: #ff536f;
-      }
-
-      .down-space {
-        height: 40rpx;
-        background-color: #ff536f;
-        border-bottom-left-radius: 50%;
-        border-bottom-right-radius: 50%;
-      }
-    }
-
-    .hover {
-      top: 0;
-      right: 0;
-      left: 0;
-      padding: 20rpx 0 0;
-
-      .swiper {
-        height: 250rpx;
-
-        .swiper-item {
-          padding: 0 25rpx;
-          box-sizing: border-box;
-          height: 250rpx;
-
-          .img {
-            display: block;
-            width: 700rpx;
-            height: 250rpx;
-            border-radius: 30rpx;
-          }
-        }
-      }
-    }
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    display: block;
+    height: 248rpx;
+    width: 100%;
+    background: linear-gradient(180deg, #ffa1a1 0%, #fad2d6 47%, #ffffff 100%);
   }
+}
 
-  .list {
+.choose-address {
+  display: flex;
+  align-items: center;
+  padding-left: 26rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #333333;
+  white-space: nowrap;
+
+  .icon {
+    margin-right: 12rpx;
+    width: 32rpx;
+    height: 36rpx;
+    background: url(/static/index/icon.png) no-repeat center/contain;
+  }
+}
+
+.header-content {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 686rpx;
+  height: 182rpx;
+}
+
+.coupon-top {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24rpx;
+  padding-top: 44rpx;
+
+  &-item {
+    padding-bottom: 40rpx;
+    width: 20%;
+    text-align: center;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    padding: 0 25rpx;
-    margin-top: 28rpx;
 
-    .item {
-      display: flex;
-      flex-wrap: nowrap;
-      border-radius: 28rpx;
-      margin-bottom: 20rpx;
-      -ms-flex-align: center;
-      align-items: center;
-      overflow: hidden;
-      height: 180rpx;
+    .pic {
+      display: block;
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+    }
+    .text {
+      padding-top: 18rpx;
+      font-size: 24rpx;
+      line-height: 34rpx;
+      color: #333333;
+    }
+  }
+}
 
-      .left {
-        width: 72%;
-        height: 180rpx;
-        position: relative;
-        background-color: #fff;
+.hot-activity {
+  display: flex;
+  padding: 0 24rpx;
+  padding-top: 20rpx;
+  justify-content: space-between;
+  box-shadow: 0 -2rpx 120rpx rgba(236, 89, 89, 0.1);
 
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          right: -12rpx;
-          width: 24rpx;
-          height: 24rpx;
-          border-radius: 50%;
-          background-color: #f3f3f3;
-        }
+  .title {
+    font-size: 32rpx;
+    font-weight: 800;
+    line-height: 44rpx;
+    color: #333333;
+  }
 
-        &::before {
-          top: -12rpx;
-        }
+  .activity-left {
+    image {
+      margin-top: 18rpx;
+      width: 344rpx;
+      height: 428rpx;
+    }
+  }
 
-        &::after {
-          bottom: -12rpx;
-        }
+  .activity-right {
+    image {
+      margin-top: 18rpx;
+      width: 344rpx;
+      height: 178rpx;
+    }
+  }
+}
 
-        .label {
-          position: absolute;
-          top: 0;
-          left: 0;
+.coupon-card {
+  background: #fbf6f2;
+  border-radius: 40rpx 40rpx 0 0;
+  padding-top: 40rpx;
+  padding-bottom: 160rpx;
 
-          &.ele {
-            width: 106rpx;
-            height: 106rpx;
-          }
+  .nav-bar {
+    display: flex;
+    padding: 0 32rpx;
+    color: #333333;
+    align-items: center;
 
-          &.mt {
-            width: 107rpx;
-            height: 107rpx;
-          }
-        }
+    .nav-item {
+      margin-right: 40rpx;
+      font-size: 30rpx;
+      font-weight: 700;
+      line-height: 42rpx;
+      color: #999999;
 
-        .mark {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-
-          &.ele {
-            height: 68rpx;
-          }
-          &.mt {
-            width: 119rpx;
-          }
-        }
-
-        .content {
-          position: absolute;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          height: 180rpx;
-          z-index: 1;
-          display: -ms-flexbox;
-          display: flex;
-          flex-direction: column;
-          -ms-flex-pack: center;
-          justify-content: center;
-          padding-left: 84rpx;
-
-          .title {
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            font-size: 30rpx;
-
-            .corner {
-              width: 5rpx;
-              height: 7rpx;
-              margin: 0 7rpx;
-              position: relative;
-
-              &.left-top {
-                top: -10rpx;
-              }
-              &.right-bottom {
-                top: 10rpx;
-              }
-            }
-
-            .new {
-              width: 71rpx;
-              height: 30rpx;
-              margin-left: 2rpx;
-              position: relative;
-              top: -11rpx;
-            }
-          }
-          .info {
-            font-size: 26rpx;
-
-            .price {
-              color: #ff304d;
-              font-size: 52rpx;
-              font-weight: 700;
-              position: relative;
-              top: 4rpx;
-              margin-right: 6rpx;
-              font-family: PingFang SC;
-            }
-
-            .unit {
-              color: #ff304d;
-              margin-right: 6rpx;
-            }
-
-            .tip {
-              background-color: #ffebe3;
-              padding: 4rpx 8rpx;
-              border-radius: 4rpx;
-              color: #aa1e3b;
-            }
-          }
-        }
+      &::after {
+        content: "";
+        display: block;
+        margin: 14rpx auto 0;
+        width: 46rpx;
+        height: 6rpx;
+        background: transparent;
       }
 
-      .right {
-        display: flex;
-        align-items: center;
-        width: 28%;
-        height: 180rpx;
-        position: relative;
-        background-color: #fff;
-        border-left: 4rpx dashed #eee;
-        justify-content: center;
-
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          left: -12rpx;
-          width: 24rpx;
-          height: 24rpx;
-          border-radius: 50%;
-          background-color: #f3f3f3;
-        }
-
-        &::before {
-          top: -12rpx;
-        }
+      &.active {
+        font-size: 36rpx;
+        font-weight: 800;
+        line-height: 50rpx;
+        color: #333333;
 
         &::after {
-          bottom: -12rpx;
-        }
-
-        .btn {
-          width: 80%;
-          height: 64rpx;
-          line-height: 64rpx;
-          border-radius: 32rpx;
-          font-size: 26rpx;
-          text-align: center;
-
-          &.red {
-            background-color: #ff5b73;
-            color: #fff;
-          }
-
-          &.yellow {
-            background-color: #fcd530;
-            color: #666;
-          }
+          background: #ec5959;
         }
       }
     }
   }
 
-  .shop-recommand-title {
-    padding: 20rpx 25rpx;
-    font-size: 32rpx;
-    color: #333;
-    font-weight: 500;
-  }
-
-  .shop-recommand-wrap {
-    margin: 0 25rpx;
-    margin-top: 8rpx;
-    background: #fff;
-  }
-
-  .shop-recommand {
+  &-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0 25rpx;
+    padding: 26rpx 25rpx;
 
-    &-item {
-      margin-bottom: 36rpx;
-      width: 200rpx;
-      box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
-      background: #fff;
-      border-radius: 12rpx;
-      overflow: hidden;
+    .item {
+      box-sizing: border-box;
+      margin-bottom: 4rpx;
+      width: 350rpx;
+      height: 456rpx;
+      background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/0ba920fc-465a-4a39-9c16-e6dbd436ea79.png)
+        no-repeat center/contain;
 
       .pic {
         display: block;
-        width: 200rpx;
-        height: 150rpx;
+        height: 218rpx;
+        margin: 0 20rpx;
       }
 
-      .shop-name {
+      .card-content {
+        padding: 0 42rpx;
+      }
+
+      .title {
+        padding-top: 34rpx;
         font-size: 28rpx;
-        height: 80rpx;
-        font-weight: 500;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+        font-weight: 700;
+        line-height: 40rpx;
+        color: #333333;
         overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
-      .desc {
-        padding: 14rpx 10rpx 20rpx;
-      }
+      .control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 58rpx;
 
-      .discount {
-        padding: 12rpx 0 8rpx;
-        font-size: 30rpx;
-        color: #ff536f;
-        font-weight: 600;
-      }
+        .btn {
+          width: 164rpx;
+          height: 58rpx;
+          line-height: 58rpx;
+          background: #fbeae5;
+          border-radius: 30px;
+          text-align: center;
+          color: #ec5959;
+        }
 
-      .tip {
-        font-size: 24rpx;
-        background-color: #ffebe3;
-        padding: 4rpx 8rpx;
-        border-radius: 4rpx;
-        color: #aa1e3b;
+        .like {
+          width: 32rpx;
+          height: 30rpx;
+          background: url(/static/index/collect.png) no-repeat center/contain;
+        }
       }
     }
   }

@@ -2,7 +2,7 @@
   <view class="custom-tab-bar">
      <navigator
       class="item"
-      :class="{active: tab == 'takeout'}"
+      :class="{active: tab == 'index'}"
       open-type="switchTab"
       url="/pages/index/index"
     >

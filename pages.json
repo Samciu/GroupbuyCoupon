@@ -1,6 +1,49 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+            "path" : "pages/product/recharge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会员充值",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        },
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "天天特权",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#ff536f",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/product/checkout",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/product/list",
+			"style": {
+				"navigationBarTitleText": "商品列表",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/product/detail",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -44,15 +87,6 @@
 			}
 		},
 		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "天天特权",
-				"enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ff536f",
-				"navigationBarTextStyle": "white"
-			}
-		},
-		{
 			"path": "pages/arrive/arrive",
 			"style": {
 				"navigationBarTitleText": "吃喝玩乐",
@@ -84,7 +118,7 @@
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

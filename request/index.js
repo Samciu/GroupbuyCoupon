@@ -190,3 +190,46 @@ export const getWithdrawList = data => {
         data,
     })
 }
+
+export const getProductActivity = data => {
+    return request({
+        url: "/minapp/v1/card/product/activity",
+        data,
+    })
+}
+
+export const getProductHot = data => {
+    return request({
+        url: "/minapp/v1/card/product/hot",
+        data,
+    })
+}
+
+export const getProductDetail = data => {
+    return request({
+        url: "/minapp/v1/card/product/detail",
+        data,
+    })
+}
+
+export const getGoodsDetail = data => {
+    return request({
+        url: "/minapp/v1/card/goods/detail",
+        data,
+    })
+}
+
+export const getOrderSku = data => {
+    return request({
+        url: "/minapp/v1/card/order/sku",
+        data,
+    })
+}
+
+export const getOrderConfirm = data => {
+    return request({
+        url: "/minapp/v1/card/order/confirm",
+        data,
+        method: "POST"
+    })
+}

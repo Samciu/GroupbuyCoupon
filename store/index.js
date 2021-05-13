@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import takeout from '@/store/modules/takeout'
+import index from '@/store/modules/index'
 import shop from '@/store/modules/shop'
 import arrive from '@/store/modules/arrive'
 import user from '@/store/modules/user'
@@ -98,7 +98,7 @@ const store = new Vuex.Store({
         }
     },
     modules: {
-        takeout, shop, arrive, user, orderList, income, withdraw, team
+        index, shop, arrive, user, orderList, income, withdraw, team
     }
 })
 export default store
