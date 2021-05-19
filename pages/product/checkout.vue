@@ -13,7 +13,7 @@
           <view class="info">
             <view class="title">{{ goods.name || "" }}</view>
             <view class="current-price">
-              <view class="rmb">¥</view>{{ goods.price_str || "0.0" }}
+              <view class="rmb">¥</view>{{ goods.price_str || "0.00" }}
             </view>
           </view>
           <view class="num">共{{ num }}件</view>
@@ -26,7 +26,7 @@
         <view class="list-info-item">
           <view class="name">商品单价</view>
           <view class="price"
-            ><view class="rmb">¥</view>{{ goods.price_str || "0.0" }}</view
+            ><view class="rmb">¥</view>{{ goods.price_str || "0.00" }}</view
           >
         </view>
         <view class="list-info-item">
@@ -40,19 +40,21 @@
       </view>
       <view class="total">
         合计：<view class="total-price"
-          ><view class="rmb">¥</view>{{ (goods.price * num) / 100 }}</view
+          ><view class="rmb">¥</view
+          >{{ goods.price ? (goods.price * num) / 100 : "0.00" }}</view
         >
       </view>
     </view>
-    <pay :args="args" @paymentSuccess="paymentSuccess" @paymentFailed="paymentFailed">
+    <!-- <pay :args="args" @paymentSuccess="paymentSuccess" @paymentFailed="paymentFailed">
       <view class="pay-btn" @click="makeOrder">提交订单</view>
-    </pay>
+    </pay> -->
+    <view class="pay-btn" @click="makeOrder">去收银台</view>
   </view>
 </template>
 
 <script>
 import { getOrderSku, getOrderConfirm } from "@/request";
-import config from "@/config"
+import config from "@/config";
 
 export default {
   data() {
@@ -60,12 +62,14 @@ export default {
       goods: {},
       product: null,
       num: 1,
-      token: uni.getStorageSync('token')
+      token: uni.getStorageSync("token"),
+
+      timeout: null, // 防抖定时器
     };
   },
   computed: {
     args() {
-      const { num, goods, token } = this
+      const { num, goods, token } = this;
       return {
         fee: goods.price * num, // 支付金额，单位为分
         paymentArgs: {
@@ -73,6 +77,7 @@ export default {
           num,
           appid: config.Appid,
           token,
+          paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
         }, // 将传递到功能页函数的自定义参数
         currencyType: "CNY", // 货币符号，页面显示货币简写 US$
       };
@@ -82,6 +87,9 @@ export default {
     const { gcode } = option;
     this.fetchOrderSku(gcode);
   },
+  onShow(e) {
+    console.log("onShow", e);
+  },
   methods: {
     async fetchOrderSku(gcode) {
       const [err, res] = await getOrderSku({ gcode });
@@ -89,11 +97,21 @@ export default {
       this.product = res.data.data.product;
     },
     async makeOrder() {
-      const {
-        num,
-        goods: { code },
-      } = this;
-      const [err, res] = await getOrderConfirm({ gcode: code, num });
+      // 做个防抖
+      if (this.timeout) clearTimeout(this.timeout);
+      const callNow = !this.timeout;
+      this.timeout = setTimeout(() => {
+        this.timeout = null;
+      }, 500);
+      if (callNow) {
+        uni.navigateToMiniProgram({
+          appId: "wx468ad252a66afc34",
+          envVersion: "trial",
+          path: `pages/pay/pay?args=${encodeURIComponent(
+            JSON.stringify(this.args)
+          )}`,
+        });
+      }
     },
     sub() {
       if (this.num == 1) return;
@@ -103,10 +121,10 @@ export default {
       this.num = this.num + 1;
     },
     paymentSuccess(data) {
-      console.log('paymentSuccess1', data)
+      console.log("paymentSuccess1", data);
     },
     paymentFailed(data) {
-      console.log('paymentFailed2', data)
+      console.log("paymentFailed2", data);
     },
   },
 };

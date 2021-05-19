@@ -90,6 +90,52 @@
       >
     </view>
 
+    <view class="order-box">
+      <view class="title">我的订单</view>
+      <view class="order-box-content">
+        <view
+          class="cash-detal-btn"
+          @click="jump('/pages/product/orderList?status=1')"
+        >
+          <image
+            class="icon"
+            src="https://images.lsqpay.com/app/wx/static/my/new/pre_payed.png"
+          ></image
+          >待付款</view
+        >
+        <view
+          class="cash-detal-btn"
+          @click="jump('/pages/product/orderList?status=3')"
+        >
+          <image
+            class="icon"
+            src="https://images.lsqpay.com/app/wx/static/my/new/finished.png"
+          ></image
+          >已完成</view
+        >
+        <view
+          class="cash-detal-btn"
+          @click="jump('/pages/product/orderList?status=2')"
+        >
+          <image
+            class="icon"
+            src="https://images.lsqpay.com/app/wx/static/my/new/refunded.png"
+          ></image
+          >待发货</view
+        >
+        <view
+          class="cash-detal-btn"
+          @click="jump('/pages/product/orderList?status=0')"
+        >
+          <image
+            class="icon"
+            src="https://images.lsqpay.com/app/wx/static/my/new/all_order.png"
+          ></image
+          >全部订单</view
+        >
+      </view>
+    </view>
+
     <div class="others-wrap">
       <view class="title">我的服务</view>
       <view class="others">
@@ -180,7 +226,7 @@ page {
   background: #fff;
 }
 .container {
-  padding-bottom: 110rpx;
+  padding-bottom: 180rpx;
 }
 .header-top {
   background: #ec5959;
@@ -407,7 +453,6 @@ page {
 
 .cash-detal-btns {
   margin: 20rpx 32rpx;
-  padding: 0 12rpx;
   display: flex;
   background: #fff;
   justify-content: space-around;
@@ -417,6 +462,45 @@ page {
   .cash-detal-btn {
     padding: 34rpx 0 32rpx;
     display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 28rpx;
+    color: #666666;
+    line-height: 40rpx;
+  }
+  .icon {
+    margin-bottom: 12rpx;
+    width: 48rpx;
+    height: 48rpx;
+  }
+}
+
+.order-box {
+  margin: 20rpx 32rpx;
+  background: #fff;
+  box-shadow: 0 0 12rpx 0 rgba(0, 0, 0, 0.1);
+  border-radius: 20rpx;
+
+  .title {
+    border-bottom: 1rpx solid #e5e5e5;
+    padding: 18rpx 32rpx 20rpx;
+    font-size: 28rpx;
+    font-weight: 700;
+    color: #000000;
+    line-height: 42rpx;
+  }
+
+  .order-box-content {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .cash-detal-btn {
+    padding: 34rpx 0 32rpx;
+    display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;

@@ -17,7 +17,7 @@
       <view class="title">{{goodsDetail.name}}</view>
       <view class="desc">
         <view class="left">
-          <view class="current-price"> <view class="rmb">¥</view>{{goodsDetail.price_str || '0.0'}} </view>
+          <view class="current-price"> <text class="rmb">¥</text>{{goodsDetail.price_str || '0.0'}} </view>
           <view class="offical-price"> 官方价¥{{goodsDetail.origin_price_str || '0.0'}} </view>
         </view>
         <view class="right"> <view class="icon" />{{goodsDetail.sale_num || 99}}人已购 </view>
@@ -41,7 +41,7 @@
           收藏
         </view>
       </view>
-      <view class="price"> <view class="rmb">¥</view>{{goodsDetail.price_str || "0.0"}} </view>
+      <view class="price"> <text class="rmb">¥</text>{{goodsDetail.price_str || "0.0"}} </view>
       <view class="buy" @click="jumpToCheckout">立即购买</view>
     </view>
   </view>
@@ -136,7 +136,6 @@ export default {
       }
     }
     .current-price {
-      display: flex;
       color: #ec5959;
       font-size: 56rpx;
       font-weight: 700;
@@ -245,6 +244,8 @@ export default {
     line-height: 60rpx;
 
     .rmb {
+      margin-top: 4rpx;
+      margin-right: 4rpx;
       font-size: 28rpx;
     }
   }

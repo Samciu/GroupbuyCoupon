@@ -9,12 +9,24 @@ export default {
 
     // 海报二维码方式通过 sceneXXX 方式获取 fromUid
     if (scene) {
-      console.log("onLaunch scene", scene.split('fromUid')[1]);
-      uni.setStorageSync("fromUid", scene.split('fromUid')[1])
+      console.log("onLaunch scene", scene.split("fromUid")[1]);
+      uni.setStorageSync("fromUid", scene.split("fromUid")[1]);
     }
   },
-  onShow: function () {
-    console.log("App Show");
+  onShow: function (e) {
+    console.log("App Show", e);
+
+    // 接收收银台小程序回调参数
+    const [err, res] = e?.referrerInfo?.extraData?.paymentRes || [];
+    if (res?.errMsg == "requestPayment:ok") {
+      uni.showToast({
+        title: "支付成功",
+        duration: 2000,
+      });
+      uni.redirectTo({
+        url: "/pages/product/paySuccess",
+      });
+    }
   },
   onHide: function () {
     console.log("App Hide");
@@ -38,6 +50,23 @@ export default {
     content: "";
     transform: scaleY(0.5);
     border-bottom: 1px solid #e5e5e5;
+  }
+}
+
+.b-t {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: 0;
+    height: 0;
+    content: "";
+    transform: scaleY(0.5);
+    border-top: 1px solid #e5e5e5;
   }
 }
 

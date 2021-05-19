@@ -233,3 +233,25 @@ export const getOrderConfirm = data => {
         method: "POST"
     })
 }
+
+export const getCardOrderList = data => {
+    return request({
+        url: "/minapp/v1/card/order/list",
+        data
+    })
+}
+
+export const getCardOrderDetail = data => {
+    return request({
+        url: "/minapp/v1/card/order/detail",
+        data
+    })
+}
+
+export const getCardOrderCancel = data => {
+    return request({
+        url: "/minapp/v1/card/order/cancel",
+        data,
+        method: "POST"
+    })
+}
