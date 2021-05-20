@@ -13,7 +13,7 @@
           <view class="info">
             <view class="title">{{ goods.name || "" }}</view>
             <view class="current-price">
-              <view class="rmb">¥</view>{{ goods.price_str || "0.00" }}
+              <text class="rmb">¥</text>{{ goods.price_str || "0.00" }}
             </view>
           </view>
           <view class="num">共{{ num }}件</view>
@@ -40,7 +40,7 @@
       </view>
       <view class="total">
         合计：<view class="total-price"
-          ><view class="rmb">¥</view
+          ><text class="rmb">¥</text
           >{{ goods.price ? (goods.price * num) / 100 : "0.00" }}</view
         >
       </view>
@@ -190,14 +190,13 @@ page {
 
     .current-price {
       padding-top: 32rpx;
-      display: flex;
-      align-items: center;
       font-size: 56rpx;
       font-weight: 700;
       color: #ec5959;
       line-height: 72rpx;
 
       .rmb {
+        padding-right: 4rpx;
         font-size: 32rpx;
         font-weight: 500;
         line-height: 48rpx;
@@ -286,11 +285,7 @@ page {
     padding: 34rpx 0;
 
     .total-price {
-      display: flex;
-      align-items: center;
-
       font-size: 40rpx;
-
       font-weight: 700;
       color: #ec5959;
       line-height: 60rpx;

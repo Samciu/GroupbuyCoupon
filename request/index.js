@@ -255,3 +255,10 @@ export const getCardOrderCancel = data => {
         method: "POST"
     })
 }
+
+export const getCardProductRecommand = data => {
+    return request({
+        url: "/minapp/v1/card/product/recommand",
+        data,
+    })
+}

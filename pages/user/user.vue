@@ -422,8 +422,6 @@ page {
     text-align: center;
 
     .price {
-      display: flex;
-      align-items: center;
       font-size: 36rpx;
       font-weight: 700;
 

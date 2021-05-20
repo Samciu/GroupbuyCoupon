@@ -2,15 +2,16 @@
  * @Author: dazhao 
  * @Date: 2021-05-06 16:34:57 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-05-11 00:32:48
+ * @Last Modified time: 2021-05-20 02:05:25
  */
 
-import { getProductActivity, getProductHot } from "@/request"
+import { getProductActivity, getProductHot, getCardProductRecommand } from "@/request"
 
 export default {
     state: {
         productActivityList: [],
         productHotList: [],
+        productRecommand: []
     },
     getters: {
 
@@ -26,7 +27,10 @@ export default {
             console.log(payload)
             state.productDetail = payload
         },
-        
+        setProductRecommand(state, payload) {
+            console.log(payload)
+            state.productRecommand = payload
+        },
     },
     actions: {
         async fetchProductActivity({ dispatch, commit }) {
@@ -40,5 +44,11 @@ export default {
             if (err) return;
             commit('setProductHot', res.data.data)
         },
+
+        async fetchCardProductRecommand({ dispatch, commit }) {
+            const [err, res] = await getCardProductRecommand()
+            if (err) return;
+            commit('setProductRecommand', res.data.data)
+        }
     }
 }

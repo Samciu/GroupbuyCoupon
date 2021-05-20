@@ -32,18 +32,42 @@
     </view>
 
     <view class="hot-activity">
-      <view class="activity-left">
-        <view class="title">1元拉新拼</view>
-        <image src="/static/index/1.png" />
+      <view class="activity-left" v-if="productRecommand[0]">
+        <!-- <view class="title">1元拉新拼</view> -->
+        <swiper
+          :autoplay="true"
+          :circular="true"
+          class="swiper"
+          indicatorActiveColor="#fff"
+          indicatorColor="#ccc"
+          :indicatorDots="true"
+        >
+          <swiper-item
+            class="swiper-item"
+            v-for="(banner, i) in productRecommand[0]"
+            :key="i"
+            @click="handleProductClick(banner)"
+          >
+            <image class="img" mode="aspectFill" :src="banner.pic"></image>
+          </swiper-item>
+        </swiper>
       </view>
       <view class="activity-right">
         <view class="activity-item">
-          <view class="title">电影游玩</view>
-          <image src="/static/index/2.png" />
+          <!-- <view class="title">电影游玩</view> -->
+          <image
+            mode="widthFix"
+            :src="productRecommand[1].pic"
+            @click="handleProductClick(productRecommand[1])"
+          />
         </view>
         <view class="activity-item">
-          <view class="title">特价秒杀</view>
-          <image src="/static/index/3.png" />
+          <!-- <view class="title">特价秒杀</view> -->
+          <image
+            mode="widthFix"
+            :src="productRecommand[2].pic"
+            @click="handleProductClick(productRecommand[2])"
+          />
         </view>
       </view>
     </view>
@@ -60,7 +84,12 @@
           v-for="(item, index) in productHotList"
           :key="index"
         >
-          <view class="pic" :style="{ background: `url(${item.bg_card}) no-repeat center/contain` }"></view>
+          <view
+            class="pic"
+            :style="{
+              background: `url(${item.bg_card}) no-repeat center/contain`,
+            }"
+          ></view>
           <view class="card-content">
             <view class="title"> {{ item.name }} </view>
             <view class="control">
@@ -89,6 +118,7 @@ export default {
     ...mapState({
       productActivityList: (state) => state.index.productActivityList,
       productHotList: (state) => state.index.productHotList,
+      productRecommand: (state) => state.index.productRecommand,
       // recommandList: (state) => state.takeout.recommandList,
     }),
   },
@@ -96,9 +126,15 @@ export default {
     this.initLocation();
     this.fetchProductActivity();
     this.fetchProductHot();
+    this.fetchCardProductRecommand();
   },
   methods: {
-    ...mapActions(["getAuthorize", "fetchProductActivity", "fetchProductHot"]),
+    ...mapActions([
+      "getAuthorize",
+      "fetchProductActivity",
+      "fetchProductHot",
+      "fetchCardProductRecommand",
+    ]),
 
     async initLocation() {
       const authorize = await this.getAuthorize();
@@ -126,6 +162,13 @@ export default {
       if (target == "tab") {
         uni.switchTab({
           url: path,
+        });
+      }
+      if (target == "minapp") {
+        const { appid, path } = data.package.minapp;
+        uni.navigateToMiniProgram({
+          appId: appid,
+          path,
         });
       }
     },
@@ -183,6 +226,8 @@ page {
 }
 
 .coupon-top {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   padding: 0 24rpx;
@@ -212,11 +257,16 @@ page {
 }
 
 .hot-activity {
+  background: #f2f2f2;
   display: flex;
-  padding: 0 24rpx;
-  padding-top: 20rpx;
+  flex-direction: column;
+  padding: 20rpx 24rpx;
   justify-content: space-between;
   box-shadow: 0 -2rpx 120rpx rgba(236, 89, 89, 0.1);
+
+  .swiper {
+    height: 160rpx;
+  }
 
   .title {
     font-size: 32rpx;
@@ -226,18 +276,31 @@ page {
   }
 
   .activity-left {
+    text-align: center;
     image {
-      margin-top: 18rpx;
-      width: 344rpx;
-      height: 428rpx;
+      // margin-top: 18rpx;
+      display: block;
+      width: 100%;
+      height: 160rpx;
     }
   }
 
   .activity-right {
+    display: flex;
+    margin-top: 20rpx;
+
+    .activity-item {
+      flex: 1;
+
+      &:first-of-type {
+        margin-right: 20rpx;
+      }
+    }
+
     image {
-      margin-top: 18rpx;
-      width: 344rpx;
-      height: 178rpx;
+      // margin-top: 18rpx;
+      display: block;
+      width: 100%;
     }
   }
 }

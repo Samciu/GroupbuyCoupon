@@ -24,9 +24,9 @@
             <image mode="aspectFill" :src="item.goods.thumb" />
             <view class="title">{{ item.goods.name }}</view>
             <view class="right">
-              <view class="price"
-                ><view class="rmb">¥</view>{{ item.goods.price_str }}</view
-              >
+              <view class="price">
+                <text class="rmb">¥</text>{{ item.goods.price_str }}
+              </view>
               <view class="num">x{{ item.num }}</view>
             </view>
           </view>
@@ -34,19 +34,19 @@
             <view class="price-item origin-price">
               总价
               <view class="price"
-                ><view class="rmb">¥</view>{{ item.total_money_str }}</view
+                ><text class="rmb">¥</text>{{ item.total_money_str }}</view
               >
             </view>
             <view class="price-item save-price">
               优惠
               <view class="price"
-                ><view class="rmb">¥</view>{{ item.discount_money_str }}</view
+                ><text class="rmb">¥</text>{{ item.discount_money_str }}</view
               >
             </view>
             <view class="price-item total-price"
               >{{item.status == 1 ? "需付款" : "实付款"}}
               <view class="price"
-                ><view class="rmb">¥</view>{{ item.money_str }}</view
+                ><text class="rmb">¥</text>{{ item.money_str }}</view
               >
             </view>
           </view>
@@ -277,7 +277,6 @@ page {
       text-align: right;
     }
     .price {
-      display: flex;
       font-size: 36rpx;
       font-weight: 700;
       color: #000000;
@@ -285,7 +284,7 @@ page {
 
       .rmb {
         font-size: 24rpx;
-        padding-top: 8rpx;
+        padding-right: 4rpx;
         font-weight: 500;
         color: #000000;
         line-height: 48rpx;
@@ -312,7 +311,6 @@ page {
       line-height: 40rpx;
 
       .price {
-        display: flex;
         padding-left: 12rpx;
       }
       .rmb {

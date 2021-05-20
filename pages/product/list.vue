@@ -39,7 +39,7 @@
             <view class="title">{{item.name}}</view>
             <view class="origin-price">官方价 ¥{{item.origin_price_str}}</view>
             <view class="bottom">
-              <view class="current-price"> <view class="rmb">¥</view>{{item.price_str}} </view>
+              <view class="current-price"> <text class="rmb">¥</text>{{item.price_str}} </view>
               <view class="tip-wrap">
                 <view class="tip">{{item.discountStr}}</view>
               </view>
@@ -142,7 +142,6 @@ page {
 
   .content {
     padding: 100rpx 32rpx 32rpx;
-    background: #017143;
     box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.1);
     border-radius: 20rpx;
 
@@ -241,14 +240,13 @@ page {
         align-items: center;
 
         .current-price {
-          display: flex;
-          align-items: center;
           font-size: 44rpx;
           font-weight: 700;
           color: #ec5959;
           line-height: 56rpx;
 
           .rmb {
+            padding-right: 4rpx;
             font-size: 28rpx;
             font-weight: 500;
             line-height: 48rpx;
@@ -259,14 +257,40 @@ page {
           flex: 1;
         }
         .tip {
+          position: relative;
           margin-left: 20rpx;
           padding: 0 6rpx;
+          padding-left: 20rpx;
           background: rgba(236, 89, 89, 0.2);
-          color: #fff;
           font-size: 20rpx;
           color: #ec5959;
-          line-height: 28rpx;
+          height: 30rpx;
+          line-height: 30rpx;
           width: fit-content;
+          border-radius: 0 6rpx 6rpx 0;
+
+          &::before {
+            position: absolute;
+            top: 0;
+            left: -10rpx;
+            content: "";
+            display: block;
+            border-right: 10rpx solid rgba(236, 89, 89, 0.2);
+            border-top: 15rpx solid transparent;
+            border-bottom: 15rpx solid transparent;
+          }
+
+          &::after {
+            position: absolute;
+            top: 11rpx;
+            left: 0rpx;
+            content: "";
+            display: block;
+            border-radius: 50%;
+            width: 8rpx;
+            height: 8rpx;
+            background: #ffffff;
+          }
         }
 
         .btn {

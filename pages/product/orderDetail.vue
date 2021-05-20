@@ -42,7 +42,7 @@
           <view class="title">{{ detail.goods.name }}</view>
           <view class="right">
             <view class="price"
-              ><view class="rmb">¥</view>{{ detail.goods.price_str }}</view
+              ><text class="rmb">¥</text>{{ detail.goods.price_str }}</view
             >
             <view class="num">x{{ detail.num }}</view>
           </view>
@@ -57,7 +57,7 @@
           <view class="price-info-item">
             <view class="name">优惠：</view>
             <view class="price coupon-price"
-              >-<text>¥</text>{{ detail.discount_money_str }}</view
+              >- <text> ¥</text>{{ detail.discount_money_str }}</view
             >
           </view>
         </view>
@@ -305,7 +305,6 @@ page {
       text-align: right;
     }
     .price {
-      display: flex;
       font-size: 36rpx;
       font-weight: 700;
       color: #000000;
@@ -313,7 +312,7 @@ page {
 
       .rmb {
         font-size: 24rpx;
-        padding-top: 8rpx;
+        padding-right: 4rpx;
         font-weight: 500;
         color: #000000;
         line-height: 48rpx;
