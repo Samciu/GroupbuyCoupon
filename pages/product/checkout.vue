@@ -55,6 +55,7 @@
 <script>
 import { getOrderSku, getOrderConfirm } from "@/request";
 import config from "@/config";
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -62,12 +63,12 @@ export default {
       goods: {},
       product: null,
       num: 1,
-      token: uni.getStorageSync("token"),
-
       timeout: null, // 防抖定时器
     };
   },
   computed: {
+    ...mapState(['token']),
+
     args() {
       const { num, goods, token } = this;
       return {
@@ -104,6 +105,7 @@ export default {
         this.timeout = null;
       }, 500);
       if (callNow) {
+        console.log(this.args)
         uni.navigateToMiniProgram({
           appId: "wx468ad252a66afc34",
           envVersion: "trial",

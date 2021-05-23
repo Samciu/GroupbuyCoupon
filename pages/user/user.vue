@@ -99,7 +99,7 @@
         >
           <image
             class="icon"
-            src="https://images.lsqpay.com/app/wx/static/my/new/pre_payed.png"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/eaa0050b-4518-48f0-a2b6-ac894cdede6f.png"
           ></image
           >待付款</view
         >
@@ -109,7 +109,7 @@
         >
           <image
             class="icon"
-            src="https://images.lsqpay.com/app/wx/static/my/new/finished.png"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d20b6827-99c4-4ff5-9c65-158606f6898c.png"
           ></image
           >已完成</view
         >
@@ -119,17 +119,17 @@
         >
           <image
             class="icon"
-            src="https://images.lsqpay.com/app/wx/static/my/new/refunded.png"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fc1ade0a-85aa-46d9-8040-b3d0984e457a.png"
           ></image
           >待发货</view
         >
         <view
-          class="cash-detal-btn"
+          class="cash-detal-btn all"
           @click="jump('/pages/product/orderList?status=0')"
         >
           <image
             class="icon"
-            src="https://images.lsqpay.com/app/wx/static/my/new/all_order.png"
+            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fb21f8ef-7864-4f1f-9bb9-5a50e6a98dc4.png"
           ></image
           >全部订单</view
         >
@@ -139,12 +139,12 @@
     <div class="others-wrap">
       <view class="title">我的服务</view>
       <view class="others">
-        <view class="item">
+        <button class="item" open-type="share">
           <image class="icon" src="/static/user/share.png"></image>
-          <button class="content share" open-type="share">
+          <view class="content share">
             <view>分享好友</view>
-          </button>
-        </view>
+          </view>
+        </button>
         <view class="item" bindtap="sponsor">
           <image class="icon" src="/static/user/user.png"></image>
           <button class="content share" open-type="contact">
@@ -185,7 +185,6 @@ export default {
       income: (state) => state.user.income,
       baseInfo: (state) => state.user.baseInfo,
       info: (state) => state.user.info,
-      isLogin: (state) => state.isLogin,
     }),
     ...mapGetters(["level"]),
   },
@@ -204,9 +203,6 @@ export default {
     },
 
     jump(url) {
-      if (!this.isLogin) {
-        return this.getLoginStatus();
-      }
       uni.navigateTo({
         url,
       });
@@ -493,18 +489,33 @@ page {
   .order-box-content {
     display: flex;
     justify-content: space-around;
+    padding: 36rpx 0;
   }
 
   .cash-detal-btn {
-    padding: 34rpx 0 32rpx;
+    position: relative;
     display: flex;
-    flex: 1;
+    width: 25%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 28rpx;
     color: #666666;
     line-height: 40rpx;
+
+    &.all {
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        display: block;
+        width: 2rpx;
+        height: 100%;
+        background: #e5e5e5;
+        box-shadow: -2rpx 0 4rpx 0rpx rgba(0, 0, 0, 0.04);
+      }
+    }
   }
   .icon {
     margin-bottom: 12rpx;

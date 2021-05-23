@@ -22,7 +22,7 @@
             <view class="tips">{{ item.incomeStatus }}</view>
           </view>
           <view class="desc">
-            <view class="title">{{ item.detail.shopName }}</view>
+            <view class="title">{{ item.detail.title }}</view>
             <view class="price-list">
               <view class="price-list-item">
                 <view class="price-title">¥{{ item.detail.pay_price }}</view>

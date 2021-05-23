@@ -25,7 +25,15 @@
         <image class="pic" :src="item.logo" />
         <view class="text">{{ item.name }}</view>
       </view>
-      <view class="coupon-top-item">
+      <view
+        class="coupon-top-item"
+        @click="
+          handleProductClick({
+            target: 'page',
+            path: '/pages/product/classify',
+          })
+        "
+      >
         <image class="pic" src="/static/index/fenlei.png" />
         <view class="text">分类查找</view>
       </view>
@@ -94,7 +102,10 @@
             <view class="title"> {{ item.name }} </view>
             <view class="control">
               <view class="btn">{{ item.discountStr }}领取</view>
-              <view class="like"></view>
+              <view class="earn" v-if="item.commission != 0"
+                >赚¥{{ item.commission_str }}</view
+              >
+              <!-- <view class="like"></view> -->
             </view>
           </view>
         </view>
@@ -122,11 +133,14 @@ export default {
       // recommandList: (state) => state.takeout.recommandList,
     }),
   },
-  onLoad(e) {
+  onLoad(option) {
     this.initLocation();
     this.fetchProductActivity();
     this.fetchProductHot();
     this.fetchCardProductRecommand();
+    if (option.path) {
+      this.jumpTo(option.path);
+    }
   },
   methods: {
     ...mapActions([
@@ -150,6 +164,15 @@ export default {
       // });
 
       uni.hideLoading();
+    },
+
+    jumpTo(payload) {
+      try {
+        const path = decodeURIComponent(payload);
+        uni.navigateTo({
+          url: path,
+        });
+      } catch (e) {}
     },
 
     handleProductClick(data) {
@@ -387,19 +410,28 @@ page {
         padding-top: 58rpx;
 
         .btn {
-          width: 164rpx;
+          padding: 0 22rpx;
           height: 58rpx;
           line-height: 58rpx;
           background: #fbeae5;
           border-radius: 30px;
           text-align: center;
+          font-weight: 700;
           color: #ec5959;
+          font-size: 26rpx;
         }
 
         .like {
           width: 32rpx;
           height: 30rpx;
           background: url(/static/index/collect.png) no-repeat center/contain;
+        }
+
+        .earn {
+          // padding: 6rpx 6rpx;
+          color: #fa6400;
+          font-size: 24rpx;
+          // background: #fbeae5;
         }
       }
     }

@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     jump() {
-      uni.navigateTo({
+      uni.redirectTo({
         url: "/pages/product/orderList",
       });
     },

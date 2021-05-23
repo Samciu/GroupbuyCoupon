@@ -2,10 +2,10 @@
  * @Author: dazhao 
  * @Date: 2021-03-31 14:59:52 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-04-26 21:22:14
+ * @Last Modified time: 2021-05-22 23:30:56
  */
 
-import { getUserIncome, getUserBaseInfo, getUserInfo } from "../../request";
+import { getUserIncome, getUserBaseInfo, getUserInfo } from "@/request";
 
 export default {
     state: {

@@ -118,6 +118,7 @@
 <script>
 import { getCardOrderDetail, getCardOrderCancel } from "@/request";
 import config from "@/config";
+import store from "@/store";
 
 export default {
   data() {
@@ -164,10 +165,11 @@ export default {
         paymentArgs: {
           out_trade_no,
           appid: config.Appid,
-          token: uni.getStorageSync("token"),
+          token: store.state.token,
           paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
         }, // 将传递到功能页函数的自定义参数
       };
+	  console.log(args)
       uni.navigateToMiniProgram({
         appId: "wx468ad252a66afc34",
         envVersion: "trial",

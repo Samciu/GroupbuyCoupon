@@ -14,7 +14,7 @@
         class="focus-icon"
         src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/e09a27a3-8d50-4ea7-8903-4939681fcf8a.png"
       ></image>
-      <text class="label">点外卖</text>
+      <text class="label">权益</text>
     </navigator>
     <navigator
       class="item"
@@ -30,7 +30,23 @@
         class="focus-icon"
         src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/b0c61e2e-1637-4cfb-a3bc-5421cca1d6a7.png"
       ></image>
-      <text class="label">到店吃</text>
+      <text class="label">生活</text>
+    </navigator>
+    <navigator
+      class="item"
+      :class="{active: tab == 'mall'}"
+      open-type="switchTab"
+      url="/pages/mall/mall"
+    >
+      <image
+        class="icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/5676c92d-62d5-4565-850b-c6b9990c1364.png"
+      ></image>
+      <image
+        class="focus-icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/b0c61e2e-1637-4cfb-a3bc-5421cca1d6a7.png"
+      ></image>
+      <text class="label">商城</text>
     </navigator>
     <navigator
       class="item"

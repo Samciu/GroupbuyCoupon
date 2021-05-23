@@ -1,7 +1,11 @@
 <script>
+import store from '@/store'
+import ".env.js";
+
 export default {
   onLaunch: function (e) {
     console.log("App Launch");
+    store.dispatch('getStore');
     // 记录邀请来源
     const { fromUid, scene } = e.query;
     console.log("onLaunch fromUid", fromUid);
@@ -23,7 +27,7 @@ export default {
         title: "支付成功",
         duration: 2000,
       });
-      uni.redirectTo({
+      uni.navigateTo({
         url: "/pages/product/paySuccess",
       });
     }
@@ -36,6 +40,18 @@ export default {
 
 <style lang="scss">
 /*每个页面公共css */
+button {
+  border-radius: 0;
+  line-height: inherit;
+  background: none;
+  font-size: inherit;
+  color: inherit;
+
+  &::after {
+    content: none;
+  }
+}
+
 .b-b {
   position: relative;
 

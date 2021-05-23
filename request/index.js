@@ -1,6 +1,6 @@
 
 
-import config from '../config';
+import config from '@/config';
 import store from '@/store'
 
 const { Appid, baseUrl } = config
@@ -8,7 +8,7 @@ const { Appid, baseUrl } = config
 const request = async (opts) => {
     const url = opts.url.includes('http') ? opts.url : `${baseUrl}${opts.url}`
     // const accountInfo = uni.getAccountInfoSync();
-    const token = uni.getStorageSync('token')
+    const token = store.state.token
     const [err, res] = await uni.request({
         ...opts, url,
         header: {
@@ -23,7 +23,7 @@ const request = async (opts) => {
                 key: 'token',
                 data: ""
             });
-            store.commit('getLoginStatus', true)
+            // store.commit('getLoginStatus', true)
             store.commit('setLoginShow', true)
             break;
         default:
@@ -259,6 +259,13 @@ export const getCardOrderCancel = data => {
 export const getCardProductRecommand = data => {
     return request({
         url: "/minapp/v1/card/product/recommand",
+        data,
+    })
+}
+
+export const getCardCateList = data => {
+    return request({
+        url: "/minapp/v1/card/cate/list",
         data,
     })
 }

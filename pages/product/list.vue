@@ -18,32 +18,47 @@
         <view class="logo-wrap">
           <image class="logo" :src="productDetail.logo" />
         </view>
-        <view class="title">{{productDetail.name}}</view>
+        <view>
+          <view class="title">{{ productDetail.name }}</view>
+          <view class="slogan">{{ productDetail.slogan }}</view>
+        </view>
       </view>
-      <view class="content" :style="{backgroundColor: productDetail.bg_color}">
-        <view class="title">{{productDetail.slogan}}</view>
-        <view class="desc"
-          >{{productDetail.describe}}</view
-        >
+      <view
+        class="content"
+        :style="{ backgroundColor: productDetail.bg_color }"
+      >
+        <!-- <view class="title">{{productDetail.slogan}}</view> -->
+        <view class="desc">{{ productDetail.describe }}</view>
       </view>
     </view>
     <view class="product-list-wrap">
-      <view class="product-list-title">热门推荐</view>
+      <view class="product-list-title">权益推荐</view>
       <view class="product-list">
-        <view class="item" @click="jumpToDetail(item)" v-for="item,index in productDetail.goodsList" :key="index">
+        <view
+          class="item"
+          @click="jumpToDetail(item)"
+          v-for="(item, index) in productDetail.goodsList"
+          :key="index"
+        >
           <view class="pic">
             <image mode="aspectFill" :src="item.thumb" />
-            <view class="tip">{{item.sale_num}}人已购</view>
+            <view class="tip">{{ item.sale_num }}人已购</view>
           </view>
           <view class="content">
-            <view class="title">{{item.name}}</view>
-            <view class="origin-price">官方价 ¥{{item.origin_price_str}}</view>
+            <view class="title">{{ item.name }}</view>
+            <view class="origin-price"
+              >官方价 ¥{{ item.origin_price_str }}</view
+            >
             <view class="bottom">
-              <view class="current-price"> <text class="rmb">¥</text>{{item.price_str}} </view>
-              <view class="tip-wrap">
-                <view class="tip">{{item.discountStr}}</view>
+              <view class="current-price">
+                <text class="rmb">¥</text>{{ item.price_str }}
               </view>
-              <view class="btn">立即购买</view>
+              <view class="tip-wrap">
+                <view class="tip">{{ item.discountStr }}</view>
+              </view>
+              <view class="btn">{{
+                item.commission ? `赚 ¥${item.commission_str}` : "立即购买"
+              }}</view>
             </view>
           </view>
         </view>
@@ -81,7 +96,7 @@ export default {
 
     async fetchProductDetail(pcode) {
       const [err, res] = await getProductDetail({ pcode });
-      this.productDetail = res.data.data
+      this.productDetail = res.data.data;
     },
   },
 };
@@ -102,12 +117,12 @@ page {
   left: 0;
   display: block;
   width: 100%;
-  height: 576rpx;
+  height: 500rpx;
 }
 .product-detail {
   position: relative;
   margin: 0 auto;
-  margin-top: -136rpx;
+  margin-top: -230rpx;
   width: 710rpx;
   color: #ffffff;
 
@@ -137,6 +152,13 @@ page {
       font-size: 48rpx;
       font-weight: 700;
       line-height: 72rpx;
+    }
+    .slogan {
+      padding-top: 16rpx;
+      padding-left: 32rpx;
+      font-size: 32rpx;
+      font-weight: 700;
+      line-height: 44rpx;
     }
   }
 

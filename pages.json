@@ -11,6 +11,54 @@
 			}
 		},
 		{
+			"path": "pages/mall/mall",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#fd7436",
+				"backgroundColor": "#fd7436",
+				"enablePullDownRefresh": true
+			}
+			
+		}
+	    ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/theme/theme",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "主题活动",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索结果",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		
+
+		
+		{
+		    "path" : "pages/product/classify",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "权益分类",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
             "path" : "pages/product/orderList",
             "style" :                                                                                    
             {
@@ -164,6 +212,9 @@
 			},
 			{
 				"pagePath": "pages/arrive/arrive"
+			},
+			{
+				"pagePath": "pages/mall/mall"
 			},
 			{
 				"pagePath": "pages/user/user"

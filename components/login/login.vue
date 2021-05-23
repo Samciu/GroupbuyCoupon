@@ -25,10 +25,10 @@
           lang="zh_CN"
           @click="getUserProfile"
         >
-          <image
-            src="/static/images/wx.png"
+          <!-- <image
+            src="/static/share.png"
             class="content-bottom-btn-img"
-          ></image>
+          ></image> -->
           微信一键登录
         </button>
       </view>
@@ -61,10 +61,10 @@ export default {
     }),
   },
   mounted() {
-    this.getLoginStatus();
+    // this.getLoginStatus();
   },
   methods: {
-    ...mapMutations(["setIsLogin", "setLoginShow"]),
+    ...mapMutations(["setLoginShow"]),
 
     ...mapActions(["setUserData", "getLoginStatus"]),
 
@@ -107,7 +107,6 @@ export default {
 
       const { token, user } = res.data.data;
       this.setUserData({ token, user });
-      this.setIsLogin(true);
       this.setLoginShow(false);
       uni.reLaunch({ url: `/${getCurrentPage()}` });
     },

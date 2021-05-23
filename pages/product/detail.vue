@@ -14,35 +14,63 @@
       <image class="banner" mode="aspectFill" :src="goodsDetail.thumb" />
     </view>
     <view class="price-detail">
-      <view class="title">{{goodsDetail.name}}</view>
+      <view class="title">{{ goodsDetail.name }}</view>
       <view class="desc">
         <view class="left">
-          <view class="current-price"> <text class="rmb">¥</text>{{goodsDetail.price_str || '0.0'}} </view>
-          <view class="offical-price"> 官方价¥{{goodsDetail.origin_price_str || '0.0'}} </view>
+          <view class="current-price">
+            <text class="rmb">¥</text>{{ goodsDetail.price_str || "0.0" }}
+          </view>
+          <view class="offical-price">
+            官方价¥{{ goodsDetail.origin_price_str || "0.0" }}
+          </view>
         </view>
-        <view class="right"> <view class="icon" />{{goodsDetail.sale_num || 99}}人已购 </view>
+        <view class="right">
+          <view class="icon" />{{ goodsDetail.sale_num || 99 }}人已购
+        </view>
       </view>
-      <view class="label">{{goodsDetail.discountStr || ""}}</view>
+      <view class="label">{{ goodsDetail.discountStr || "" }}</view>
     </view>
     <view class="product-desc">
       <view class="title">使用规则</view>
       <view class="content">
-        <view class="text" v-for="item,index in goodsDetail.use_rules" :key="index">{{item}}</view>
+        <view
+          class="text"
+          v-for="(item, index) in goodsDetail.use_rules"
+          :key="index"
+          >{{ item }}</view
+        >
       </view>
     </view>
     <view class="footer">
       <view class="btn-list">
-        <view class="btn service">
+        <button class="btn service" open-type="contact">
           <image src="/static/commodity/service.png" mode="aspectFill" />
           客服
-        </view>
-        <view class="btn collect">
+        </button>
+        <!-- <view class="btn collect">
           <image src="/static/commodity/collect.png" mode="aspectFill" />
           收藏
+        </view> -->
+      </view>
+      <view class="price">
+        <text class="rmb">¥</text>{{ goodsDetail.price_str || "0.0" }}
+      </view>
+      <view class="btn-group">
+        <button
+          class="button button-share"
+          open-type="share"
+          v-if="goodsDetail.commission"
+        >
+          <view class="title">分享</view>
+          <view class="tip">赚 ¥{{ goodsDetail.commission_str }}</view>
+        </button>
+        <view class="button buy" @click="jumpToCheckout">
+          <view class="title">购买</view>
+          <view class="tip"
+            >省 ¥{{ goodsDetail.allDiscount_str || "0.00" }}</view
+          >
         </view>
       </view>
-      <view class="price"> <text class="rmb">¥</text>{{goodsDetail.price_str || "0.0"}} </view>
-      <view class="buy" @click="jumpToCheckout">立即购买</view>
     </view>
   </view>
 </template>
@@ -53,7 +81,7 @@ import { getGoodsDetail } from "@/request";
 export default {
   data() {
     return {
-      goodsDetail: {}
+      goodsDetail: {},
     };
   },
   onLoad: function (option) {
@@ -69,12 +97,21 @@ export default {
     async fetchGoodsDetail(gcode) {
       const [err, res] = await getGoodsDetail({ gcode });
       this.goodsDetail = res.data.data;
-      console.log(res.data.data)
+      console.log(res.data.data);
     },
     back() {
       uni.navigateBack({
         delta: 1,
       });
+    },
+    onShareAppMessage() {
+      const userInfo = uni.getStorageSync("userInfo");
+      const path = encodeURIComponent(`/pages/product/detail?gcode=${this.goodsDetail.code}`)
+      console.log(`fromUid=${userInfo.id || ""}&path=${path}`)
+      return {
+        title: `${userInfo.nickName} 送你一个 ${this.goodsDetail.name} 特价购买资格`,
+        path: `pages/index/index?fromUid=${userInfo.id || ""}&path=${path}`,
+      };
     },
   },
 };
@@ -217,9 +254,9 @@ export default {
   .btn-list {
     display: flex;
     padding-left: 16rpx;
-    font-size: 16rpx;
+    font-size: 22rpx;
     color: #999999;
-    line-height: 28rpx;
+    line-height: 32rpx;
   }
   .btn {
     display: flex;
@@ -234,7 +271,7 @@ export default {
     }
   }
   .price {
-    margin-right: 20rpx;
+    margin-right: 32rpx;
     flex: 1;
     display: flex;
     justify-content: flex-end;
@@ -249,15 +286,32 @@ export default {
       font-size: 28rpx;
     }
   }
-  .buy {
+  .btn-group {
+    display: flex;
     margin-right: 20rpx;
-    padding: 14rpx 80rpx;
+    border-radius: 48rpx;
+    overflow: hidden;
+  }
+  .button {
+    padding: 14rpx 42rpx;
+    text-align: center;
+
+    .title {
+      font-size: 32rpx;
+      line-height: 36rpx;
+    }
+    .tip {
+      padding-top: 2rpx;
+      font-size: 24rpx;
+    }
+  }
+  .button-share {
+    background: #f6dea3;
+    color: #333;
+  }
+  .buy {
     background: linear-gradient(315deg, #f77c6d 0%, #fda26b 60%, #ffbd81 100%);
-    border-radius: 32rpx;
     color: #fff;
-    font-size: 24rpx;
-    font-weight: 700;
-    line-height: 36rpx;
   }
 }
 </style>

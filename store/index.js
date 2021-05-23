@@ -16,19 +16,38 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        isLogin: false,
+        token: '',
+        userInfo: {},
         loginShow: false, // 展示登陆弹窗
     },
+    getters: {
+		//是否登录
+		isLogin: state => {
+			return !!state.token
+		}	
+	},
     mutations: {
-        setIsLogin(state, payload) {
-            state.isLogin = payload
-        },
-
         setLoginShow(state, payload) {
             state.loginShow = payload
         },
+        setToken(state, payload) {
+            state.token = payload;
+            uni.setStorageSync('token', payload)
+        },
+        setUserinfo(state, payload) {
+            state.userInfo = payload
+            uni.setStorageSync('userInfo', payload)
+        },
     },
     actions: {
+
+        getStore({commit}) {
+			const token = uni.getStorageSync('token');
+			if (token) {
+				commit('setToken', token);
+			}
+		},
+
         /**
          * 获取授权
          */
@@ -64,36 +83,24 @@ const store = new Vuex.Store({
             return true;
         },
 
-        async setUserData(context, payload) {
-            try {
-                const { token, user } = payload
-                console.log('setUserData', { token, user })
-                uni.setStorage({
-                    key: 'token',
-                    data: token
-                });
-                uni.setStorage({
-                    key: 'userInfo',
-                    data: user
-                });
-            } catch (e) {
-
-            }
+        async setUserData({ dispatch, commit }, payload) {
+            const { token, user } = payload
+            console.log('setUserData', { token, user })
+            commit('setToken', token)
+            commit('setUserinfo', user)
         },
 
-        async getLoginStatus({ dispatch, commit }) {
-            const token = uni.getStorageSync('token')
-            
-            if (token) {
-                commit('setIsLogin', true)
-            } else {
+        async getLoginStatus({ dispatch, commit, state }) {
+            const token = state.token;
+
+            if (!token) {
                 commit('setLoginShow', true)
             }
         },
 
         async fetchPayToolUserLogin({ dispatch, commit }, payload) {
             const [err, res] = await getPayToolUserLogin(payload)
-            
+
             return res
         }
     },
