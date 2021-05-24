@@ -122,8 +122,6 @@
 </template>
 
 <script>
-	import { mapMutations } from "vuex";
-
 	export default {
 		data() {
 			return {
@@ -141,7 +139,6 @@
 			}
 		},
 		async onLoad() {
-			await this.getStore()
 			this.getHomeConfig()
 			// this.getHomeTips()
 			this.getHomeShowcase1()

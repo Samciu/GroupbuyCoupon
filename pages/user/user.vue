@@ -1,5 +1,6 @@
 <template>
   <view class="container">
+    <loginWrap>
     <view class="header-top">
       <view class="head">
         <view class="avatarUrl">
@@ -145,29 +146,30 @@
             <view>分享好友</view>
           </view>
         </button>
-        <view class="item" bindtap="sponsor">
+        <button class="item" open-type="contact" bindtap="sponsor">
           <image class="icon" src="/static/user/user.png"></image>
-          <button class="content share" open-type="contact">
+          <view class="content share">
             <view>官方公众号</view>
-          </button>
-        </view>
-        <view class="item">
+          </view>
+        </button>
+        <button class="item" open-type="contact">
           <image class="icon" src="/static/user/notes.png"></image>
-          <button class="content share" open-type="contact">
+          <view class="content share">
             <view>我有建议</view>
-          </button>
-        </view>
-        <view class="item">
+          </view>
+        </button>
+        <view class="item" open-type="contact">
           <image class="icon" src="/static/user/about.png"></image>
-          <button class="content share" open-type="contact">
+          <view class="content share">
             <view>关于</view>
-          </button>
+          </view>
         </view>
       </view>
     </div>
 
     <view class="version"> v1.0 </view>
-    <login />
+    </loginWrap>
+
     <customTabBar tab="user"></customTabBar>
   </view>
 </template>
@@ -550,7 +552,7 @@ page {
     flex-direction: column;
     justify-content: center;
     padding: 32rpx 0;
-    width: 228rpx;
+    width: 33.33%;
 
     .icon {
       width: 48rpx;

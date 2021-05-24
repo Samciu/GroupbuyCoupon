@@ -15,6 +15,7 @@
       <image src="/static/index/banner.png" class="header-content" />
     </view>
 
+    <loginWrap>
     <view class="coupon-top">
       <view
         class="coupon-top-item"
@@ -38,6 +39,7 @@
         <view class="text">分类查找</view>
       </view>
     </view>
+    </loginWrap>
 
     <view class="hot-activity">
       <view class="activity-left" v-if="productRecommand[0]">
@@ -85,6 +87,7 @@
         <view class="nav-item active">精选优惠</view>
         <view class="nav-item">周边好店</view>
       </view>
+      <loginWrap>
       <view class="coupon-card-list">
         <view
           class="item"
@@ -110,6 +113,7 @@
           </view>
         </view>
       </view>
+      </loginWrap>
     </view>
     <customTabBar tab="index"></customTabBar>
   </view>

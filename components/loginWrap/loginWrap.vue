@@ -1,17 +1,32 @@
 <template>
-  <view class="wrapper">
+  <view class="wrapper" :class="className">
     <slot></slot>
-    <view class="auth"></view>
+    <view class="auth" v-if="!isLogin" @click="handleLoginClick"></view>
     <login />
   </view>
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
+
 export default {
   data() {
     return {};
   },
-  methods: {},
+
+  props: ["className"],
+
+  computed: {
+    ...mapGetters(["isLogin"]),
+  },
+  methods: {
+
+    ...mapMutations(["setLoginShow"]),
+
+    handleLoginClick() {
+      this.setLoginShow(true);
+    },
+  },
 };
 </script>
 

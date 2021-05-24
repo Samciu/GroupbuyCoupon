@@ -41,36 +41,39 @@
         >
       </view>
     </view>
+
     <view class="footer">
-      <view class="btn-list">
-        <button class="btn service" open-type="contact">
-          <image src="/static/commodity/service.png" mode="aspectFill" />
-          客服
-        </button>
-        <!-- <view class="btn collect">
+      <loginWrap className="footer-wrap">
+        <view class="btn-list">
+          <button class="btn service" open-type="contact">
+            <image src="/static/commodity/service.png" mode="aspectFill" />
+            客服
+          </button>
+          <!-- <view class="btn collect">
           <image src="/static/commodity/collect.png" mode="aspectFill" />
           收藏
         </view> -->
-      </view>
-      <view class="price">
-        <text class="rmb">¥</text>{{ goodsDetail.price_str || "0.0" }}
-      </view>
-      <view class="btn-group">
-        <button
-          class="button button-share"
-          open-type="share"
-          v-if="goodsDetail.commission"
-        >
-          <view class="title">分享</view>
-          <view class="tip">赚 ¥{{ goodsDetail.commission_str }}</view>
-        </button>
-        <view class="button buy" @click="jumpToCheckout">
-          <view class="title">购买</view>
-          <view class="tip"
-            >省 ¥{{ goodsDetail.allDiscount_str || "0.00" }}</view
-          >
         </view>
-      </view>
+        <view class="price">
+          <text class="rmb">¥</text>{{ goodsDetail.price_str || "0.0" }}
+        </view>
+        <view class="btn-group">
+          <button
+            class="button button-share"
+            open-type="share"
+            v-if="goodsDetail.commission"
+          >
+            <view class="title">分享</view>
+            <view class="tip">赚 ¥{{ goodsDetail.commission_str }}</view>
+          </button>
+          <view class="button buy" @click="jumpToCheckout">
+            <view class="title">购买</view>
+            <view class="tip"
+              >省 ¥{{ goodsDetail.allDiscount_str || "0.00" }}</view
+            >
+          </view>
+        </view>
+      </loginWrap>
     </view>
   </view>
 </template>
@@ -106,8 +109,10 @@ export default {
     },
     onShareAppMessage() {
       const userInfo = uni.getStorageSync("userInfo");
-      const path = encodeURIComponent(`/pages/product/detail?gcode=${this.goodsDetail.code}`)
-      console.log(`fromUid=${userInfo.id || ""}&path=${path}`)
+      const path = encodeURIComponent(
+        `/pages/product/detail?gcode=${this.goodsDetail.code}`
+      );
+      console.log(`fromUid=${userInfo.id || ""}&path=${path}`);
       return {
         title: `${userInfo.nickName} 送你一个 ${this.goodsDetail.name} 特价购买资格`,
         path: `pages/index/index?fromUid=${userInfo.id || ""}&path=${path}`,
@@ -243,13 +248,16 @@ export default {
   width: 100%;
   left: 0;
   bottom: 0;
-  display: flex;
-  align-items: center;
   padding-top: 22rpx;
   padding-bottom: calc(22rpx + env(safe-area-inset-bottom));
   background: #fff;
   box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.12),
     0 -2rpx 2rpx 0 rgba(0, 0, 0, 0.05);
+
+  .footer-wrap {
+    display: flex;
+    align-items: center;
+  }
 
   .btn-list {
     display: flex;

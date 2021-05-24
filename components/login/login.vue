@@ -3,7 +3,7 @@
     class="container"
     @click="closeModal"
     @touchmove.stop="handle"
-    v-if="loginShow"
+    v-if="loginShow && !isLogin"
   >
     <view
       class="content animate__animated animate__fadeInUp"
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from "vuex";
+import { mapMutations, mapActions, mapState, mapGetters } from "vuex";
 import { getUserLogin } from "../../request";
 
 function getCurrentPage() {
@@ -57,8 +57,10 @@ export default {
       loginShow: (state) => {
         console.log("loginShow", state.loginShow);
         return state.loginShow;
-      },
+      }
     }),
+
+    ...mapGetters(["isLogin"]),
   },
   mounted() {
     // this.getLoginStatus();
@@ -169,7 +171,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10rpx 0;
+      padding: 20rpx 0;
 
       &-img {
         width: 36rpx;
@@ -179,6 +181,7 @@ export default {
     }
   }
   &-agree {
+    padding-bottom: calc(env(safe-area-inset-bottom));
     font-size: 26rpx;
     text-align: center;
     color: #919293;
