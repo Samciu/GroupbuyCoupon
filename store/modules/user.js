@@ -2,7 +2,7 @@
  * @Author: dazhao 
  * @Date: 2021-03-31 14:59:52 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-05-22 23:30:56
+ * @Last Modified time: 2021-05-24 15:35:54
  */
 
 import { getUserIncome, getUserBaseInfo, getUserInfo } from "@/request";
@@ -14,7 +14,7 @@ export default {
         info: {}
     },
     getters: {
-        level: state => ['会员', '经理', '总监', '合伙人'][state.info?.user?.role - 1]
+        level: state => ['顾客', '会员', '经理', '总监', '合伙人'][state.info?.user?.role]
     },
     mutations: {
         setIncome(state, payload) {

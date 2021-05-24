@@ -19,11 +19,11 @@
       <view class="nav-bar">
         <view
           class="nav-item"
-          :class="{ active: index == role }"
+          :class="{ active: item.id == role }"
           v-for="(item, index) in levelList"
           :key="index"
-          @click="handleRoleClick(index)"
-          >{{ item }}</view
+          @click="handleRoleClick(item.id)"
+          >{{ item.name }}</view
         >
       </view>
     </view>
@@ -36,7 +36,7 @@
             <view class="name">{{ item.nickName }}</view>
             <view class="time">注册日期：{{ item.created_at }}</view>
           </view>
-          <view class="level">{{ levelList[item.role] }}</view>
+          <view class="level">{{ levelList.find(level => level.id == item.role).name }}</view>
         </view>
         <view class="income-detail">
           <view class="income-detail-item">

@@ -2,18 +2,18 @@
  * @Author: dazhao 
  * @Date: 2021-04-08 15:30:37 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-04-26 22:17:24
+ * @Last Modified time: 2021-05-24 15:33:35
  */
 
 import { getTeamList } from "../../request";
 
 export default {
     state: {
-        role: 0, // 级别。默认0所有
+        role: -1, // 级别。默认-1所有
         keyword: "", // 搜索词
         p: 1,
         list: [],
-        levelList: ['全部', '会员', '经理', '总监', '合伙人'],
+        levelList: [{ name: '全部', id: -1 }, { name: '会员', id: 1 }, { name: '经理', id: 2 }, { name: '总监', id: 3 }, { name: '合伙人', id: 4 }],
     },
     getters: {
 
