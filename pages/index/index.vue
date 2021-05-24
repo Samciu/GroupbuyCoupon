@@ -105,7 +105,7 @@
             <view class="title"> {{ item.name }} </view>
             <view class="control">
               <view class="btn">{{ item.discountStr }}领取</view>
-              <view class="earn" v-if="item.commission != 0"
+              <view class="earn" v-if="item.commission"
                 >赚¥{{ item.commission_str }}</view
               >
               <!-- <view class="like"></view> -->
