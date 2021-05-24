@@ -193,7 +193,6 @@
         </picker> -->
       </view>
     </uni-popup>
-    <!-- <login /> -->
     <customTabBar tab="arrive"></customTabBar>
   </view>
 </template>

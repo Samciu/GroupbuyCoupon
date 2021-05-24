@@ -73,9 +73,7 @@
           </view>
         </view>
       </view>
-    </view>
-
-    <login />
+    </view>    
     <customTabBar tab="takeout"></customTabBar>
   </view>
 </template>

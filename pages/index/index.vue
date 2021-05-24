@@ -7,10 +7,10 @@
         :border="false"
         backgroundColor="transparent"
       >
-        <view class="choose-address" slot="left" @click="openPopup">
+        <!-- <view class="choose-address" slot="left" @click="openPopup">
           <view class="icon" />
           <view class="city">广州市</view>
-        </view>
+        </view> -->
       </uni-nav-bar>
       <image src="/static/index/banner.png" class="header-content" />
     </view>
@@ -85,7 +85,7 @@
     <view class="coupon-card">
       <view class="nav-bar">
         <view class="nav-item active">精选优惠</view>
-        <view class="nav-item">周边好店</view>
+        <!-- <view class="nav-item">周边好店</view> -->
       </view>
       <loginWrap>
       <view class="coupon-card-list">
@@ -121,11 +121,9 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import login from "../../components/login/login.vue";
 import getShareMessage from "@/utils/getShareMessage";
 
 export default {
-  components: { login },
   data() {
     return {};
   },
@@ -209,11 +207,12 @@ export default {
 
 <style lang="scss">
 page {
-  background: #fff;
+  background: #f2f2f2;
 }
 
 .head-picture-area {
   position: relative;
+  background: #ffffff;
 
   &::before {
     position: absolute;
@@ -259,6 +258,7 @@ page {
   flex-wrap: wrap;
   padding: 0 24rpx;
   padding-top: 44rpx;
+  background: #ffffff;
 
   &-item {
     padding-bottom: 40rpx;
@@ -353,7 +353,7 @@ page {
 
       &::after {
         content: "";
-        display: block;
+        // display: block;
         margin: 14rpx auto 0;
         width: 46rpx;
         height: 6rpx;
