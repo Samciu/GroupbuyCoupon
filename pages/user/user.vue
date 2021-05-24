@@ -146,24 +146,24 @@
             <view>分享好友</view>
           </view>
         </button>
-        <button class="item" open-type="contact" bindtap="sponsor">
+        <view class="item" bindtap="sponsor">
           <image class="icon" src="/static/user/user.png"></image>
           <view class="content share">
             <view>官方公众号</view>
           </view>
-        </button>
+        </view>
         <button class="item" open-type="contact">
           <image class="icon" src="/static/user/notes.png"></image>
           <view class="content share">
             <view>我有建议</view>
           </view>
         </button>
-        <view class="item" open-type="contact">
+        <button class="item" open-type="contact">
           <image class="icon" src="/static/user/about.png"></image>
           <view class="content share">
             <view>关于</view>
           </view>
-        </view>
+        </button>
       </view>
     </div>
 
@@ -543,7 +543,6 @@ page {
 }
 .others {
   display: flex;
-  // justify-content: space-around;
   flex-wrap: wrap;
 
   .item {

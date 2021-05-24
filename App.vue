@@ -46,6 +46,7 @@ button {
   background: none;
   font-size: inherit;
   color: inherit;
+  margin: initial;
 
   &::after {
     content: none;
