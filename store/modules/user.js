@@ -2,7 +2,7 @@
  * @Author: dazhao 
  * @Date: 2021-03-31 14:59:52 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-05-24 15:35:54
+ * @Last Modified time: 2021-05-25 15:42:01
  */
 
 import { getUserIncome, getUserBaseInfo, getUserInfo } from "@/request";
@@ -31,8 +31,8 @@ export default {
     },
     actions: {
         async userInit({ dispatch, commit }, payload) {
-            dispatch('fetchUserIncome')
-            dispatch('fetchUserBaseInfo')
+            // dispatch('fetchUserIncome')
+            // dispatch('fetchUserBaseInfo')
             dispatch('fetchUserInfo')
         },
 

@@ -96,7 +96,7 @@ export default {
 
     async fetchProductDetail(pcode) {
       const [err, res] = await getProductDetail({ pcode });
-      this.productDetail = res.data.data;
+      this.productDetail = res.result.data;
     },
   },
 };

@@ -1,173 +1,94 @@
 <template>
   <view class="container">
     <loginWrap>
-    <view class="header-top">
-      <view class="head">
-        <view class="avatarUrl">
-          <open-data type="userAvatarUrl"></open-data>
-        </view>
-        <view class="detail">
+      <view class="header-top">
+        <view class="head">
+          <view class="avatarUrl">
+            <open-data type="userAvatarUrl"></open-data>
+          </view>
           <view class="nickName">
             <open-data type="userNickName"></open-data>
-            <view class="level" v-if="level"
-              ><view class="level-icon" /><text>{{ level }}</text></view
-            >
-          </view>
-          <view class="number">
-            <view class="tag">粉丝: {{ baseInfo.team || 0 }}</view>
-          </view>
-        </view>
-        <view class="head-upgrade" v-if="baseInfo.nextRole">
-          <view class="head-upgrade-icon" />
-          <view>
-            <view class="title">{{ baseInfo.nextRole.desc }}</view>
-            <view class="btn">{{ baseInfo.nextRole.income }}</view>
           </view>
         </view>
       </view>
-      <view class="upgrade" v-if="baseInfo.partner">
-        <view class="text">
-          <image
-            class="pic"
-            src="/static/user/huangguan.png"
-            mode="aspectFit"
-          />
-          {{ baseInfo.partner.desc }}
+
+      <view class="order-box">
+        <view class="title">我的订单</view>
+        <view class="order-box-content">
+          <view
+            class="cash-detal-btn"
+            @click="jump('/pages/product/orderList?status=1')"
+          >
+            <image
+              class="icon"
+              src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/eaa0050b-4518-48f0-a2b6-ac894cdede6f.png"
+            ></image
+            >待付款</view
+          >
+          <view
+            class="cash-detal-btn"
+            @click="jump('/pages/product/orderList?status=3')"
+          >
+            <image
+              class="icon"
+              src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d20b6827-99c4-4ff5-9c65-158606f6898c.png"
+            ></image
+            >已完成</view
+          >
+          <view
+            class="cash-detal-btn"
+            @click="jump('/pages/product/orderList?status=2')"
+          >
+            <image
+              class="icon"
+              src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fc1ade0a-85aa-46d9-8040-b3d0984e457a.png"
+            ></image
+            >待发货</view
+          >
+          <view
+            class="cash-detal-btn all"
+            @click="jump('/pages/product/orderList?status=0')"
+          >
+            <image
+              class="icon"
+              src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fb21f8ef-7864-4f1f-9bb9-5a50e6a98dc4.png"
+            ></image
+            >全部订单</view
+          >
         </view>
-        <view class="btn"
-          >{{ baseInfo.partner.btn }}
-          <uni-icons type="arrowright" size="12" color="#EC5959"></uni-icons
-        ></view>
       </view>
-      <view class="price-detail">
-        <view class="left">
-          <view class="price">余额 ¥{{ income.balance || "0.00" }}</view>
-          <view class="tip">累计收益 ¥{{ income.allIncome || "0.00" }}</view>
+
+      <div class="others-wrap">
+        <view class="title">我的服务</view>
+        <view class="others">
+          <button class="item" open-type="share">
+            <image class="icon" src="/static/user/share.png"></image>
+            <view class="content share">
+              <view>分享好友</view>
+            </view>
+          </button>
+          <view class="item" bindtap="sponsor">
+            <image class="icon" src="/static/user/user.png"></image>
+            <view class="content share">
+              <view>官方公众号</view>
+            </view>
+          </view>
+          <button class="item" open-type="contact">
+            <image class="icon" src="/static/user/notes.png"></image>
+            <view class="content share">
+              <view>我有建议</view>
+            </view>
+          </button>
+          <button class="item" open-type="contact">
+            <image class="icon" src="/static/user/about.png"></image>
+            <view class="content share">
+              <view>关于</view>
+            </view>
+          </button>
         </view>
-        <view class="btn" @click="handlePayToolShow">立即提现</view>
-      </view>
-    </view>
+      </div>
 
-    <view class="circle">
-      <view class="circle1"></view>
-      <view class="circle2"></view>
-    </view>
-    <view class="cash-back" @click="jump('/pages/income/income')">
-      <view class="cash-back-item">
-        <view class="price"
-          ><text class="rmb">¥</text
-          >{{ income.income.yesterday || "0.00" }}</view
-        >
-        <view class="text">昨日收益</view>
-      </view>
-      <view class="line"></view>
-      <view class="cash-back-item">
-        <view class="price"
-          ><text class="rmb">¥</text>{{ income.income.today || "0.00" }}</view
-        >
-        <view class="text">今日收益</view>
-      </view>
-      <view class="line"></view>
-      <view class="cash-back-item">
-        <view class="price"
-          ><text class="rmb">¥</text>{{ income.income.month || "0.00" }}</view
-        >
-        <view class="text">本月预估</view>
-      </view>
-    </view>
-
-    <view class="cash-detal-btns">
-      <view class="cash-detal-btn" @click="jump('/pages/income/income')">
-        <image class="icon" src="/static/user/financing.png"></image>收益</view
-      >
-      <view class="cash-detal-btn" @click="jump('/pages/orderList/orderList')">
-        <image class="icon" src="/static/user/order.png"></image>订单</view
-      >
-      <view class="cash-detal-btn" @click="jump('/pages/team/team')">
-        <image class="icon" src="/static/user/person.png"></image>团队</view
-      >
-      <view class="cash-detal-btn" @click="jump('/pages/invite/invite')">
-        <image class="icon" src="/static/user/gift.png"></image>邀请</view
-      >
-    </view>
-
-    <view class="order-box">
-      <view class="title">我的订单</view>
-      <view class="order-box-content">
-        <view
-          class="cash-detal-btn"
-          @click="jump('/pages/product/orderList?status=1')"
-        >
-          <image
-            class="icon"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/eaa0050b-4518-48f0-a2b6-ac894cdede6f.png"
-          ></image
-          >待付款</view
-        >
-        <view
-          class="cash-detal-btn"
-          @click="jump('/pages/product/orderList?status=3')"
-        >
-          <image
-            class="icon"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d20b6827-99c4-4ff5-9c65-158606f6898c.png"
-          ></image
-          >已完成</view
-        >
-        <view
-          class="cash-detal-btn"
-          @click="jump('/pages/product/orderList?status=2')"
-        >
-          <image
-            class="icon"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fc1ade0a-85aa-46d9-8040-b3d0984e457a.png"
-          ></image
-          >待发货</view
-        >
-        <view
-          class="cash-detal-btn all"
-          @click="jump('/pages/product/orderList?status=0')"
-        >
-          <image
-            class="icon"
-            src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fb21f8ef-7864-4f1f-9bb9-5a50e6a98dc4.png"
-          ></image
-          >全部订单</view
-        >
-      </view>
-    </view>
-
-    <div class="others-wrap">
-      <view class="title">我的服务</view>
-      <view class="others">
-        <button class="item" open-type="share">
-          <image class="icon" src="/static/user/share.png"></image>
-          <view class="content share">
-            <view>分享好友</view>
-          </view>
-        </button>
-        <view class="item" bindtap="sponsor">
-          <image class="icon" src="/static/user/user.png"></image>
-          <view class="content share">
-            <view>官方公众号</view>
-          </view>
-        </view>
-        <button class="item" open-type="contact">
-          <image class="icon" src="/static/user/notes.png"></image>
-          <view class="content share">
-            <view>我有建议</view>
-          </view>
-        </button>
-        <button class="item" open-type="contact">
-          <image class="icon" src="/static/user/about.png"></image>
-          <view class="content share">
-            <view>关于</view>
-          </view>
-        </button>
-      </view>
-    </div>
-
-    <view class="version"> v1.0 </view>
+      <view class="version"> v1.0 </view>
     </loginWrap>
 
     <customTabBar tab="user"></customTabBar>
@@ -228,7 +149,7 @@ page {
 }
 .header-top {
   background: #ec5959;
-  padding: 16rpx 32rpx 0;
+  padding: 32rpx 0;
 
   .head {
     position: relative;
@@ -236,6 +157,7 @@ page {
     flex-wrap: wrap;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     .avatarUrl {
       width: 112rpx;
@@ -261,8 +183,8 @@ page {
       &-icon {
         display: block;
         margin-right: 8rpx;
-        width: 28rpx;
-        height: 28rpx;
+        width: 50rpx;
+        height: 50rpx;
         background: url("/static/user/upgrade.png") no-repeat center/contain;
       }
 
@@ -272,35 +194,13 @@ page {
       }
     }
     .nickName {
-      display: flex;
-      align-items: center;
+      padding-top: 32rpx;
       font-size: 32rpx;
       line-height: 42rpx;
       font-weight: 700;
       width: 100%;
-      text-align: left;
-
-      .level {
-        display: flex;
-        align-items: center;
-        margin-left: 16rpx;
-        padding: 4rpx 14rpx;
-        height: 32rpx;
-        background: #614120;
-        font-size: 26rpx;
-        border-radius: 18rpx;
-        color: #fce272;
-
-        &-icon {
-          width: 26rpx;
-          height: 26rpx;
-          margin-right: 4rpx;
-          background: url("/static/user/level.png") no-repeat center/contain;
-        }
-        text {
-          line-height: 1;
-        }
-      }
+      text-align: center;
+      color: #fff;
     }
     .number {
       display: flex;

@@ -99,7 +99,7 @@ export default {
     },
     async fetchGoodsDetail(gcode) {
       const [err, res] = await getGoodsDetail({ gcode });
-      this.goodsDetail = res.data.data;
+      this.goodsDetail = res.result.data;
       console.log(res.data.data);
     },
     back() {

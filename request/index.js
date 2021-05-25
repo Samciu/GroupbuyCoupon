@@ -191,39 +191,49 @@ export const getWithdrawList = data => {
     })
 }
 
-export const getProductActivity = data => {
-    return request({
-        url: "/minapp/v1/card/product/activity",
-        data,
-    })
+export const getProductActivity = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/home/hot', data },
+    });
+
+    return [null, res]
 }
 
-export const getProductHot = data => {
-    return request({
-        url: "/minapp/v1/card/product/hot",
-        data,
-    })
+export const getProductHot = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/home/recommand', data },
+    });
+
+    return [null, res]
 }
 
-export const getProductDetail = data => {
-    return request({
-        url: "/minapp/v1/card/product/detail",
-        data,
-    })
+export const getProductDetail = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/brand/detail', data },
+    });
+
+    return [null, res]
 }
 
-export const getGoodsDetail = data => {
-    return request({
-        url: "/minapp/v1/card/goods/detail",
-        data,
-    })
+export const getGoodsDetail = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/goods/detail', data },
+    });
+
+    return [null, res]
 }
 
-export const getOrderSku = data => {
-    return request({
-        url: "/minapp/v1/card/order/sku",
-        data,
-    })
+export const getOrderSku = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/order/sku', data },
+    });
+
+    return [null, res]
 }
 
 export const getOrderConfirm = data => {

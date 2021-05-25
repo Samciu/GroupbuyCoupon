@@ -2,7 +2,7 @@
  * @Author: dazhao 
  * @Date: 2021-05-06 16:34:57 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-05-20 02:05:25
+ * @Last Modified time: 2021-05-25 14:53:07
  */
 
 import { getProductActivity, getProductHot, getCardProductRecommand } from "@/request"
@@ -36,13 +36,13 @@ export default {
         async fetchProductActivity({ dispatch, commit }) {
             const [err, res] = await getProductActivity()
             if (err) return;
-            commit('setProductActivity', res.data.data)
+            commit('setProductActivity', res.result.data)
         },
 
         async fetchProductHot({ dispatch, commit }) {
             const [err, res] = await getProductHot()
             if (err) return;
-            commit('setProductHot', res.data.data)
+            commit('setProductHot', res.result.data)
         },
 
         async fetchCardProductRecommand({ dispatch, commit }) {

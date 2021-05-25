@@ -94,8 +94,8 @@ export default {
   methods: {
     async fetchOrderSku(gcode) {
       const [err, res] = await getOrderSku({ gcode });
-      this.goods = res.data.data.goods;
-      this.product = res.data.data.product;
+      this.goods = res.result.data.goods;
+      this.product = res.result.data.product;
     },
     async makeOrder() {
       // 做个防抖

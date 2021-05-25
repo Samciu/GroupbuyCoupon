@@ -21,7 +21,7 @@
         class="coupon-top-item"
         v-for="(item, index) in productActivityList"
         :key="index"
-        @click="handleProductClick(item)"
+        @click="jumpTo(`/pages/product/list?pcode=${item.code}`)"
       >
         <image class="pic" :src="item.logo" />
         <view class="text">{{ item.name }}</view>
@@ -63,7 +63,7 @@
         </swiper>
       </view>
       <view class="activity-right">
-        <view class="activity-item">
+        <view class="activity-item" v-if="productRecommand[1]">
           <!-- <view class="title">电影游玩</view> -->
           <image
             mode="widthFix"
@@ -71,7 +71,7 @@
             @click="handleProductClick(productRecommand[1])"
           />
         </view>
-        <view class="activity-item">
+        <view class="activity-item" v-if="productRecommand[2]">
           <!-- <view class="title">特价秒杀</view> -->
           <image
             mode="widthFix"
@@ -91,7 +91,7 @@
       <view class="coupon-card-list">
         <view
           class="item"
-          @click="handleProductClick(item)"
+          @click="jumpTo(`/pages/product/detail?gcode=${item.code}`)"
           v-for="(item, index) in productHotList"
           :key="index"
         >
@@ -319,7 +319,7 @@ page {
     .activity-item {
       flex: 1;
 
-      &:first-of-type {
+      &:last-of-type {
         margin-right: 20rpx;
       }
     }
