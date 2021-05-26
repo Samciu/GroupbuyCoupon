@@ -266,11 +266,13 @@ export const getCardOrderCancel = data => {
     })
 }
 
-export const getCardProductRecommand = data => {
-    return request({
-        url: "/minapp/v1/card/product/recommand",
-        data,
-    })
+export const getCardProductRecommand = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/home/banner', data },
+    });
+
+    return [null, res]
 }
 
 export const getCardCateList = data => {

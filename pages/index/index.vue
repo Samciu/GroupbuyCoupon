@@ -41,8 +41,8 @@
     </view>
     </loginWrap>
 
-    <view class="hot-activity">
-      <view class="activity-left" v-if="productRecommand[0]">
+    <view class="hot-activity" v-if="banner.length || coupon.length">
+      <view class="activity-left" v-if="banner.length">
         <!-- <view class="title">1元拉新拼</view> -->
         <swiper
           :autoplay="true"
@@ -54,29 +54,20 @@
         >
           <swiper-item
             class="swiper-item"
-            v-for="(banner, i) in productRecommand[0]"
+            v-for="(banner, i) in banner"
             :key="i"
             @click="handleProductClick(banner)"
           >
-            <image class="img" mode="aspectFill" :src="banner.pic"></image>
+            <image class="img" mode="aspectFill" :src="banner.pic.url"></image>
           </swiper-item>
         </swiper>
       </view>
-      <view class="activity-right">
-        <view class="activity-item" v-if="productRecommand[1]">
-          <!-- <view class="title">电影游玩</view> -->
+      <view class="activity-right" v-if="coupon.length">
+        <view class="activity-item" v-for="(coupon, i) in coupon" :key="i">
           <image
             mode="widthFix"
-            :src="productRecommand[1].pic"
-            @click="handleProductClick(productRecommand[1])"
-          />
-        </view>
-        <view class="activity-item" v-if="productRecommand[2]">
-          <!-- <view class="title">特价秒杀</view> -->
-          <image
-            mode="widthFix"
-            :src="productRecommand[2].pic"
-            @click="handleProductClick(productRecommand[2])"
+            :src="coupon.pic.url"
+            @click="handleProductClick(coupon)"
           />
         </view>
       </view>
@@ -131,8 +122,8 @@ export default {
     ...mapState({
       productActivityList: (state) => state.index.productActivityList,
       productHotList: (state) => state.index.productHotList,
-      productRecommand: (state) => state.index.productRecommand,
-      // recommandList: (state) => state.takeout.recommandList,
+      banner: (state) => state.index.banner,
+      coupon: (state) => state.index.coupon,
     }),
   },
   onLoad(option) {
@@ -178,22 +169,15 @@ export default {
     },
 
     handleProductClick(data) {
-      const { path, target } = data;
-      if (target == "page") {
-        uni.navigateTo({
-          url: path,
-        });
-      }
-      if (target == "tab") {
-        uni.switchTab({
-          url: path,
-        });
-      }
-      if (target == "minapp") {
-        const { appid, path } = data.package.minapp;
+      const { type, appId, path, url } = data;
+      if (type == "miniapp") {
         uni.navigateToMiniProgram({
-          appId: appid,
+          appId,
           path,
+        });
+      } else {
+        uni.navigateTo({
+          url: `/pages/webview/webview?url=${encodeURIComponent(url)}`,
         });
       }
     },
@@ -315,13 +299,12 @@ page {
   .activity-right {
     display: flex;
     margin-top: 20rpx;
+    margin-right: -20rpx;
+    flex-wrap: wrap;
 
     .activity-item {
       flex: 1;
-
-      &:last-of-type {
-        margin-right: 20rpx;
-      }
+      margin-right: 20rpx;
     }
 
     image {
