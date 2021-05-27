@@ -74,6 +74,7 @@ export default {
       return {
         fee: goods.price * num, // 支付金额，单位为分
         paymentArgs: {
+          goods_price: goods.price,
           gcode: goods.code,
           num,
           appid: config.Appid,
