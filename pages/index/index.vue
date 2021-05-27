@@ -16,29 +16,29 @@
     </view>
 
     <loginWrap>
-    <view class="coupon-top">
-      <view
-        class="coupon-top-item"
-        v-for="(item, index) in productActivityList"
-        :key="index"
-        @click="jumpTo(`/pages/product/list?pcode=${item.code}`)"
-      >
-        <image class="pic" :src="item.logo" />
-        <view class="text">{{ item.name }}</view>
+      <view class="coupon-top">
+        <view
+          class="coupon-top-item"
+          v-for="(item, index) in productActivityList"
+          :key="index"
+          @click="jumpTo(`/pages/product/list?pcode=${item.code}`)"
+        >
+          <image class="pic" :src="item.logo" />
+          <view class="text">{{ item.name }}</view>
+        </view>
+        <view
+          class="coupon-top-item"
+          @click="
+            handleProductClick({
+              type: 'page',
+              path: '/pages/product/classify',
+            })
+          "
+        >
+          <image class="pic" src="/static/index/fenlei.png" />
+          <view class="text">分类查找</view>
+        </view>
       </view>
-      <view
-        class="coupon-top-item"
-        @click="
-          handleProductClick({
-            target: 'page',
-            path: '/pages/product/classify',
-          })
-        "
-      >
-        <image class="pic" src="/static/index/fenlei.png" />
-        <view class="text">分类查找</view>
-      </view>
-    </view>
     </loginWrap>
 
     <view class="hot-activity" v-if="banner.length || coupon.length">
@@ -79,31 +79,31 @@
         <!-- <view class="nav-item">周边好店</view> -->
       </view>
       <loginWrap>
-      <view class="coupon-card-list">
-        <view
-          class="item"
-          @click="jumpTo(`/pages/product/detail?gcode=${item.code}`)"
-          v-for="(item, index) in productHotList"
-          :key="index"
-        >
+        <view class="coupon-card-list">
           <view
-            class="pic"
-            :style="{
-              background: `url(${item.bg_card}) no-repeat center/contain`,
-            }"
-          ></view>
-          <view class="card-content">
-            <view class="title"> {{ item.name }} </view>
-            <view class="control">
-              <view class="btn">{{ item.discountStr }}领取</view>
-              <view class="earn" v-if="item.commission"
-                >赚¥{{ item.commission_str }}</view
-              >
-              <!-- <view class="like"></view> -->
+            class="item"
+            @click="jumpTo(`/pages/product/detail?gcode=${item.code}`)"
+            v-for="(item, index) in productHotList"
+            :key="index"
+          >
+            <view
+              class="pic"
+              :style="{
+                background: `url(${item.bg_card}) no-repeat center/contain`,
+              }"
+            ></view>
+            <view class="card-content">
+              <view class="title"> {{ item.name }} </view>
+              <view class="control">
+                <view class="btn">{{ item.discountStr }}领取</view>
+                <view class="earn" v-if="item.commission"
+                  >赚¥{{ item.commission_str }}</view
+                >
+                <!-- <view class="like"></view> -->
+              </view>
             </view>
           </view>
         </view>
-      </view>
       </loginWrap>
     </view>
     <customTabBar tab="index"></customTabBar>
@@ -170,12 +170,24 @@ export default {
 
     handleProductClick(data) {
       const { type, appId, path, url } = data;
+      
+      if (type == "page") {
+        uni.navigateTo({
+          url: path,
+        });
+      }
+      if (type == "tab") {
+        uni.switchTab({
+          url: path,
+        });
+      }
       if (type == "miniapp") {
         uni.navigateToMiniProgram({
           appId,
           path,
         });
-      } else {
+      }
+      if (url) {
         uni.navigateTo({
           url: `/pages/webview/webview?url=${encodeURIComponent(url)}`,
         });

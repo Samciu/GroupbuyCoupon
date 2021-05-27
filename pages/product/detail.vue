@@ -100,7 +100,7 @@ export default {
     async fetchGoodsDetail(gcode) {
       const [err, res] = await getGoodsDetail({ gcode });
       this.goodsDetail = res.result.data;
-      console.log(res.data.data);
+      console.log(res.result.data);
     },
     back() {
       uni.navigateBack({
