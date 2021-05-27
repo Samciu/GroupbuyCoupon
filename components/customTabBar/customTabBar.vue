@@ -16,6 +16,22 @@
       ></image>
       <text class="label">权益</text>
     </navigator>
+     <navigator
+      class="item"
+      :class="{ active: tab == 'mall' }"
+      open-type="switchTab"
+      url="/pages/mall/mall"
+    >
+      <image
+        class="icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d6fec13a-0cc0-4b77-82c7-9fa822f8dd2f.png"
+      ></image>
+      <image
+        class="focus-icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/0318c418-2025-44c3-b96a-255a9f3cc9ca.png"
+      ></image>
+      <text class="label">商城</text>
+    </navigator>
     <navigator
       class="item"
       :class="{ active: tab == 'arrive' }"
@@ -31,22 +47,6 @@
         src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/80d36a68-5812-4992-87a4-a59e6ba24f96.png"
       ></image>
       <text class="label">生活</text>
-    </navigator>
-    <navigator
-      class="item"
-      :class="{ active: tab == 'mall' }"
-      open-type="switchTab"
-      url="/pages/mall/mall"
-    >
-      <image
-        class="icon"
-        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d6fec13a-0cc0-4b77-82c7-9fa822f8dd2f.png"
-      ></image>
-      <image
-        class="focus-icon"
-        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/0318c418-2025-44c3-b96a-255a9f3cc9ca.png"
-      ></image>
-      <text class="label">商城</text>
     </navigator>
     <navigator
       class="item"
