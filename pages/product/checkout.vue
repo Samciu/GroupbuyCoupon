@@ -32,9 +32,15 @@
         <view class="list-info-item">
           <view class="name">购买数量</view>
           <view class="control">
-            <view class="subtract" @click="sub">-</view>
+            <view class="subtract" @click="sub"></view>
             <view class="num">{{ num }}</view>
-            <view class="add" @click="add">+</view>
+            <view class="add" @click="add"></view>
+          </view>
+        </view>
+        <view class="list-info-item" v-if="goods.type == 2">
+          <view class="name">充值账号</view>
+          <view class="control b-b" style="text-align: right;padding: 12rpx 0">
+            <input v-model="account" placeholder="请输入充值账号" />
           </view>
         </view>
       </view>
@@ -63,6 +69,7 @@ export default {
       goods: {},
       product: null,
       num: 1,
+      account: "",
       timeout: null, // 防抖定时器
     };
   },
@@ -70,13 +77,14 @@ export default {
     ...mapState(['token']),
 
     args() {
-      const { num, goods, token } = this;
+      const { num, goods, token, account } = this;
       return {
         fee: goods.price * num, // 支付金额，单位为分
         paymentArgs: {
           goods_price: goods.price,
           gcode: goods.code,
           num,
+          account,
           appid: config.Appid,
           token,
           paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
@@ -107,6 +115,13 @@ export default {
       }, 500);
       if (callNow) {
         console.log(this.args)
+        if (!this.account && this.goods.type == 2) {
+          uni.showToast({
+            title: "请输入充值账号",
+            icon: "none"
+          })
+          return
+        }
         uni.navigateToMiniProgram({
           appId: "wx468ad252a66afc34",
           envVersion: "trial",
@@ -264,18 +279,17 @@ page {
         align-items: center;
 
         .num {
-          // margin: 0 16rpx;
+          margin: 0 16rpx;
           width: 72rpx;
           height: 40rpx;
           line-height: 40rpx;
           text-align: center;
-          background: #f2f2f2;
+          background: #f8f8f8;
           border-radius: 4rpx;
           font-size: 28rpx;
           font-weight: 500;
           color: #000000;
           line-height: 40rpx;
-          background: #f2f2f2;
         }
       }
     }
@@ -303,7 +317,17 @@ page {
 
 .add,
 .subtract {
-  padding: 0 22rpx;
+  width: 46rpx;
+  height: 46rpx;
+}
+
+.add {
+  // https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/ebd04270-70bb-41e0-89dc-17c12137cbd2.png
+  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/8b325d3f-5020-4f11-b192-043c10402dba.png) no-repeat center/contain;
+}
+.subtract {
+  // https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d388eea6-9e91-4aa4-b5af-58a45ff2fdd6.png
+  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/267a9f5f-1e1c-466e-a91f-ba48c74cba53.png) no-repeat center/contain;
 }
 
 .pay-btn {

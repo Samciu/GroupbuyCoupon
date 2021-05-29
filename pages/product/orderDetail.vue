@@ -26,11 +26,19 @@
       />
     </view>
     <view class="product-container">
-      <view class="card-code" v-if="detail.card_code">
-        <view class="title">卡密</view>
-        <view class="code">{{ detail.card_code }}</view>
-        <view class="time">有效期至：2021-07-22 23:59:59</view>
-        <view class="btn" @click="copy">复制</view>
+      <view
+        class="card-code"
+        v-for="(cardItem, index) in detail.card_code"
+        :key="index"
+      >
+        <view class="title">卡号</view>
+        <view class="code" @click="copy(cardItem.card_number)">{{cardItem.card_number}}</view>
+        <view v-if="cardItem.card_pwd" style="margin-top: 32rpx">
+          <view class="title">密码</view>
+          <view class="code" @click="copy(cardItem.card_pwd, '密码')">{{cardItem.card_pwd}}</view>
+        </view>
+        <view class="time" v-if="cardItem.card_deadline">有效期至：{{ cardItem.card_deadline }}</view>
+        <view class="btn" @click="copy(cardItem.card_number)">复制</view>
       </view>
       <view class="product-info">
         <view class="head b-b">
@@ -140,12 +148,12 @@ export default {
         delta: 1,
       });
     },
-    copy() {
+    copy(code, name = "卡号") {
       uni.setClipboardData({
-        data: this.detail.card_code,
+        data: code,
         success: function () {
           uni.showToast({
-            title: "复制成功",
+            title: `复制${name}成功`,
             icon: "none",
           });
         },
@@ -169,7 +177,7 @@ export default {
           paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
         }, // 将传递到功能页函数的自定义参数
       };
-	  console.log(args)
+      console.log(args);
       uni.navigateToMiniProgram({
         appId: "wx468ad252a66afc34",
         envVersion: "trial",
@@ -239,14 +247,17 @@ page {
   }
   .code {
     margin-top: 22rpx;
-    padding: 16rpx 0;
-    font-size: 48rpx;
-    font-weight: 700;
+    padding: 16rpx 32rpx;
+    font-size: 42rpx;
+    // font-weight: 700;
     color: #000000;
     line-height: 72rpx;
     background: rgba(247, 115, 56, 0.05);
     border-radius: 20px;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .time {
     padding-top: 20rpx;
