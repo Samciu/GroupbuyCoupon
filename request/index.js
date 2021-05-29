@@ -14,7 +14,8 @@ const request = async (opts) => {
         ...opts, url,
         header: {
             'Appid': Appid,
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'Platform': platform
         },
     })
 
