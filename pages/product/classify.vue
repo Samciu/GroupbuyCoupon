@@ -103,9 +103,9 @@ export default {
   methods: {
     async fetchCardCateList() {
       const [err, res] = await getCardCateList();
-      console.log(res.data.data);
-      this.cate = res.data.data.cate;
-      this.list = res.data.data.list;
+      console.log(res.result.data);
+      this.cate = res.result.data.cate;
+      this.list = res.result.data.list;
     },
     init() {
       const query = uni.createSelectorQuery();

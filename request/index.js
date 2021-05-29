@@ -275,9 +275,11 @@ export const getCardProductRecommand = async data => {
     return [null, res]
 }
 
-export const getCardCateList = data => {
-    return request({
-        url: "/minapp/v1/card/cate/list",
-        data,
-    })
+export const getCardCateList = async data => {
+    const res = await uniCloud.callFunction({
+        name: "uni-admin",
+        data: { action: 'api/brand/cate', data },
+    });
+
+    return [null, res]
 }
