@@ -4,6 +4,7 @@ import config from '@/config';
 import store from '@/store'
 
 const { Appid, baseUrl } = config
+const { platform } = uni.getSystemInfoSync()
 
 const request = async (opts) => {
     const url = opts.url.includes('http') ? opts.url : `${baseUrl}${opts.url}`
@@ -31,6 +32,14 @@ const request = async (opts) => {
     }
 
     return [err, res]
+}
+
+const cloudRequest = ({name, data}) => {
+    data.data = { ...data.data , platform }
+    return uniCloud.callFunction({
+        name,
+        data
+    });
 }
 
 export const getRecommand = (data) => {
@@ -192,7 +201,7 @@ export const getWithdrawList = data => {
 }
 
 export const getProductActivity = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/home/hot', data },
     });
@@ -201,7 +210,7 @@ export const getProductActivity = async data => {
 }
 
 export const getProductHot = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/home/recommand', data },
     });
@@ -210,7 +219,7 @@ export const getProductHot = async data => {
 }
 
 export const getProductDetail = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/brand/detail', data },
     });
@@ -219,7 +228,7 @@ export const getProductDetail = async data => {
 }
 
 export const getGoodsDetail = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/goods/detail', data },
     });
@@ -228,7 +237,7 @@ export const getGoodsDetail = async data => {
 }
 
 export const getOrderSku = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/order/sku', data },
     });
@@ -267,7 +276,7 @@ export const getCardOrderCancel = data => {
 }
 
 export const getCardProductRecommand = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/home/banner', data },
     });
@@ -276,7 +285,7 @@ export const getCardProductRecommand = async data => {
 }
 
 export const getCardCateList = async data => {
-    const res = await uniCloud.callFunction({
+    const res = await cloudRequest({
         name: "uni-admin",
         data: { action: 'api/brand/cate', data },
     });
