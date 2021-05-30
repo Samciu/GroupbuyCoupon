@@ -1,5 +1,5 @@
 
 export default {
-    baseUrl: "http://zhongyong.wxneed.com",
-    Appid: 'zyf9494ff5e09fe553'
+    baseUrl: "https://zy-api.wxthe.com",
+    Appid: 'zyc4dd3668ee9a2a46'
 }
