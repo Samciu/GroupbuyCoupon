@@ -131,7 +131,7 @@ export default {
     }),
   },
   onLoad(option) {
-    this.initLocation();
+    // this.initLocation();
     this.fetchProductActivity();
     this.fetchProductHot();
     this.fetchCardProductRecommand();
@@ -303,6 +303,7 @@ page {
   }
 
   .activity-left {
+    margin-bottom: 20rpx;
     text-align: center;
     image {
       // margin-top: 18rpx;
@@ -314,7 +315,6 @@ page {
 
   .activity-right {
     display: flex;
-    margin-top: 20rpx;
     margin-right: -20rpx;
     flex-wrap: wrap;
 
