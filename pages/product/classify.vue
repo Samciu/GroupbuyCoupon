@@ -30,6 +30,12 @@
         <view class="tab-list">
           <view
             class="tab b-b"
+            :class="{ active: -1 == navIndex }"
+            @click="handleNavClick(-1)"
+            >全部</view
+          >
+          <view
+            class="tab b-b"
             :class="{ active: index == navIndex }"
             v-for="(item, index) in cate"
             :key="index"
@@ -88,7 +94,7 @@ export default {
       cate: [],
       list: [],
       clickedNavIndex: 0,
-      navIndex: 0,
+      navIndex: -1,
       nodeInfoList: [],
       topDistance: 0,
       isTouchScrollView: false, // 是否锁定联动
@@ -124,7 +130,7 @@ export default {
     },
     handleNavClick(index) {
       this.isTouchScrollView = false;
-      this.clickedNavIndex = index;
+      this.clickedNavIndex = index == -1 ? 0 : index;
       this.navIndex = index;
     },
     handleListScroll(e) {

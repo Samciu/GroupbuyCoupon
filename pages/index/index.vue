@@ -16,7 +16,7 @@
     </view>
 
     <loginWrap>
-      <view class="coupon-top">
+      <view class="coupon-top" v-if="productActivityList.length">
         <view
           class="coupon-top-item"
           v-for="(item, index) in productActivityList"
@@ -39,8 +39,8 @@
           <view class="text">分类查找</view>
         </view>
       </view>
+      <brandLoading v-else />
     </loginWrap>
-
     <view class="hot-activity" v-if="banner.length || coupon.length">
       <view class="activity-left" v-if="banner.length">
         <!-- <view class="title">1元拉新拼</view> -->
@@ -79,7 +79,7 @@
         <!-- <view class="nav-item">周边好店</view> -->
       </view>
       <loginWrap>
-        <view class="coupon-card-list">
+        <view class="coupon-card-list" v-if="productHotList.length">
           <view
             class="item"
             @click="jumpTo(`/pages/product/detail?gcode=${item.code}`)"
@@ -104,6 +104,7 @@
             </view>
           </view>
         </view>
+        <cardLoading v-else />
       </loginWrap>
     </view>
     <customTabBar tab="index"></customTabBar>
@@ -113,8 +114,11 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import getShareMessage from "@/utils/getShareMessage";
+import brandLoading from "./components/brandLoading"
+import cardLoading from "./components/cardLoading"
 
 export default {
+  components: { brandLoading, cardLoading },
   data() {
     return {};
   },
@@ -271,7 +275,7 @@ page {
       border-radius: 50%;
     }
     .text {
-      padding-top: 18rpx;
+      margin-top: 18rpx;
       font-size: 24rpx;
       line-height: 34rpx;
       color: #333333;
