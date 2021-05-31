@@ -124,7 +124,6 @@ export default {
         }
         uni.navigateToMiniProgram({
           appId: "wx468ad252a66afc34",
-          envVersion: "trial",
           path: `pages/pay/pay?args=${encodeURIComponent(
             JSON.stringify(this.args)
           )}`,

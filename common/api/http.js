@@ -30,7 +30,8 @@ http.delete('user/1').then((res)=>{
 }) 
 
 */
-var baseUrl = process.uniEnv.baseUrl
+
+const { baseUrl } = config
 
 export default {
 	config: {
