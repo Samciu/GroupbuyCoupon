@@ -1,6 +1,6 @@
 <script>
 import store from '@/store'
-import ".env.js";
+// import ".env.js";
 
 export default {
   onLaunch: function (e) {

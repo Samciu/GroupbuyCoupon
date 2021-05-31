@@ -252,6 +252,7 @@ page {
       align-items: center;
       justify-content: space-between;
       padding-bottom: 32rpx;
+      white-space: nowrap;
 
       .name {
         font-size: 28rpx;
