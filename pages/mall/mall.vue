@@ -1,47 +1,10 @@
 <template>
-	<send-coupon
-		@customevent="getcoupon"  
-		:send_coupon_params="cardInfo.send_coupon_params"  
-		:sign="cardInfo.sign"  
-		:send_coupon_merchant="cardInfo.send_coupon_merchant">
 	<view class="wrapper">
 		<view class="search">
 			<input class="search-input" placeholder="搜索补贴优惠券" confirm-type="search" @confirm="search"/>
 		</view>
 		<view class="notice">
 			<wyb-noticeBar :text="tips" type="vert" :show-more="false" class="notice-box" bgColor="rgba(0, 0, 0, 0.2)" color="#ffffff" width="345" v-if="tips.length > 0"/>
-		</view>
-		<!-- <send-coupon  
-			@customevent="getcoupon"  
-			:send_coupon_params="cardInfo.send_coupon_params"  
-			:sign="cardInfo.sign"  
-			:send_coupon_merchant="cardInfo.send_coupon_merchant">  
-			<view class="card-view">
-				<image class="card" src="https://h5.chuxingyouhui.com/slime/assets/cpsMiniProgram/banner-yellow.png"></image>
-				<image class="button" src="https://imgcdn.chuxingyouhui.com/pintuan/mng/20210205/0eff6148deeb4e078b167e3a136d9712.jpeg"></image>
-			</view>
-		</send-coupon> -->
-		<!-- <view class="safe">
-			<image src="/static/images/safe.png" mode="" class="safe-img"></image>
-		</view> -->
-		<view class="showcase1"  v-if="showcase1.length > 0">
-			<view class="showcase1-item" v-for="(item, i) in showcase1" :key="i">
-				<view class="showcase1-item-title">
-					<image :src="item.icon" mode="" class="showcase1-item-title-icon"></image>
-					{{item.name}}
-				</view>
-				<view class="showcase1-item-desc">
-					{{item.desc}}
-				</view>
-				<swiper autoplay  interval="3000" class="showcase1-item-swiper">
-					<swiper-item class="showcase1-item-swiper-item" v-for="(goodsitem, goodsi) in item.goods" :key="goodsi" @click="goShop(goodsitem.goods_id)">
-						<image :src="goodsitem.goods_thumbnail_url" mode="" class="showcase1-item-swiper-item-thumb"></image>
-						<view class="showcase1-item-swiper-item-price">
-							{{goodsitem.goods_coupon_price}}
-						</view>
-					</swiper-item>
-				</swiper>
-			</view>
 		</view>
 		<view class="showcase2" v-if="showcase2.length > 0">
 			<view class="showcase2-item" v-for="(item, i) in showcase2" :key="i" @click="goTheme(item.activityId)">
@@ -118,7 +81,6 @@
 		</view>
 		<customTabBar tab="mall"></customTabBar>
 	</view>
-	</send-coupon>
 </template>
 
 <script>
@@ -140,15 +102,12 @@
 		},
 		async onLoad() {
 			this.getHomeConfig()
-			// this.getHomeTips()
-			this.getHomeShowcase1()
 			this.getHomeShowcase2()
-			// this.getHomeShowcase3()
 			this.getGoodsJdList()
-			// this.getCardInfo()
+			
 		},
 		onShow(){
-			// this.getCardInfo()
+			
 		},
 		onReady () {
 			setTimeout(()=>{
