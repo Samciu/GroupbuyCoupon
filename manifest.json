@@ -61,12 +61,6 @@
             "scope.userLocation" : {
                 "desc" : "获取商家信息"
             }
-        },
-        "plugins": {
-            "myPlugin": {
-                "version": "1.3.0",
-                "provider": "wxdbf7b3f193c7c871"
-            }
         }
     },
     "mp-alipay" : {

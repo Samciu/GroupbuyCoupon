@@ -18,7 +18,7 @@
         <view class="logo-wrap">
           <image class="logo" :src="productDetail.logo" />
         </view>
-        <view>
+        <view class="desc">
           <view class="title">{{ productDetail.name }}</view>
           <view class="slogan">{{ productDetail.slogan }}</view>
         </view>
@@ -132,6 +132,10 @@ page {
     top: -72rpx;
     left: 32rpx;
 
+    .desc {
+      flex: 1;
+    }
+
     .logo-wrap {
       border-radius: 50%;
       width: 144rpx;
@@ -156,6 +160,7 @@ page {
     .slogan {
       padding-top: 16rpx;
       padding-left: 32rpx;
+      padding-right: 32rpx;
       font-size: 32rpx;
       font-weight: 700;
       line-height: 44rpx;
