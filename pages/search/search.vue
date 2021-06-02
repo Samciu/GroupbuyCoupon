@@ -1,7 +1,15 @@
 <template>
 	<view>
 		<view class="search">
-			<input class="search-input" placeholder="搜索补贴优惠券" confirm-type="search" @confirm="search" :value="keyword"/>
+			<input class="search-input" placeholder="搜索补贴优惠券" confirm-type="search" @confirm="search" v-model="keyword"/>
+			<view class="search-clear" @click="handleClearSearch">
+            <uni-icons
+              v-if="keyword.length > 0"
+              type="clear"
+              size="24"
+              color="#666"
+            ></uni-icons>
+          </view>
 		</view>
 		<view class="goodslist">
 			<goodsList :goodsList="goodsList"></goodsList>
@@ -51,12 +59,15 @@
 				this.keyword = e.detail.value
 				this.p = 1
 				this.goodsList = []
-				this.$refs.waterfallsFlow.refresh();
+				// this.$refs.waterfallsFlow.refresh();
 				uni.pageScrollTo({
 					scrollTop: 0,
 					duration: 300,
 				})
 				this.getGoodsJdSearch()
+			},
+			handleClearSearch() {
+				this.keyword = ""
 			}
 		}
 	}
@@ -80,6 +91,13 @@
 			border: 1px solid #f4f4f4;
 			border-radius: 12rpx;
 			background: #f4f4f4;
+		}
+
+		.search-clear {
+			position: absolute;
+			top: 50%;
+			right: 50rpx;
+			transform: translateY(-50%);
 		}
 	}
 	.goodslist{

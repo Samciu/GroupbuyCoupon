@@ -293,3 +293,12 @@ export const getCardCateList = async data => {
 
     return [null, res]
 }
+
+export const getUserServiceInfo = async data => {
+    const res = await cloudRequest({
+        name: "info",
+        data: { action: 'getInfo' },
+    });
+
+    return [null, res]
+}

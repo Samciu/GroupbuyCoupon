@@ -67,9 +67,9 @@
               <view>分享好友</view>
             </view>
           </button>
-          <view class="item" bindtap="sponsor">
+          <view class="item" bindtap="sponsor" v-if="serviceInfo.mpUrl" @click="handleServiceClick(serviceInfo.mpUrl)">
             <image class="icon" src="/static/user/user.png"></image>
-            <view class="content share">
+            <view class="content">
               <view>官方公众号</view>
             </view>
           </view>
@@ -79,7 +79,7 @@
               <view>我有建议</view>
             </view>
           </button>
-          <button class="item" open-type="contact">
+          <button class="item" v-if="serviceInfo.about" @click="handleServiceClick(serviceInfo.about)">
             <image class="icon" src="/static/user/about.png"></image>
             <view class="content share">
               <view>关于</view>
@@ -106,7 +106,7 @@ export default {
   computed: {
     ...mapState({
       income: (state) => state.user.income,
-      baseInfo: (state) => state.user.baseInfo,
+      serviceInfo: (state) => state.user.serviceInfo,
       info: (state) => state.user.info,
     }),
     ...mapGetters(["level"]),
@@ -134,6 +134,12 @@ export default {
     handlePayToolShow() {
       uni.navigateTo({
         url: "/pages/withdraw/withdraw",
+      });
+    },
+
+    handleServiceClick(url) {
+      uni.navigateTo({
+        url: `/pages/webview/webview?url=${encodeURIComponent(url)}`,
       });
     },
   },

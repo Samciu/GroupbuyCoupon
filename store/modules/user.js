@@ -2,15 +2,15 @@
  * @Author: dazhao 
  * @Date: 2021-03-31 14:59:52 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-05-25 15:42:01
+ * @Last Modified time: 2021-06-02 03:32:47
  */
 
-import { getUserIncome, getUserBaseInfo, getUserInfo } from "@/request";
+import { getUserIncome, getUserBaseInfo, getUserInfo, getUserServiceInfo } from "@/request";
 
 export default {
     state: {
         income: {},
-        baseInfo: {},
+        serviceInfo: {},
         info: {}
     },
     getters: {
@@ -21,8 +21,9 @@ export default {
             state.income = payload
         },
 
-        setUserBaseInfo(state, payload) {
-            state.baseInfo = payload
+        setUserServiceInfo(state, payload) {
+            console.log("payload",payload)
+            state.serviceInfo = payload
         },
 
         setUserInfo(state, payload) {
@@ -31,21 +32,15 @@ export default {
     },
     actions: {
         async userInit({ dispatch, commit }, payload) {
-            // dispatch('fetchUserIncome')
-            // dispatch('fetchUserBaseInfo')
+            dispatch('fetchUserServiceInfo')
             dispatch('fetchUserInfo')
         },
 
-        async fetchUserIncome({ dispatch, commit }, payload) {
-            const [err, res] = await getUserIncome();
+        async fetchUserServiceInfo({ dispatch, commit }, payload) {
+            const [err, res] = await getUserServiceInfo();
             if (err) return
-            commit('setIncome', res.data.data)
-        },
-
-        async fetchUserBaseInfo({ dispatch, commit }, payload) {
-            const [err, res] = await getUserBaseInfo();
-            if (err) return
-            commit('setUserBaseInfo', res.data.data)
+            console.log(res)
+            commit('setUserServiceInfo', res.result)
         },
 
         async fetchUserInfo({ dispatch, commit }, payload) {

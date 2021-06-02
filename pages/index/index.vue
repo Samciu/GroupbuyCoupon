@@ -287,7 +287,7 @@ page {
   background: #f2f2f2;
   display: flex;
   flex-direction: column;
-  padding: 20rpx 24rpx;
+  padding: 20rpx 32rpx;
   justify-content: space-between;
   box-shadow: 0 -2rpx 120rpx rgba(236, 89, 89, 0.1);
 
@@ -327,6 +327,7 @@ page {
       // margin-top: 18rpx;
       display: block;
       width: 100%;
+      height: 152rpx;
     }
   }
 }

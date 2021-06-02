@@ -1,7 +1,15 @@
 <template>
 	<view class="wrapper">
 		<view class="search">
-			<input class="search-input" placeholder="搜索补贴优惠券" confirm-type="search" @confirm="search"/>
+			<input class="search-input" placeholder="搜索补贴优惠券" confirm-type="search" v-model="keyWords" @confirm="search"/>
+			<view class="search-clear" @click="handleClearSearch">
+            <uni-icons
+              v-if="keyWords.length > 0"
+              type="clear"
+              size="24"
+              color="#666"
+            ></uni-icons>
+          </view>
 		</view>
 		<view class="notice">
 			<wyb-noticeBar :text="tips" type="vert" :show-more="false" class="notice-box" bgColor="rgba(0, 0, 0, 0.2)" color="#ffffff" width="345" v-if="tips.length > 0"/>
@@ -98,6 +106,7 @@
 				cardInfo: null,
 				showLoadTost: false,
 				loadMinapp: {},
+				keyWords: ""
 			}
 		},
 		async onLoad() {
@@ -286,6 +295,9 @@
 			},
 			closeLoadToast(){
 				this.showLoadTost = false
+			},
+			handleClearSearch() {
+				this.keyWords = ""
 			}
 		}
 	}
@@ -293,6 +305,7 @@
 
 <style lang="scss">
 	.search{
+		position: relative;
 		background: #fd7436;
 		position: relative;
 		z-index: 2;
@@ -307,6 +320,12 @@
 			border: 1px solid #f4f4f4;
 			border-radius: 12rpx;
 			background: #f4f4f4;
+		}
+		.search-clear {
+			position: absolute;
+			top: 50%;
+			right: 50rpx;
+			transform: translateY(-50%);
 		}
 	}
 	.notice{
