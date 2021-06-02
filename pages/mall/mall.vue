@@ -145,6 +145,13 @@
 			}
 			return shareConfig
 		},
+		onShareTimeline() {
+			let shareConfig = {
+				title: '领大额优惠券，享特权生活',
+				path: '/pages/index/index',
+			}
+			return shareConfig
+		},
 		methods: {
 			//选择分类
 			chooseOpt(e){

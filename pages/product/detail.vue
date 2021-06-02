@@ -118,6 +118,17 @@ export default {
         path: `pages/index/index?fromUid=${userInfo.id || ""}&path=${path}`,
       };
     },
+    onShareTimeline() {
+      const userInfo = uni.getStorageSync("userInfo");
+      const path = encodeURIComponent(
+        `/pages/product/detail?gcode=${this.goodsDetail.code}`
+      );
+      console.log(`fromUid=${userInfo.id || ""}&path=${path}`);
+      return {
+        title: `${userInfo.nickName} 送你一个 ${this.goodsDetail.name} 特价购买资格`,
+        path: `pages/index/index?fromUid=${userInfo.id || ""}&path=${path}`,
+      };
+    },
   },
 };
 </script>

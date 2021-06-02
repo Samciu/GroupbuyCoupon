@@ -260,6 +260,13 @@ export default {
 
       return { ...config, ...currentInviteInfo.shareConfig };
     },
+
+    onShareTimeline(res) {
+      const config = getShareMessage();
+      const currentInviteInfo = this.inviteInfo[this.active];
+
+      return { ...config, ...currentInviteInfo.shareConfig };
+    },
   },
 };
 </script>

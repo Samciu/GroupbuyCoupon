@@ -567,6 +567,10 @@ export default {
     onShareAppMessage(res) {
       return getShareMessage()
     },
+
+    onShareTimeline() {
+      return getShareMessage()
+    }
   },
 };
 </script>

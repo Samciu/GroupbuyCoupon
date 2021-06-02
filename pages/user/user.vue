@@ -125,6 +125,10 @@ export default {
       return getShareMessage();
     },
 
+    onShareTimeline() {
+      return getShareMessage()
+    },
+
     jump(url) {
       uni.navigateTo({
         url,

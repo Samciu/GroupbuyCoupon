@@ -125,6 +125,12 @@ export default {
         imageUrl: this.dealBaseInfo.defaultPic
       };
     },
+    onShareTimeline(res) {
+      return {
+        title: `大众点评优惠券限时抢！${this.shopInfo.shopName}`,
+        imageUrl: this.dealBaseInfo.defaultPic
+      };
+    },
   },
 };
 </script>
