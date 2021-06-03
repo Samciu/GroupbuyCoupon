@@ -302,10 +302,10 @@ page {
 
   &.layout2 {
     flex-direction: row;
+    justify-content: space-between;
 
     .activity-left {
       margin-bottom: 0;
-      margin-right: 20rpx;
       height: 428rpx;
       width: 334rpx;
 
@@ -315,20 +315,21 @@ page {
       }
 
       image {
-        width: 344rpx;
-        height: 428rpx;
+        height: 100%;
+        width: 100%;
       }
     }
 
     .activity-right {
-      flex: 1;
+      justify-content: space-between;
       margin-right: 0;
-      margin-bottom: -20rpx;
       flex-direction: column;
 
       .activity-item {
+        flex: initial;
         margin-right: 0;
-        margin-bottom: 20rpx;
+        height: 204rpx;
+        width: 332rpx;
       }
 
       image {

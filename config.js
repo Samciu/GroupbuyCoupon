@@ -1,5 +1,5 @@
 
 export default {
     baseUrl: "https://zy-api.wxthe.com",
-    Appid: 'zyc4dd3668ee9a2a46'
+    Appid: 'zy6ae47a58f812c018'
 }
