@@ -30,7 +30,7 @@
       </uni-nav-bar>
     </view>
     <view :style="'height:' + navHeight + 'px'"></view>
-    <!-- <recommand></recommand> -->
+    <recommand></recommand>
     <view class="sticky-box" :style="'top:' + navHeight + 'px'">
       <view class="sort-bar row">
         <view

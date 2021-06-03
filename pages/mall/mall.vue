@@ -22,45 +22,6 @@
 				</view>
 			</view>
 		</view>
-		<view class="showcase3" v-if="showcase3.people">
-			<view class="showcase3-head">
-				<view class="showcase3-head-title">
-					超人气补贴
-				</view>
-				<view class="showcase3-head-title1">
-					每日限量
-				</view>
-				<view class="showcase3-head-people">
-					{{showcase3.people}}人疯抢中
-				</view>
-				<image src="https://funimg.pddpic.com/pincard/2020-11-20/52c0ac62-4a03-4d58-9c6d-5e6961e0983e.png?imageView2/2/w/800/q/70/format/webp" mode="" class="showcase3-head-bg"></image>
-			</view>
-			<view class="showcase3-list">
-				<view class="showcase3-list-item" v-for="(item, i) in showcase3.goods" :key="i" @click="goShop(item.goods_id)" >
-					
-					<view class="showcase3-list-item-goods">
-						<image :src="item.goods_thumbnail_url" class="showcase3-list-item-goods-thumb"></image>
-					</view>
-					<view class="showcase3-list-item-info">
-						<view class="showcase3-list-item-info-title">
-							{{item.goods_name}}
-						</view>
-						<view class="showcase3-list-item-info-sale">
-							已补{{item.sale}}件
-						</view>
-						<view class="showcase3-list-item-info-price">
-							<view class="showcase3-list-item-info-price-name">
-								补贴价
-							</view>
-							<view class="showcase3-list-item-info-price-num">
-								¥{{item.goods_coupon_price}}
-							</view>
-						</view>
-					</view>
-					
-				</view>
-			</view>
-		</view>
 		<!--分类--排序-->
 		<view :class="['optSort', optSortFix ? 'fix' : '']">
 			<optList :nowOpt="nowOpt" @chooseOpt="chooseOpt"></optList>
@@ -175,18 +136,6 @@
 			getHomeShowcase2(){
 				this.$api.homeShowcase2().then((res)=>{
 					this.showcase2 = res.data
-				}).catch((err)=>{
-					uni.showToast({
-						icon: 'none',
-					    title: err.msg,
-					    duration: 2000
-					});
-				})
-			},
-			//showcase
-			getHomeShowcase3(){
-				this.$api.homeShowcase3().then((res)=>{
-					this.showcase3 = res.data
 				}).catch((err)=>{
 					uni.showToast({
 						icon: 'none',
@@ -333,6 +282,11 @@
 			top: 50%;
 			right: 50rpx;
 			transform: translateY(-50%);
+			width: 80rpx;
+			height: 80rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 	.notice{

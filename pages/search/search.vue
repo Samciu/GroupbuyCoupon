@@ -98,6 +98,11 @@
 			top: 50%;
 			right: 50rpx;
 			transform: translateY(-50%);
+			width: 80rpx;
+			height: 80rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 	.goodslist{

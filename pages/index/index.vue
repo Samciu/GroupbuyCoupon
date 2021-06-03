@@ -41,7 +41,11 @@
       </view>
       <brandLoading v-else />
     </loginWrap>
-    <view class="hot-activity" v-if="banner.length || coupon.length">
+    <view
+      class="hot-activity"
+      :class="{ layout2: layout == 2 }"
+      v-if="banner.length || coupon.length"
+    >
       <view class="activity-left" v-if="banner.length">
         <!-- <view class="title">1元拉新拼</view> -->
         <swiper
@@ -65,7 +69,7 @@
       <view class="activity-right" v-if="coupon.length">
         <view class="activity-item" v-for="(coupon, i) in coupon" :key="i">
           <image
-            mode="widthFix"
+            :mode="layout == 2 ? 'aspectFill' : 'widthFix'"
             :src="coupon.pic.url"
             @click="handleProductClick(coupon)"
           />
@@ -114,8 +118,8 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import getShareMessage from "@/utils/getShareMessage";
-import brandLoading from "./components/brandLoading"
-import cardLoading from "./components/cardLoading"
+import brandLoading from "./components/brandLoading";
+import cardLoading from "./components/cardLoading";
 
 export default {
   components: { brandLoading, cardLoading },
@@ -128,6 +132,7 @@ export default {
       productHotList: (state) => state.index.productHotList,
       banner: (state) => state.index.banner,
       coupon: (state) => state.index.coupon,
+      layout: (state) => state.index.layout,
     }),
   },
   onLoad(option) {
@@ -174,7 +179,7 @@ export default {
 
     handleProductClick(data) {
       const { type, appId, path, url } = data;
-      
+
       if (type == "page") {
         uni.navigateTo({
           url: path,
@@ -203,8 +208,8 @@ export default {
     },
 
     onShareTimeline() {
-      return getShareMessage()
-    }
+      return getShareMessage();
+    },
   },
 };
 </script>
@@ -294,6 +299,44 @@ page {
   padding: 20rpx 32rpx;
   justify-content: space-between;
   box-shadow: 0 -2rpx 120rpx rgba(236, 89, 89, 0.1);
+
+  &.layout2 {
+    flex-direction: row;
+
+    .activity-left {
+      margin-bottom: 0;
+      margin-right: 20rpx;
+      height: 428rpx;
+      width: 334rpx;
+
+      .swiper {
+        height: 100%;
+        width: 100%;
+      }
+
+      image {
+        width: 344rpx;
+        height: 428rpx;
+      }
+    }
+
+    .activity-right {
+      flex: 1;
+      margin-right: 0;
+      margin-bottom: -20rpx;
+      flex-direction: column;
+
+      .activity-item {
+        margin-right: 0;
+        margin-bottom: 20rpx;
+      }
+
+      image {
+        width: 100;
+        height: 100%;
+      }
+    }
+  }
 
   .swiper {
     height: 160rpx;

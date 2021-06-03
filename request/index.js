@@ -35,7 +35,7 @@ const request = async (opts) => {
     return [err, res]
 }
 
-const cloudRequest = ({name, data}) => {
+const cloudRequest = ({name, data = {}}) => {
     data.data = { ...data.data , platform }
     return uniCloud.callFunction({
         name,
@@ -278,8 +278,8 @@ export const getCardOrderCancel = data => {
 
 export const getCardProductRecommand = async data => {
     const res = await cloudRequest({
-        name: "uni-admin",
-        data: { action: 'api/home/banner', data },
+        name: "banner",
+        // data: { action: 'api/home/banner', data },
     });
 
     return [null, res]

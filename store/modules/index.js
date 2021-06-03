@@ -2,7 +2,7 @@
  * @Author: dazhao 
  * @Date: 2021-05-06 16:34:57 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-05-26 23:16:57
+ * @Last Modified time: 2021-06-03 01:36:26
  */
 
 import { getProductActivity, getProductHot, getCardProductRecommand } from "@/request"
@@ -12,7 +12,8 @@ export default {
         productActivityList: [],
         productHotList: [],
         banner: [],
-        coupon: []
+        coupon: [],
+        layout: 0
     },
     getters: {
 
@@ -32,6 +33,7 @@ export default {
             console.log(payload)
             state.banner = payload.banner
             state.coupon = payload.coupon
+            state.layout = payload.layout
         },
     },
     actions: {
@@ -50,7 +52,7 @@ export default {
         async fetchCardProductRecommand({ dispatch, commit }) {
             const [err, res] = await getCardProductRecommand()
             if (err) return;
-            commit('setProductRecommand', res.result.data)
+            commit('setProductRecommand', res.result)
         }
     }
 }
