@@ -95,8 +95,10 @@ export default {
     },
 
     async fetchProductDetail(pcode) {
+      uni.showLoading({ title: "加载优惠中" });
       const [err, res] = await getProductDetail({ pcode });
       this.productDetail = res.result.data;
+      uni.hideLoading()
     },
   },
 };

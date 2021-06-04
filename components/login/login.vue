@@ -41,10 +41,13 @@
 import { mapMutations, mapActions, mapState, mapGetters } from "vuex";
 import { getUserLogin } from "../../request";
 
-function getCurrentPage() {
-  const currentPages = getCurrentPages();
-  const currentPage = currentPages[currentPages.length - 1];
-  return currentPage.route;
+function getCurrentPageUrlWithArgs() {
+  const pages = getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  const url = currentPage.route
+  const options = currentPage.options
+  const urlWithArgs = `/${url}?` + Object.keys(options).map(key => `${key}=${options[key]}`).join('&')
+  return urlWithArgs
 }
 
 export default {
@@ -110,7 +113,7 @@ export default {
       const { token, user } = res.data.data;
       this.setUserData({ token, user });
       this.setLoginShow(false);
-      uni.reLaunch({ url: `/${getCurrentPage()}` });
+      uni.reLaunch({ url: `/${getCurrentPageUrlWithArgs()}` });
     },
   },
 };

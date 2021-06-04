@@ -93,14 +93,17 @@ export default {
   },
   methods: {
     jumpToCheckout(item) {
+      if (!this.goodsDetail.code) return
       uni.navigateTo({
         url: `/pages/product/checkout?gcode=${this.goodsDetail.code}`,
       });
     },
     async fetchGoodsDetail(gcode) {
+      uni.showLoading({ title: "加载优惠中" });
       const [err, res] = await getGoodsDetail({ gcode });
       this.goodsDetail = res.result.data;
       console.log(res.result.data);
+      uni.hideLoading()
     },
     back() {
       uni.navigateBack({

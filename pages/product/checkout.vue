@@ -102,9 +102,11 @@ export default {
   },
   methods: {
     async fetchOrderSku(gcode) {
+      uni.showLoading({ title: "加载优惠中" });
       const [err, res] = await getOrderSku({ gcode });
       this.goods = res.result.data.goods;
       this.product = res.result.data.product;
+      uni.hideLoading()
     },
     async makeOrder() {
       // 做个防抖
