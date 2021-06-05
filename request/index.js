@@ -287,8 +287,7 @@ export const getCardProductRecommand = async data => {
 
 export const getCardCateList = async data => {
     const res = await cloudRequest({
-        name: "uni-admin",
-        data: { action: 'api/brand/cate', data },
+        name: "classify"
     });
 
     return [null, res]

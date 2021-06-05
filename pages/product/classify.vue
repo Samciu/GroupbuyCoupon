@@ -27,7 +27,7 @@
     </view> -->
     <view class="classify-body">
       <view class="left">
-        <view class="tab-list">
+        <view class="tab-list" v-if="list.length">
           <view
             class="tab b-b"
             :class="{ active: -1 == navIndex }"
@@ -37,10 +37,10 @@
           <view
             class="tab b-b"
             :class="{ active: index == navIndex }"
-            v-for="(item, index) in cate"
+            v-for="(item, index) in list"
             :key="index"
             @click="handleNavClick(index)"
-            >{{ item }}</view
+            >{{ item.name }}</view
           >
         </view>
       </view>
@@ -91,7 +91,6 @@ export default {
   },
   data() {
     return {
-      cate: [],
       list: [],
       clickedNavIndex: 0,
       navIndex: -1,
@@ -101,7 +100,7 @@ export default {
     };
   },
   async onLoad() {
-    uni.showLoading();
+    uni.showLoading({ title: "加载优惠中" });
     await this.fetchCardCateList();
     this.init();
     uni.hideLoading();
@@ -109,9 +108,8 @@ export default {
   methods: {
     async fetchCardCateList() {
       const [err, res] = await getCardCateList();
-      console.log(res.result.data);
-      this.cate = res.result.data.cate;
-      this.list = res.result.data.list;
+      console.log(res.result);
+      this.list = res.result.list;
     },
     init() {
       const query = uni.createSelectorQuery();
