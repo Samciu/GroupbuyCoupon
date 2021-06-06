@@ -120,6 +120,7 @@
         >再来一单</view
       >
     </view>
+    <serviceBox />
   </view>
 </template>
 

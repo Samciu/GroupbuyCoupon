@@ -55,6 +55,7 @@
           indicatorActiveColor="#fff"
           indicatorColor="#ccc"
           :indicatorDots="true"
+          v-if="banner.length > 1"
         >
           <swiper-item
             class="swiper-item"
@@ -65,6 +66,9 @@
             <image class="img" mode="aspectFill" :src="banner.pic.url"></image>
           </swiper-item>
         </swiper>
+        <view class="swiper" v-else>
+          <image class="img" mode="aspectFill" :src="banner[0].pic.url"></image>
+        </view>
       </view>
       <view class="activity-right" v-if="coupon.length">
         <view class="activity-item" v-for="(coupon, i) in coupon" :key="i">

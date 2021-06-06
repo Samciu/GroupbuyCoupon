@@ -67,19 +67,28 @@
               <view>分享好友</view>
             </view>
           </button>
-          <view class="item" bindtap="sponsor" v-if="serviceInfo.mpUrl" @click="handleServiceClick(serviceInfo.mpUrl)">
+          <view
+            class="item"
+            bindtap="sponsor"
+            v-if="serviceInfo.mpUrl"
+            @click="handleServiceClick(serviceInfo.mpUrl)"
+          >
             <image class="icon" src="/static/user/user.png"></image>
             <view class="content">
               <view>官方公众号</view>
             </view>
           </view>
           <button class="item" open-type="contact">
-            <image class="icon" src="/static/user/notes.png"></image>
+            <image class="icon" src="/static/user/service.png"></image>
             <view class="content share">
-              <view>我有建议</view>
+              <view>联系客服</view>
             </view>
           </button>
-          <button class="item" v-if="serviceInfo.about" @click="handleServiceClick(serviceInfo.about)">
+          <button
+            class="item"
+            v-if="serviceInfo.about"
+            @click="handleServiceClick(serviceInfo.about)"
+          >
             <image class="icon" src="/static/user/about.png"></image>
             <view class="content share">
               <view>关于</view>
@@ -88,6 +97,7 @@
         </view>
       </div>
 
+      <serviceBox />
       <view class="version"> v1.0 </view>
     </loginWrap>
 
@@ -126,7 +136,7 @@ export default {
     },
 
     onShareTimeline() {
-      return getShareMessage()
+      return getShareMessage();
     },
 
     jump(url) {
