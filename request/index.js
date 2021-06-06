@@ -203,8 +203,7 @@ export const getWithdrawList = data => {
 
 export const getProductActivity = async data => {
     const res = await cloudRequest({
-        name: "uni-admin",
-        data: { action: 'api/home/hot', data },
+        name: "hot",
     });
 
     return [null, res]
@@ -212,8 +211,7 @@ export const getProductActivity = async data => {
 
 export const getProductHot = async data => {
     const res = await cloudRequest({
-        name: "uni-admin",
-        data: { action: 'api/home/recommand', data },
+        name: "recommand",
     });
 
     return [null, res]
@@ -221,8 +219,8 @@ export const getProductHot = async data => {
 
 export const getProductDetail = async data => {
     const res = await cloudRequest({
-        name: "uni-admin",
-        data: { action: 'api/brand/detail', data },
+        name: "brandDetail",
+        data,
     });
 
     return [null, res]
@@ -279,7 +277,6 @@ export const getCardOrderCancel = data => {
 export const getCardProductRecommand = async data => {
     const res = await cloudRequest({
         name: "banner",
-        // data: { action: 'api/home/banner', data },
     });
 
     return [null, res]
