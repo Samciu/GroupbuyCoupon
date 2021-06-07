@@ -67,7 +67,7 @@
           </swiper-item>
         </swiper>
         <view class="swiper" v-else>
-          <image class="img" mode="aspectFill" :src="banner[0].pic.url"></image>
+          <image class="img" mode="aspectFill" :src="banner[0].pic.url" @click="handleProductClick(banner[0])"></image>
         </view>
       </view>
       <view class="activity-right" v-if="coupon.length">
