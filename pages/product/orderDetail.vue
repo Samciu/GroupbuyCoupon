@@ -161,6 +161,14 @@ export default {
       });
     },
     async orderCancel(out_trade_no) {
+      const [modalErr, modalRes] = await uni.showModal({
+        title: "提示",
+        content: "确定要取消订单吗？",
+        confirmText: "确认",
+        cancelText: "取消",
+      });
+      
+      if (!modalRes.confirm) return
       const [err, res] = await getCardOrderCancel({ out_trade_no });
       if (res.data.code == 200) {
         uni.showToast({
