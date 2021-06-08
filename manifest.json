@@ -50,12 +50,12 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxa46d0acf9cec6754",
+        "appid" : "wxd959c7430a650199",
         "setting" : {
             "urlCheck" : false
         },
         "usingComponents" : {
-            "pay-user-info": "plugin://myPlugin/pay-user-info"
+            "pay-user-info" : "plugin://myPlugin/pay-user-info"
         },
         "permission" : {
             "scope.userLocation" : {

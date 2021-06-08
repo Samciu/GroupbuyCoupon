@@ -3,11 +3,11 @@
     <view class="nav-bar">
       <view
         class="item"
-        :class="{ active: index == tabNum }"
-        v-for="(item, index) in statusList"
+        :class="{ active: item.id == tabNum }"
+        v-for="(item, index) in statusBar"
         :key="index"
-        @click="changeTab(index)"
-        >{{ item }}</view
+        @click="changeTab(item.id)"
+        >{{ item.name }}</view
       >
     </view>
     <view class="order-list">
@@ -17,7 +17,7 @@
             <image class="logo" mode="aspectFill" :src="item.product.logo" />
             <view class="name">{{ item.product.name }}</view>
             <view class="status" :class="{ close: item.status == 4 }">{{
-              statusList[item.status]
+              getStatusNameById(item.status)
             }}</view>
           </view>
           <view class="product">
@@ -44,7 +44,7 @@
               >
             </view>
             <view class="price-item total-price"
-              >{{item.status == 1 ? "需付款" : "实付款"}}
+              >{{ item.status == 1 ? "需付款" : "实付款" }}
               <view class="price"
                 ><text class="rmb">¥</text>{{ item.money_str }}</view
               >
@@ -80,22 +80,37 @@ export default {
   data() {
     return {
       list: [],
-      statusList: ["全部", "待付款", "待发货", "已完成", "已关闭"],
+      statusList: [
+        { name: "全部", id: 0 },
+        { name: "待付款", id: 1 },
+        { name: "待发货", id: 2 },
+        { name: "已完成", id: 3 },
+        { name: "已关闭", id: 4, noShow: 1 },
+        { name: "退款/售后", id: 5 },
+      ],
       tabNum: 0,
       p: 1,
       loading: false,
       isListEmpty: false,
     };
   },
+  computed: {
+    getStatusNameById() {
+      return (id) => this.statusList.find((item) => item.id == id).name;
+    },
+    statusBar() {
+      return this.statusList.filter(item => !item.noShow)
+    }
+  },
   onLoad(option) {
-    console.log("onLoad",option)
+    console.log("onLoad", option);
     const { status } = option;
     this.tabNum = status || 0;
     this.fetchCardOrderList();
   },
   onShow(e) {
-    console.log("onShow",e)
-    this.changeTab(this.tabNum)
+    console.log("onShow", e);
+    this.changeTab(this.tabNum);
   },
   methods: {
     async fetchCardOrderList() {
@@ -153,14 +168,14 @@ export default {
         cancelText: "取消",
       });
 
-      if (!modalRes.confirm) return
+      if (!modalRes.confirm) return;
 
       const [err, res] = await getCardOrderCancel({ out_trade_no });
       if (res.data.code == 200) {
         uni.showToast({
           title: "取消成功",
         });
-        this.changeTab(this.tabNum)
+        this.changeTab(this.tabNum);
       }
     },
 
@@ -173,7 +188,7 @@ export default {
           paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
         }, // 将传递到功能页函数的自定义参数
       };
-      console.log(args)
+      console.log(args);
       uni.navigateToMiniProgram({
         appId: "wx468ad252a66afc34",
         envVersion: "trial",
