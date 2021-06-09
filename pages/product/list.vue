@@ -11,7 +11,7 @@
         color="#ffffff"
         @clickLeft="back"
       ></uni-nav-bar>
-      <image class="banner" mode="aspectFill" :src="productDetail.cover_url" />
+      <image class="banner" :src="productDetail.cover_url" />
     </view>
     <view class="product-detail">
       <view class="head">
@@ -111,15 +111,15 @@ page {
 .banner-box {
   position: relative;
   width: 100%;
-  height: 576rpx;
+  height: 500rpx;
 }
 .banner {
   position: absolute;
   top: 0;
   left: 0;
   display: block;
-  width: 100%;
-  height: 500rpx;
+  width: 750rpx;
+  height: 387rpx;
 }
 .product-detail {
   position: relative;
