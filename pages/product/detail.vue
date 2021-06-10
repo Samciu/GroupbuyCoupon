@@ -106,7 +106,6 @@ export default {
       uni.hideLoading()
     },
     back() {
-      debugger
       const pages = getCurrentPages()
       if (pages.length > 1) {
         uni.navigateBack({
