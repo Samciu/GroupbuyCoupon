@@ -1,12 +1,165 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/takeout/takeout",
+			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "天天特权",
 				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#ff536f",
-				"navigationBarTextStyle": "white"
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/mall/mall",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#fd7436",
+				"backgroundColor": "#fd7436",
+				"enablePullDownRefresh": true
+			}
+			
+		}
+	    ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/theme/theme",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "主题活动",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索结果",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		
+
+		
+		{
+		    "path" : "pages/product/classify",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "权益分类",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+            "path" : "pages/product/orderList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的订单",
+                "enablePullDownRefresh": false
+            }
+        },
+		{
+            "path" : "pages/product/orderDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单详情",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        },
+		
+		{
+            "path" : "pages/product/paySuccess",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+        },
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#EC5959",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+            "path" : "pages/product/recharge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会员充值",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        },
+		{
+			"path": "pages/product/checkout",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/product/list",
+			"style": {
+				"navigationBarTitleText": "商品列表",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/product/detail",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/invite/invite",
+			"style": {
+				"navigationBarTitleText": "邀请",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/team/team",
+			"style": {
+				"navigationBarTitleText": "我的团队",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/withdraw/withdraw",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"enablePullDownRefresh": false,
+				"mp-weixin": {
+					"usingComponents": {
+						"pay-user-info": "plugin://myPlugin/pay-user-info"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/income/income",
+			"style": {
+				"navigationBarTitleText": "收益",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -25,16 +178,35 @@
 			}
 		},
 		{
-			"path": "pages/user/user",
+			"path": "pages/orderList/orderList",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "订单列表",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 300
+			}
+		},
+		{
+			"path": "pages/withdrawHistory/withdrawHistory",
+			"style": {
+				"navigationBarTitleText": "提现记录",
+				"navigationBarBackgroundColor": "#EC5959",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+        ,{
+            "path" : "pages/webview/webview",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "天天特权",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
@@ -45,10 +217,13 @@
 		"borderStyle": "white",
 		"list": [
 			{
-				"pagePath": "pages/takeout/takeout"
+				"pagePath": "pages/index/index"
 			},
 			{
 				"pagePath": "pages/arrive/arrive"
+			},
+			{
+				"pagePath": "pages/mall/mall"
 			},
 			{
 				"pagePath": "pages/user/user"

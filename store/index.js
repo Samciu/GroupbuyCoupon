@@ -1,20 +1,53 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import takeout from '@/store/modules/takeout'
+import index from '@/store/modules/index'
 import shop from '@/store/modules/shop'
 import arrive from '@/store/modules/arrive'
+import user from '@/store/modules/user'
+import orderList from '@/store/modules/orderList'
+import income from '@/store/modules/income'
+import withdraw from '@/store/modules/withdraw'
+import team from '@/store/modules/team'
+
+import { getPayToolUserLogin } from "@/request";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-
+        token: '',
+        userInfo: {},
+        loginShow: false, // 展示登陆弹窗
     },
+    getters: {
+		//是否登录
+		isLogin: state => {
+			return !!state.token
+		}	
+	},
     mutations: {
-
+        setLoginShow(state, payload) {
+            state.loginShow = payload
+        },
+        setToken(state, payload) {
+            state.token = payload;
+            uni.setStorageSync('token', payload)
+        },
+        setUserinfo(state, payload) {
+            state.userInfo = payload
+            uni.setStorageSync('userInfo', payload)
+        },
     },
     actions: {
+
+        getStore({commit}) {
+			const token = uni.getStorageSync('token');
+			if (token) {
+				commit('setToken', token);
+			}
+		},
+
         /**
          * 获取授权
          */
@@ -49,9 +82,30 @@ const store = new Vuex.Store({
             }
             return true;
         },
+
+        async setUserData({ dispatch, commit }, payload) {
+            const { token, user } = payload
+            console.log('setUserData', { token, user })
+            commit('setToken', token)
+            commit('setUserinfo', user)
+        },
+
+        async getLoginStatus({ dispatch, commit, state }) {
+            const token = state.token;
+
+            if (!token) {
+                commit('setLoginShow', true)
+            }
+        },
+
+        async fetchPayToolUserLogin({ dispatch, commit }, payload) {
+            const [err, res] = await getPayToolUserLogin(payload)
+
+            return res
+        }
     },
     modules: {
-        takeout, shop, arrive
+        index, shop, arrive, user, orderList, income, withdraw, team
     }
 })
 export default store

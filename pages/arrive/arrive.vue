@@ -162,7 +162,7 @@
         <image
           class="empty-image"
           mode="widthFix"
-          src="../../static/img_empty.png"
+          src="/static/img_empty.png"
         ></image>
         <view class="empty-text">暂无商家</view>
       </view>
@@ -199,6 +199,7 @@
 <script>
 import recommand from "./components/recommand/recommand";
 import { getArea, getCity, getCategory, getShopList } from "../../request";
+import getShareMessage from "@/utils/getShareMessage";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -564,58 +565,16 @@ export default {
         .exec();
     },
     onShareAppMessage(res) {
-      return {
-        title: "震惊！小明天天出来玩，竟然只花1分钱",
-        path: "pages/arrive/arrive",
-        imageUrl:
-          "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/1fa7c836-b3cc-44ba-84b0-6e6e9188244b.jpg",
-      };
+      return getShareMessage()
     },
+
+    onShareTimeline() {
+      return getShareMessage()
+    }
   },
 };
 </script>
 <style lang="scss">
-.b-b {
-  position: relative;
-
-  &::after {
-    position: absolute;
-    z-index: 3;
-    left: 0;
-    top: auto;
-    bottom: 0;
-    right: 0;
-    height: 0;
-    content: "";
-    transform: scaleY(0.5);
-    border-bottom: 1px solid #ddd;
-  }
-}
-
-/* 布局 */
-.row {
-  /* #ifndef APP-PLUS-NVUE */
-  display: flex;
-  /* #endif */
-  flex-direction: row;
-  align-items: center;
-}
-.column {
-  /* #ifndef APP-PLUS-NVUE */
-  display: flex;
-  /* #endif */
-  flex-direction: column;
-}
-.center {
-  /* #ifndef APP-PLUS-NVUE */
-  display: flex;
-  /* #endif */
-  align-items: center;
-  justify-content: center;
-}
-.fill {
-  flex: 1;
-}
 .top {
   position: fixed;
   left: 0;
