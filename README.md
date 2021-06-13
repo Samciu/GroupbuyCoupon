@@ -4,7 +4,7 @@
 
 ### 介绍
 
-DCloud 2021年插件大赛一等奖项目
+DCloud [2021年插件大赛](https://mp.weixin.qq.com/s/LWYTbEuMV-ixcrwSD6BMmw)一等奖项目。本仓库是小程序前端代码，[管理后台](https://ext.dcloud.net.cn/plugin?id=5196)需要在插件市场上购买授权。
 
 ### 部署指南
 
