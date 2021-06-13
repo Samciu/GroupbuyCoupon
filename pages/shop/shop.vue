@@ -54,7 +54,7 @@
             <view>享优惠</view>
           </view>
         </view>
-        <image
+        <!-- <image
           class="icon-dot-arrow"
           mode="widthFix"
           src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5421f5a2-25ab-411d-b114-90177d80d0eb/158c53f7-ac1e-4cff-9eb7-8404f6e751c3.png"
@@ -70,7 +70,7 @@
             <view>24小时内同步订单</view>
             <view>返现到账</view>
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="list animated fadeIn faster">
