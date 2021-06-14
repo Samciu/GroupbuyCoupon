@@ -87,6 +87,7 @@ export default {
         { name: "已完成", id: 3 },
         { name: "已关闭", id: 4, noShow: 1 },
         { name: "退款/售后", id: 5 },
+        { name: "已退款", id: 6, noShow: 1 }
       ],
       tabNum: 0,
       p: 1,

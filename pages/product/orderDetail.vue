@@ -17,7 +17,7 @@
       ></uni-nav-bar>
       <view class="order-status">
         <view class="status">{{
-          ["未知", "待付款", "待发货", "已完成", "已关闭"][detail.status]
+          ["未知", "待付款", "待发货", "已完成", "已关闭", "退款/售后", "已退款"][detail.status]
         }}</view>
       </view>
       <image
