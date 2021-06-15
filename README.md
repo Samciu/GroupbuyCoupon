@@ -47,6 +47,14 @@ DCloud [2021年插件大赛](https://mp.weixin.qq.com/s/LWYTbEuMV-ixcrwSD6BMmw)�
 
 请检查后台配置appid，appsecret配置正确；检查小程序端config.js的appid配置正确（为你的众佣appid）
 
+#### 为什么首页空白？
+
+请在后台商品管理和品牌管理同步数据，检查小程序后台是否已经配置合法域名： `https://api.bspapp.com`
+
+#### 为什么iPhone上跟模拟器上展示的商品不一样？
+
+iOS 上不能展示虚拟支付类商品，否则过不了平台审核，接口做了屏蔽处理
+
 #### 微信审核不通过 审核不通过原因如下图所示：
 
 <img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-38bad291-5aad-4157-9cbe-615aac906e6a/a2677a70-f1a9-4809-ae2f-40c780bb4aea.png"  />
