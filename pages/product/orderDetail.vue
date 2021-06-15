@@ -38,7 +38,13 @@
           <view class="code" @click="copy(cardItem.card_pwd, '密码')">{{cardItem.card_pwd}}</view>
         </view>
         <view class="time" v-if="cardItem.card_deadline">有效期至：{{ cardItem.card_deadline }}</view>
-        <view class="btn" @click="copy(cardItem.card_number)">复制</view>
+        <view class="control">
+          <view class="btn" @click="copy(cardItem.card_number)">复制</view>
+          <view class="btn" @click="showQrCode(cardItem.card_number)">二维码</view>
+        </view>
+        <view class="mask" v-if="qrCode" @click="hideQrcode">
+          <tki-qrcode :val="cardItem.card_number" size="400" :onval="onval" :loadMake="true" :usingComponents="true" />
+        </view>
       </view>
       <view class="product-info">
         <view class="head b-b">
@@ -133,6 +139,7 @@ export default {
   data() {
     return {
       detail: {},
+      qrCode: ""
     };
   },
   onLoad(option) {
@@ -159,6 +166,12 @@ export default {
           });
         },
       });
+    },
+    hideQrcode() {
+      this.qrCode = ""
+    },
+    showQrCode(code) {
+      this.qrCode = code;
     },
     async orderCancel(out_trade_no) {
       const [modalErr, modalRes] = await uni.showModal({
@@ -275,8 +288,14 @@ page {
     line-height: 36rpx;
     text-align: center;
   }
+  .control {
+    margin-top: 32rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .btn {
-    margin: 32rpx auto 0;
+    margin: 0 16rpx;
     width: 144rpx;
     height: 56rpx;
     line-height: 56rpx;
@@ -444,5 +463,19 @@ page {
     background: linear-gradient(315deg, #f77c6d 0%, #fda26b 50%, #ffbd81 100%);
     color: #ffffff;
   }
+}
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
 }
 </style>

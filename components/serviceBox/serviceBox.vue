@@ -18,6 +18,7 @@
   position: fixed;
   right: 20rpx;
   bottom: 200rpx;
+  z-index: 88;
   width: 146rpx;
   height: 134rpx;
   padding-bottom: env(safe-area-inset-bottom);
