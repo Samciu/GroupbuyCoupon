@@ -2,7 +2,6 @@
   <view class="main">
     <view class="banner-box">
       <uni-nav-bar
-        left-icon="back"
         status-bar="true"
         :border="false"
         :fixed="true"
@@ -10,7 +9,9 @@
         backgroundColor="transparent"
         color="#ffffff"
         @clickLeft="back"
-      ></uni-nav-bar>
+      >
+        <view class="left-icon" slot="left" />
+      </uni-nav-bar>
       <image class="banner" mode="aspectFill" :src="goodsDetail.thumb" />
     </view>
     <view class="price-detail">
@@ -106,7 +107,6 @@ export default {
       uni.hideLoading()
     },
     back() {
-      debugger
       const pages = getCurrentPages()
       if (pages.length > 1) {
         uni.navigateBack({
@@ -149,6 +149,13 @@ export default {
   position: relative;
   width: 100%;
   height: 750rpx;
+
+  .left-icon {
+    margin-left: 20rpx;
+    width: 64rpx;
+    height: 64rpx;
+    background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/9234b422-b7d1-4401-984c-21bd8712b421.png) no-repeat center/contain;
+  }
 }
 .banner {
   position: absolute;

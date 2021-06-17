@@ -42,12 +42,16 @@ import { mapMutations, mapActions, mapState, mapGetters } from "vuex";
 import { getUserLogin } from "../../request";
 
 function getCurrentPageUrlWithArgs() {
-  const pages = getCurrentPages()
-  const currentPage = pages[pages.length - 1]
-  const url = currentPage.route
-  const options = currentPage.options
-  const urlWithArgs = `/${url}?` + Object.keys(options).map(key => `${key}=${options[key]}`).join('&')
-  return urlWithArgs
+  const pages = getCurrentPages();
+  const currentPage = pages[pages.length - 1];
+  const url = currentPage.route;
+  const options = currentPage.options;
+  const urlWithArgs =
+    `/${url}?` +
+    Object.keys(options)
+      .map((key) => `${key}=${options[key]}`)
+      .join("&");
+  return urlWithArgs;
 }
 
 export default {
@@ -60,7 +64,7 @@ export default {
       loginShow: (state) => {
         console.log("loginShow", state.loginShow);
         return state.loginShow;
-      }
+      },
     }),
 
     ...mapGetters(["isLogin"]),
@@ -85,13 +89,18 @@ export default {
      * 获取token，以及用户信息
      */
     async getUserProfile() {
-      const [userProfileErr, userProfileRes] = await uni.getUserProfile({
-        desc: "用于完善会员资料",
-      });
+      const [userProfile, login] = await Promise.all([
+        uni.getUserProfile({
+          desc: "用于完善会员资料",
+        }),
+        uni.login(),
+      ]);
+      
+      const [userProfileErr, userProfileRes] = userProfile;
       if (userProfileErr) return;
-      const [loginErr, loginRes] = await uni.login();
-      const fromUid = uni.getStorageSync('fromUid'); // 邀请来源
-      console.log('getUserLogin fromUid:',fromUid)
+      const [loginErr, loginRes] = login;
+      const fromUid = uni.getStorageSync("fromUid"); // 邀请来源
+      console.log("getUserLogin fromUid:", fromUid);
       const [err, res] = await getUserLogin({
         code: loginRes.code,
         iv: userProfileRes.iv,
