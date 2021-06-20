@@ -11,6 +11,17 @@
 			}
 		},
 		{
+            "path" : "pages/activity/sign",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		
+		
+		{
 			"path": "pages/mall/mall",
 			"style": {
 				"navigationBarTextStyle": "white",
@@ -63,7 +74,12 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的订单",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"mp-weixin": {
+					"usingComponents": {
+						"pay": "plugin://myPlugin/pay"
+					}
+				}
             }
         },
 		{
@@ -72,7 +88,12 @@
             {
                 "navigationBarTitleText": "订单详情",
                 "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"mp-weixin": {
+					"usingComponents": {
+						"pay": "plugin://myPlugin/pay"
+					}
+				}
             }
             
         },
@@ -109,7 +130,12 @@
 			"path": "pages/product/checkout",
 			"style": {
 				"navigationBarTitleText": "确认订单",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"mp-weixin": {
+					"usingComponents": {
+						"pay": "plugin://myPlugin/pay"
+					}
+				}
 			}
 		},
 		{
@@ -203,6 +229,7 @@
             }
             
         }
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

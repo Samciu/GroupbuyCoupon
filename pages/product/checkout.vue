@@ -32,15 +32,15 @@
         <view class="list-info-item">
           <view class="name">购买数量</view>
           <view class="control">
-            <view class="subtract" @click="sub"></view>
+            <view class="subtract" :class="{disabled: num <= minNum}" @click="sub"></view>
             <view class="num">{{ num }}</view>
-            <view class="add" @click="add"></view>
+            <view class="add" :class="{disabled: num >= maxNum}" @click="add"></view>
           </view>
         </view>
         <view class="list-info-item" v-if="goods.type == 2">
           <view class="name">充值账号</view>
-          <view class="control b-b" style="text-align: right;padding: 12rpx 0">
-            <input v-model="account" placeholder="请输入充值账号" />
+          <view class="control b-b" style="text-align: right; padding: 12rpx 0">
+            <input v-model="account" :placeholder="goods.placeholder || '请输入充值账号'" />
           </view>
         </view>
       </view>
@@ -51,10 +51,15 @@
         >
       </view>
     </view>
-    <!-- <pay :args="args" @paymentSuccess="paymentSuccess" @paymentFailed="paymentFailed">
-      <view class="pay-btn" @click="makeOrder">提交订单</view>
-    </pay> -->
-    <view class="pay-btn" @click="makeOrder">去收银台</view>
+    <pay
+      v-if="usePlugin && !validateForm"
+      :args="args"
+      @paymentSuccess="paymentSuccess"
+      @paymentFailed="paymentFailed"
+    >
+      <view class="pay-btn">提交订单</view>
+    </pay>
+    <view v-else class="pay-btn" @click="makeOrder">去收银台</view>
   </view>
 </template>
 
@@ -70,11 +75,14 @@ export default {
       product: null,
       num: 1,
       account: "",
+      usePlugin: config.usePlugin, // 是否使用支付插件
       timeout: null, // 防抖定时器
+      maxNum: 1, // 最大下单数量
+      minNum: 1, // 最小下单数量
     };
   },
   computed: {
-    ...mapState(['token']),
+    ...mapState(["token"]),
 
     args() {
       const { num, goods, token, account } = this;
@@ -84,13 +92,21 @@ export default {
           goods_price: goods.price,
           gcode: goods.code,
           num,
-          account,
+          account: account.split(" ").join(""),
           appid: config.Appid,
           token,
           paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
         }, // 将传递到功能页函数的自定义参数
         currencyType: "CNY", // 货币符号，页面显示货币简写 US$
       };
+    },
+
+    validateForm() {
+      if (!this.account && this.goods.type == 2) {
+        return "请输入充值账号";
+      } else {
+        return "";
+      }
     },
   },
   onLoad: function (option) {
@@ -106,7 +122,7 @@ export default {
       const [err, res] = await getOrderSku({ gcode });
       this.goods = res.result.data.goods;
       this.product = res.result.data.product;
-      uni.hideLoading()
+      uni.hideLoading();
     },
     async makeOrder() {
       // 做个防抖
@@ -116,13 +132,13 @@ export default {
         this.timeout = null;
       }, 500);
       if (callNow) {
-        console.log(this.args)
-        if (!this.account && this.goods.type == 2) {
+        console.log(this.args);
+        if (this.validateForm) {
           uni.showToast({
-            title: "请输入充值账号",
-            icon: "none"
-          })
-          return
+            title: this.validateForm,
+            icon: "none",
+          });
+          return;
         }
         uni.navigateToMiniProgram({
           appId: "wx468ad252a66afc34",
@@ -133,17 +149,31 @@ export default {
       }
     },
     sub() {
-      if (this.num == 1) return;
+      if (this.num <= this.minNum) return;
       this.num = this.num - 1;
     },
     add() {
+      if (this.num >= this.maxNum) return;
       this.num = this.num + 1;
     },
     paymentSuccess(data) {
-      console.log("paymentSuccess1", data);
+      uni.showToast({
+        title: "支付成功",
+        duration: 3000,
+      });
+      uni.navigateTo({
+        url: "/pages/product/paySuccess",
+      });
     },
     paymentFailed(data) {
-      console.log("paymentFailed2", data);
+      uni.showToast({
+        title: "支付失败",
+        duration: 2000,
+        icon: "none",
+      });
+      uni.navigateTo({
+        url: "/pages/product/list",
+      });
     },
   },
 };
@@ -324,12 +354,21 @@ page {
 }
 
 .add {
-  // https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/ebd04270-70bb-41e0-89dc-17c12137cbd2.png
-  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/8b325d3f-5020-4f11-b192-043c10402dba.png) no-repeat center/contain;
+  
+  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/8b325d3f-5020-4f11-b192-043c10402dba.png)
+    no-repeat center/contain;
+
+    &.disabled {
+      background-image: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d388eea6-9e91-4aa4-b5af-58a45ff2fdd6.png);
+    }
 }
 .subtract {
-  // https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/d388eea6-9e91-4aa4-b5af-58a45ff2fdd6.png
-  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/267a9f5f-1e1c-466e-a91f-ba48c74cba53.png) no-repeat center/contain;
+  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/267a9f5f-1e1c-466e-a91f-ba48c74cba53.png)
+    no-repeat center/contain;
+
+    &.disabled {
+      background-image: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/ebd04270-70bb-41e0-89dc-17c12137cbd2.png);
+    }
 }
 
 .pay-btn {
