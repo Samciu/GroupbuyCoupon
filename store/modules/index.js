@@ -2,10 +2,10 @@
  * @Author: dazhao 
  * @Date: 2021-05-06 16:34:57 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-06-06 12:19:51
+ * @Last Modified time: 2021-06-22 01:14:00
  */
 
-import { getProductActivity, getProductHot, getCardProductRecommand } from "@/request"
+import { getProductActivity, getProductHot, getCardProductRecommand, getHomePopup } from "@/request"
 
 export default {
     state: {
@@ -13,7 +13,8 @@ export default {
         productHotList: [],
         banner: [],
         coupon: [],
-        layout: 0
+        layout: 0,
+        homePopup: []
     },
     getters: {
 
@@ -35,6 +36,10 @@ export default {
             state.coupon = payload.coupon
             state.layout = payload.layout
         },
+        setHomePopup(state, payload) {
+            console.log(payload)
+            state.homePopup = payload
+        }
     },
     actions: {
         async fetchProductActivity({ dispatch, commit }) {
@@ -53,6 +58,12 @@ export default {
             const [err, res] = await getCardProductRecommand()
             if (err) return;
             commit('setProductRecommand', res.result)
+        },
+
+        async fetchHomePopup({ dispatch, commit }) {
+            const [err, res] = await getHomePopup()
+            if (err) return;
+            commit('setHomePopup', res.result)
         }
     }
 }

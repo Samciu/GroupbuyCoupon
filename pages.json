@@ -14,13 +14,10 @@
             "path" : "pages/activity/sign",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "免费领会员",
                 "enablePullDownRefresh": false
             }
-            
         },
-		
-		
 		{
 			"path": "pages/mall/mall",
 			"style": {

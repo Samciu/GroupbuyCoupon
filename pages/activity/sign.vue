@@ -18,6 +18,20 @@
     <view class="banner-wrap">
       <view class="banner" />
     </view>
+    <view class="tips-bar">
+      <wyb-noticeBar
+        :text="info.tips"
+        type="vert"
+        :show-more="false"
+        class="notice-box"
+        bgColor="#fcf6ea"
+        color="#b03d19"
+        width="343"
+        height="78"
+        font-size="28"
+        v-if="info.tips.length"
+      />
+    </view>
     <view class="task">
       <view class="task_top"
         >本期活动时间：{{ info.period.monthStart }}-{{
@@ -44,14 +58,12 @@
                 >/30
               </view>
             </view>
-            <view class="task_first_top_status task_first_top_status_red"
-              >已完成</view
-            >
+            <view v-if="user.info.isComplete" class="task_first_top_status task_first_top_status_red">已完成</view>
+            <view v-else class="task_first_top_status task_first_top_status_red">未完成</view>
           </view>
           <view class="task_first_content">
-            <view class="today_title today_title_gray"
-              >今日已打卡 明日再来哦</view
-            >
+            <view v-if="info.user.hasSign" class="today_title today_title_gray">今日已打卡 明日再来哦</view>
+            <view v-else class="today_title">今日未打卡</view>
             <view class="today_desc"
               >点击下方立即领取，成功领取外卖红包，即打卡成功</view
             >
@@ -92,16 +104,25 @@
         </view> -->
       </view>
     </view>
-    <view class="exchange_btn">兑换会员</view>
+    <view class="exchange_btn" @click="exchange">兑换会员</view>
     <view class="exchange_users"
       >已有<text class="exchange_users_red">{{ info.getNum }}</text
       >人兑换了会员</view
     >
+    <view class="rules" @click="openPopup">活动规则</view>
+    <uni-popup id="popup" ref="popup" type="bottom" animation="true">
+      <rulesBox @closePopup="closePopup" :rules="info.rules" />
+    </uni-popup>
+    <uni-popup id="contact" ref="contact" type="bottom" animation="true">
+      <contactBox @closeExchange="closeExchange" :rules="info.rules" />
+    </uni-popup>
   </view>
 </template>
 
 <script>
 import { getTaskSignInfo, getTaskSignDo } from "@/request";
+import rulesBox from './components/rulesBox/rulesBox.vue'
+import contactBox from './components/contactBox/contactBox.vue'
 
 export default {
   data() {
@@ -109,7 +130,14 @@ export default {
       info: {},
     };
   },
+  components: {
+    rulesBox, contactBox
+  },
   onLoad() {
+    
+  },
+  onShow(e) {
+    console.log("onShow", e);
     this.getTaskSignInfo();
   },
   methods: {
@@ -129,10 +157,32 @@ export default {
       });
       if (res?.errMsg == "navigateToMiniProgram:ok") {
         this.getTaskSignDo({
-          taskScene: item.platform
+          taskScene: item.platform,
+        });
+      }
+    },
+
+    openPopup() {
+      this.$refs.popup.open();
+    },
+    closePopup() {
+      this.$refs.popup.close();
+    },
+
+    exchange() {
+      if (this.info.user.isComplete) {
+        this.$refs.contact.open();
+      } else {
+        uni.showToast({
+          title: "条件尚不满足",
+          icon: "none"
         })
       }
     },
+
+    closeExchange() {
+      this.$refs.contact.close();
+    }
   },
 };
 </script>
@@ -144,12 +194,12 @@ page {
 }
 
 .banner-wrap {
-  padding-top: 80rpx;
+  padding-top: 100rpx;
 }
 .banner {
   width: 750rpx;
   height: 216rpx;
-  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/8649d604-b705-45ce-89b4-d5a70537d2ad.png)
+  background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/fff3c9c9-1605-4a86-b3ee-243ec92bf015.png)
     no-repeat center/contain;
 }
 .body_content {
@@ -159,6 +209,23 @@ page {
   background-size: 100%;
   background-color: #fe7853;
   padding-bottom: calc(env(safe-area-inset-bottom) + 48rpx);
+}
+
+.tips-bar {
+  box-sizing: border-box;
+  margin: 0 auto;
+  margin-top: 40rpx;
+  box-shadow: 0 0 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.rules {
+    padding: 6rpx 24rpx;
+    position: fixed;
+    top: 50rpx;
+    right: 0;
+    background: #ffe8ac;
+    color: #b03d19;
+    font-size: 26rpx;
 }
 
 .task {
@@ -210,8 +277,9 @@ page {
     font-weight: 700;
     margin-left: 20rpx;
     .task_first_top_title_red {
-      color: #ff3b57;
+      color: #ec5959;
       font-weight: 700;
+      padding: 0 6rpx;
     }
   }
   .task_first_top_score {
@@ -228,7 +296,7 @@ page {
   font-size: 28rpx;
 }
 .task_first_top_status_red {
-  color: #ff3b57;
+  color: #ec5959;
 }
 .task_first_content {
   display: flex;
@@ -249,6 +317,7 @@ page {
   filter: alpha(opacity=40);
 }
 .today_desc {
+  padding-top: 8rpx;
   color: #999;
   font-size: 24rpx;
 }
@@ -279,7 +348,7 @@ page {
     font-weight: 700;
     margin-left: 20rpx;
     .task_second_top_title_red {
-      color: #ff3b57;
+      color: #ec5959;
       font-weight: 700;
     }
   }
@@ -297,7 +366,7 @@ page {
   font-size: 28rpx;
 }
 .task_second_top_status_red {
-  color: #ff3b57;
+  color: #ec5959;
 }
 .task_second_content {
   padding: 0;
@@ -376,9 +445,10 @@ page {
   margin-top: 30rpx;
 }
 .exchange_users_red {
-  color: #ff3b57;
+  // color: #ec5959;
   font-size: 28rpx;
   font-weight: 700;
+  padding: 0 6rpx;
 }
 .buy_three {
   width: 100%;
@@ -393,9 +463,8 @@ page {
   margin-top: 30rpx;
 }
 .redcolor {
-  color: #ff3b57;
+  color: #ec5959;
 }
-
 
 .part1 {
   display: flex;

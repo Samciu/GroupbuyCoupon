@@ -820,6 +820,7 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 24rpx;
+    padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
     background: #fff;
     margin-top: 16rpx;
     color: #164ab0;

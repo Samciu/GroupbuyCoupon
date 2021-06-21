@@ -313,3 +313,10 @@ export const getTaskSignDo = async data => {
         method: "POST"
     })
 }
+
+export const getHomePopup = async data => {
+    return request({
+        url: "/minapp/v1/home/popup",
+        data,
+    })
+}

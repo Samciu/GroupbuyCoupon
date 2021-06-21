@@ -144,6 +144,7 @@ export default {
     this.fetchProductActivity();
     this.fetchProductHot();
     this.fetchCardProductRecommand();
+    this.fetchHomePopup()
     if (option.path) {
       this.jumpTo(option.path);
     }
@@ -154,6 +155,7 @@ export default {
       "fetchProductActivity",
       "fetchProductHot",
       "fetchCardProductRecommand",
+      "fetchHomePopup"
     ]),
 
     async initLocation() {

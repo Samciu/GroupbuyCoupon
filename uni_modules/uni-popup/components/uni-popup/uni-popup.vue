@@ -294,10 +294,10 @@
 		position: relative;
 		/* iphonex 等安全区设置，底部安全区适配 */
 		/* #ifndef APP-NVUE */
-		padding-bottom: constant(safe-area-inset-bottom);
-		padding-bottom: env(safe-area-inset-bottom);
+		// padding-bottom: constant(safe-area-inset-bottom);
+		// padding-bottom: env(safe-area-inset-bottom);
 		/* #endif */
-		background: #fff;
+		// background: #fff;
 	}
 
 	.content-ani {
