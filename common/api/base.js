@@ -9,7 +9,7 @@ import store from '@/store'
 //分享配置
 const goodsJdList = (p, optId, lastGoodId) => {
     return http.request({
-        url: '/addon/tequan/v1/goods/jd',
+        url: '/minapp/v1/mall/jd',
         method: 'GET', 
         data: {
 			p,
@@ -20,7 +20,7 @@ const goodsJdList = (p, optId, lastGoodId) => {
 }
 const goodsJdDetail = (goods_id) => {
     return http.request({
-        url: '/addon/tequan/v1/goods/jd/detail',
+        url: '/minapp/v1/mall/jd/detail',
         method: 'GET', 
         data: {
 			goods_id
@@ -29,7 +29,7 @@ const goodsJdDetail = (goods_id) => {
 }
 const goodsJdPromote = (materialUrl, couponLink) => {
     return http.request({
-        url: '/addon/tequan/v1/goods/jd/promote',
+        url: '/minapp/v1/mall/jd/promote',
         method: 'POST', 
         data: {
 			materialUrl,
@@ -66,7 +66,7 @@ const homeShowcase3 = () => {
 }
 const goodsJdSearch = (keyword, p) => {
     return http.request({
-        url: '/addon/tequan/v1/goods/jd/search',
+        url: '/minapp/v1/mall/jd/search',
         method: 'GET', 
         data: {
 			keyword,
