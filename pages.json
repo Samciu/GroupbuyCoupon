@@ -27,8 +27,8 @@
 				"enablePullDownRefresh": true
 			}
 			
-		}
-	    ,{
+		},
+		{
             "path" : "pages/detail/detail",
             "style" :                                                                                    
             {
@@ -113,16 +113,16 @@
 				"enablePullDownRefresh": false
 			}
 		},
-		{
-            "path" : "pages/product/recharge",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "会员充值",
-                "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-            }
+		// {
+        //     "path" : "pages/product/recharge",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "会员充值",
+        //         "enablePullDownRefresh": false,
+		// 		"navigationStyle": "custom"
+        //     }
             
-        },
+        // },
 		{
 			"path": "pages/product/checkout",
 			"style": {
@@ -251,6 +251,9 @@
 			},
 			{
 				"pagePath": "pages/user/user"
+			},
+			{
+				"pagePath": "pages/activity/sign"
 			}
 		],
 		"custom": true

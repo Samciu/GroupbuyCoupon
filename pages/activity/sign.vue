@@ -15,71 +15,84 @@
       >
       <view class="card_title_time">活动时间：{{ task_time }}</view>
     </view> -->
-    <view class="banner-wrap">
-      <view class="banner" />
-    </view>
-    <view class="tips-bar">
-      <wyb-noticeBar
-        :text="info.tips"
-        type="vert"
-        :show-more="false"
-        class="notice-box"
-        bgColor="#fcf6ea"
-        color="#b03d19"
-        width="343"
-        height="78"
-        font-size="28"
-        v-if="info.tips.length"
-      />
-    </view>
-    <view class="task">
-      <view class="task_top"
-        >本期活动时间：{{ info.period.monthStart }}-{{
-          info.period.monthLast
-        }}</view
-      >
-      <view class="task_content">
-        <view class="task_first">
-          <view class="task_first_top">
-            <view class="task_first_top_left">
-              <image
-                class="task_first_top_icon"
-                mode="aspectFill"
-                src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/5a9bcf2f-d347-4a1e-a5f1-215b358c53b5.png"
-              ></image>
-              <view class="task_first_top_title">
-                累计打卡<text class="task_first_top_title_red">{{
-                  info.user.signAllCount
-                }}</text
-                >天
-              </view>
-              <view class="task_first_top_score">
-                <text class="redcolor">{{ info.user.signMonthCount }}</text
-                >/30
-              </view>
-            </view>
-            <view v-if="user.info.isComplete" class="task_first_top_status task_first_top_status_red">已完成</view>
-            <view v-else class="task_first_top_status task_first_top_status_red">未完成</view>
-          </view>
-          <view class="task_first_content">
-            <view v-if="info.user.hasSign" class="today_title today_title_gray">今日已打卡 明日再来哦</view>
-            <view v-else class="today_title">今日未打卡</view>
-            <view class="today_desc"
-              >点击下方立即领取，成功领取外卖红包，即打卡成功</view
-            >
-            <view class="part1">
-              <block v-for="(item, index) in info.taskSignList" :key="index">
-                <view class="line" v-if="index > 0"></view>
-                <view class="item" @click="jump(item)">
-                  <image class="" :src="item.logo"></image>
-                  <text class="">{{ item.name }}</text>
-                  <view class="btn-black">立即领取</view>
+    <loginWrap>
+      <view class="banner-wrap">
+        <view class="banner" />
+      </view>
+      <view class="tips-bar">
+        <wyb-noticeBar
+          :text="info.tips"
+          type="vert"
+          :show-more="false"
+          class="notice-box"
+          bgColor="#fcf6ea"
+          color="#b03d19"
+          width="343"
+          height="78"
+          font-size="28"
+          v-if="info.tips.length"
+        />
+      </view>
+      <view class="task">
+        <view class="task_top"
+          >本期活动时间：{{ info.period.monthStart }}-{{
+            info.period.monthLast
+          }}</view
+        >
+        <view class="task_content">
+          <view class="task_first">
+            <view class="task_first_top">
+              <view class="task_first_top_left">
+                <image
+                  class="task_first_top_icon"
+                  mode="aspectFill"
+                  src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/5a9bcf2f-d347-4a1e-a5f1-215b358c53b5.png"
+                ></image>
+                <view class="task_first_top_title">
+                  累计打卡<text class="task_first_top_title_red">{{
+                    info.user.signAllCount
+                  }}</text
+                  >天
                 </view>
-              </block>
+                <view class="task_first_top_score">
+                  <text class="redcolor">{{ info.user.signMonthCount }}</text
+                  >/30
+                </view>
+              </view>
+              <view
+                v-if="info.user.isComplete"
+                class="task_first_top_status task_first_top_status_red"
+                >已完成</view
+              >
+              <view
+                v-else
+                class="task_first_top_status task_first_top_status_red"
+                >未完成</view
+              >
+            </view>
+            <view class="task_first_content">
+              <view
+                v-if="info.user.hasSign"
+                class="today_title today_title_gray"
+                >今日已打卡 明日再来哦</view
+              >
+              <view v-else class="today_title">今日未打卡</view>
+              <view class="today_desc"
+                >点击下方立即领取，成功领取外卖红包，即打卡成功</view
+              >
+              <view class="part1">
+                <block v-for="(item, index) in info.taskSignList" :key="index">
+                  <view class="line" v-if="index > 0"></view>
+                  <view class="item" @click="jump(item)">
+                    <image class="" :src="item.logo"></image>
+                    <text class="">{{ item.name }}</text>
+                    <view class="btn-black">立即领取</view>
+                  </view>
+                </block>
+              </view>
             </view>
           </view>
-        </view>
-        <!-- <view class="task_second">
+          <!-- <view class="task_second">
           <view class="task_second_top">
             <view class="task_second_top_left">
               <image
@@ -102,48 +115,100 @@
           </view>
           <view class="buy_three">去下单</view>
         </view> -->
+        </view>
       </view>
-    </view>
-    <view class="exchange_btn" @click="exchange">兑换会员</view>
-    <view class="exchange_users"
-      >已有<text class="exchange_users_red">{{ info.getNum }}</text
-      >人兑换了会员</view
-    >
-    <view class="rules" @click="openPopup">活动规则</view>
-    <uni-popup id="popup" ref="popup" type="bottom" animation="true">
-      <rulesBox @closePopup="closePopup" :rules="info.rules" />
-    </uni-popup>
-    <uni-popup id="contact" ref="contact" type="bottom" animation="true">
-      <contactBox @closeExchange="closeExchange" :rules="info.rules" />
-    </uni-popup>
+      <button class="exchange_btn" open-type="share">邀请好友加速</button>
+      <view class="exchange_btn" @click="exchange" v-if="info.user.isComplete">兑换会员</view>
+      <view class="exchange_users"
+        >已有<text class="exchange_users_red">{{ info.getNum }}</text
+        >人兑换了会员</view
+      >
+      <view class="power_list">
+        <view class="tit">
+          <view class="line_left marg_right"></view>
+          <view class="square marg_right"></view>
+          <view class="square marg_right"></view>
+          <view class="square marg_right"></view>
+          <view class="txt">好友加速榜</view>
+          <view class="square marg_left"></view>
+          <view class="square marg_left"></view>
+          <view class="square marg_left"></view>
+          <view class="line_right marg_left"></view>
+        </view>
+        <view class="tips">每期活动最多可邀请 10 位好友有效加速</view>
+        <view class="list">
+          <view class="empty" v-if="inviteList.length == 0" >暂无助力好友，快邀请好友来加速！</view>
+          <view class="ul" v-else>
+            <view class="li" v-for="(item, idx) in inviteList" :key="idx">
+              <view :class="idx < 10 ? 'sort color1' : 'sort color2'">{{
+                idx + 1 > 9 ? idx + 1 : "0" + (idx + 1)
+              }}</view>
+              <view class="left">
+                <view class="user">
+                  <view class="avatar">
+                    <image
+                      class=""
+                      :src="item.user.avatarUrl ? item.user.avatarUrl : 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/b4ebf6cb-f929-4c34-9e5c-16ad4de1ab8e.png'"
+                    ></image>
+                  </view>
+                  <view class="info">
+                    <view class="nickname">{{item.user.nickName ? item.user.nickName : '未知'}}</view>
+                    <!-- <view class="follow">已关注公众号</view> -->
+                  </view>
+                </view>
+                <view class="status">
+                  <view class="speed_up" v-if="idx < 10">已加速1天</view>
+                  <view class="disabled_up" v-else >已达到上限</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="rules" @click="openPopup">活动规则</view>
+      <uni-popup id="popup" ref="popup" type="bottom" animation="true">
+        <rulesBox @closePopup="closePopup" :rules="info.rules" />
+      </uni-popup>
+      <uni-popup id="contact" ref="contact" type="bottom" animation="true">
+        <contactBox @closeExchange="closeExchange" :info="info" />
+      </uni-popup>
+    </loginWrap>
+    <customTabBar tab="sign"></customTabBar>
   </view>
 </template>
 
 <script>
-import { getTaskSignInfo, getTaskSignDo } from "@/request";
-import rulesBox from './components/rulesBox/rulesBox.vue'
-import contactBox from './components/contactBox/contactBox.vue'
+import { getTaskSignInfo, getTaskSignDo, getInviteList } from "@/request";
+import rulesBox from "./components/rulesBox/rulesBox.vue";
+import contactBox from "./components/contactBox/contactBox.vue";
 
 export default {
   data() {
     return {
       info: {},
+      inviteList: [],
     };
   },
   components: {
-    rulesBox, contactBox
+    rulesBox,
+    contactBox,
   },
-  onLoad() {
-    
-  },
+  onLoad() {},
   onShow(e) {
     console.log("onShow", e);
     this.getTaskSignInfo();
+    this.getInviteList();
   },
   methods: {
     async getTaskSignInfo() {
       const [err, res] = await getTaskSignInfo();
       this.info = res.data.data;
+    },
+
+    async getInviteList() {
+      const [err, res] = await getInviteList();
+      this.inviteList = res.data.data || [];
+      console.log("inviteList", res.data.data);
     },
 
     async getTaskSignDo(data) {
@@ -175,14 +240,24 @@ export default {
       } else {
         uni.showToast({
           title: "条件尚不满足",
-          icon: "none"
-        })
+          icon: "none",
+        });
       }
     },
 
     closeExchange() {
       this.$refs.contact.close();
-    }
+    },
+
+    onShareAppMessage(res) {
+      const userInfo = uni.getStorageSync("userInfo");
+      const path = "/pages/activity/sign";
+
+      return {
+        title: `${userInfo.nickName} 送你一张美团会员月卡`,
+        path: `pages/index/index?fromUid=${userInfo.id || ""}&path=${path}`,
+      };
+    },
   },
 };
 </script>
@@ -219,13 +294,13 @@ page {
 }
 
 .rules {
-    padding: 6rpx 24rpx;
-    position: fixed;
-    top: 50rpx;
-    right: 0;
-    background: #ffe8ac;
-    color: #b03d19;
-    font-size: 26rpx;
+  padding: 6rpx 24rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 0;
+  background: #ffe8ac;
+  color: #b03d19;
+  font-size: 26rpx;
 }
 
 .task {
@@ -509,6 +584,156 @@ page {
     width: 1rpx;
     height: 350rpx;
     background-color: #e8e8e8;
+  }
+}
+
+.power_list {
+  width: 686rpx;
+  margin: 0 auto;
+  margin-top: 82rpx;
+  margin-bottom: 180rpx;
+
+  .tit {
+    text-align: center;
+    font-weight: 700;
+    font-size: 40rpx;
+    line-height: 56rpx;
+    color: #ffe8ac;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .line_left {
+      width: 88rpx;
+      height: 4rpx;
+      background: linear-gradient(270deg, #ffe7ac, rgba(255, 231, 172, 0));
+      border-radius: 16rpx;
+    }
+    .line_right {
+      width: 88rpx;
+      height: 4rpx;
+      background: linear-gradient(-270deg, #ffe7ac, rgba(255, 231, 172, 0));
+      border-radius: 16rpx;
+    }
+    .txt {
+      padding: 0;
+      margin: 0 28rpx;
+      font-size: 40rpx;
+    }
+    .square {
+      width: 20rpx;
+      height: 20rpx;
+      background: #ffe8ac;
+      transform: rotate(-45deg);
+    }
+    .marg_left {
+      margin-left: 12rpx;
+    }
+    .marg_right {
+      margin-right: 12rpx;
+    }
+  }
+  .tips {
+    margin-top: 32rpx;
+    text-align: center;
+    font-size: 32rpx;
+    line-height: 44rpx;
+    color: #fcf6ea;
+  }
+  .list {
+    background: #fcf6ea;
+    border-radius: 16px;
+    padding: 16rpx 32rpx;
+    margin-top: 42rpx;
+    .empty {
+      height: 172rpx;
+      font-family: PingFang SC;
+      font-size: 32rpx;
+      line-height: 172rpx;
+      text-align: center;
+      color: #ab6700;
+    }
+    .li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &:last-of-type {
+        .left {
+          border: none;
+        }
+      }
+      .left {
+        flex: 1;
+        padding: 32rpx 0;
+        border-bottom: 1rpx solid #f8e6cd;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .user {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+      .sort {
+        width: 48rpx;
+        height: 40rpx;
+        text-align: left;
+        margin-right: 8rpx;
+      }
+      .color1 {
+        color: #f0c181;
+      }
+      .color2 {
+        color: #cdcdcd;
+      }
+      .avatar {
+        width: 96rpx;
+        height: 96rpx;
+        border: 2rpx solid #fff;
+        box-sizing: border-box;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16rpx;
+        image {
+          width: 96rpx;
+          height: 96rpx;
+          border-radius: 50%;
+        }
+      }
+      .info {
+        flex: 1;
+        .nickname {
+          font-weight: 700;
+          font-size: 32rpx;
+          line-height: 44rpx;
+          color: #b03d19;
+        }
+        .follow {
+          font-size: 24rpx;
+          line-height: 34rpx;
+          color: #cf8a74;
+        }
+      }
+      .status {
+        .speed_up {
+          width: 144rpx;
+          height: 56rpx;
+          text-align: center;
+          line-height: 56rpx;
+          background: #ffe8ac;
+          border-radius: 28rpx;
+          font-size: 28rpx;
+          color: #ab6700;
+        }
+        .disabled_up {
+          font-size: 28rpx;
+          color: #a4a4a4;
+        }
+      }
+    }
   }
 }
 </style>

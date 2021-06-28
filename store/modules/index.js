@@ -2,7 +2,7 @@
  * @Author: dazhao 
  * @Date: 2021-05-06 16:34:57 
  * @Last Modified by: dazhao
- * @Last Modified time: 2021-06-22 01:14:00
+ * @Last Modified time: 2021-06-27 16:34:30
  */
 
 import { getProductActivity, getProductHot, getCardProductRecommand, getHomePopup } from "@/request"
@@ -37,7 +37,7 @@ export default {
             state.layout = payload.layout
         },
         setHomePopup(state, payload) {
-            console.log(payload)
+            console.log('setHomePopup',payload)
             state.homePopup = payload
         }
     },
@@ -63,7 +63,7 @@ export default {
         async fetchHomePopup({ dispatch, commit }) {
             const [err, res] = await getHomePopup()
             if (err) return;
-            commit('setHomePopup', res.result)
-        }
+            commit('setHomePopup', res.data.data)
+        },
     }
 }

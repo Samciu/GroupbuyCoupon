@@ -320,3 +320,10 @@ export const getHomePopup = async data => {
         data,
     })
 }
+
+export const getInviteList = async data => {
+    return request({
+        url: "/minapp/v1/task/sign/invite/list",
+        data,
+    })
+}

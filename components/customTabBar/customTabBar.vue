@@ -18,6 +18,22 @@
     </navigator>
      <navigator
       class="item"
+      :class="{ active: tab == 'sign' }"
+      open-type="switchTab"
+      url="/pages/activity/sign"
+    >
+      <image
+        class="icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/bdae6b84-335d-455a-817f-3626d458e20b.png"
+      ></image>
+      <image
+        class="focus-icon"
+        src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/e4cdf16b-5a9b-40ec-9681-949376d9c755.png"
+      ></image>
+      <text class="label">打卡</text>
+    </navigator>
+    <navigator
+      class="item"
       :class="{ active: tab == 'mall' }"
       open-type="switchTab"
       url="/pages/mall/mall"
