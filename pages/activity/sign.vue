@@ -56,7 +56,7 @@
                 </view>
                 <view class="task_first_top_score">
                   <text class="redcolor">{{ info.user.signMonthCount }}</text
-                  >/30
+                  >/{{info.period.monthDay}}
                 </view>
               </view>
               <view
