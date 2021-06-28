@@ -116,6 +116,13 @@
       </loginWrap>
     </view>
     <customTabBar tab="index"></customTabBar>
+    <uni-popup v-for="item,index in homePopup" :key="index" :id="item.task_alias" :ref="item.task_alias" type="top" animation="true">
+      <view class="popup-content">
+        <view class="mask" @click="closePopup(item.task_alias)" />
+        <image :src="item.pic" mode="widthFix" @click="handlePopupClick(item)" />
+        <view class="closed" @click="closePopup(item.task_alias)"></view>
+      </view>
+    </uni-popup>
   </view>
 </template>
 
@@ -128,7 +135,9 @@ import cardLoading from "./components/cardLoading";
 export default {
   components: { brandLoading, cardLoading },
   data() {
-    return {};
+    return {
+      popupIndex: 0 // 弹窗数组下标
+    };
   },
   computed: {
     ...mapState({
@@ -137,13 +146,16 @@ export default {
       banner: (state) => state.index.banner,
       coupon: (state) => state.index.coupon,
       layout: (state) => state.index.layout,
+      homePopup: (state) => state.index.homePopup
     }),
   },
-  onLoad(option) {
+  async onLoad(option) {
     // this.initLocation();
     this.fetchProductActivity();
     this.fetchProductHot();
     this.fetchCardProductRecommand();
+    await this.fetchHomePopup()
+    this.openPopup()
     if (option.path) {
       this.jumpTo(option.path);
     }
@@ -154,6 +166,7 @@ export default {
       "fetchProductActivity",
       "fetchProductHot",
       "fetchCardProductRecommand",
+      "fetchHomePopup"
     ]),
 
     async initLocation() {
@@ -172,6 +185,18 @@ export default {
       uni.hideLoading();
     },
 
+    openPopup() {
+      const alias = this.homePopup[this.popupIndex]?.task_alias
+      if (!alias) return
+      this.$refs[alias][0].open();
+      this.popupIndex = this.popupIndex + 1 // 弹窗数组下标 +1
+    },
+
+    closePopup(ref) {
+      this.$refs[ref][0].close();
+      this.openPopup()
+    },
+
     jumpTo(payload) {
       try {
         const path = decodeURIComponent(payload);
@@ -179,6 +204,11 @@ export default {
           url: path,
         });
       } catch (e) {}
+    },
+
+    handlePopupClick(data) {
+      this.closePopup(data.task_alias)
+      this.handleProductClick({...data, type: data.target})
     },
 
     handleProductClick(data) {
@@ -491,6 +521,38 @@ page {
         }
       }
     }
+  }
+}
+
+.popup-content {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .mask {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+  }
+
+  image {
+    position: relative;
+    z-index: 1;
+  }
+
+  .closed {
+    position: relative;
+    z-index: 1;
+    width: 80rpx;
+    height: 80rpx;
+    margin-top: 16rpx;
+    background: url(https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/ca54adf5-12bf-43ae-9515-02140eaba5ec.png) no-repeat;
+    background-size: 100%;
   }
 }
 </style>

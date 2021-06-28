@@ -11,6 +11,14 @@
 			}
 		},
 		{
+            "path" : "pages/activity/sign",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "免费领会员",
+                "enablePullDownRefresh": false
+            }
+        },
+		{
 			"path": "pages/mall/mall",
 			"style": {
 				"navigationBarTextStyle": "white",
@@ -19,8 +27,8 @@
 				"enablePullDownRefresh": true
 			}
 			
-		}
-	    ,{
+		},
+		{
             "path" : "pages/detail/detail",
             "style" :                                                                                    
             {
@@ -63,7 +71,12 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的订单",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"mp-weixin": {
+					"usingComponents": {
+						"pay": "plugin://myPlugin/pay"
+					}
+				}
             }
         },
 		{
@@ -72,7 +85,12 @@
             {
                 "navigationBarTitleText": "订单详情",
                 "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"mp-weixin": {
+					"usingComponents": {
+						"pay": "plugin://myPlugin/pay"
+					}
+				}
             }
             
         },
@@ -95,21 +113,26 @@
 				"enablePullDownRefresh": false
 			}
 		},
-		{
-            "path" : "pages/product/recharge",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "会员充值",
-                "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-            }
+		// {
+        //     "path" : "pages/product/recharge",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "会员充值",
+        //         "enablePullDownRefresh": false,
+		// 		"navigationStyle": "custom"
+        //     }
             
-        },
+        // },
 		{
 			"path": "pages/product/checkout",
 			"style": {
 				"navigationBarTitleText": "确认订单",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"mp-weixin": {
+					"usingComponents": {
+						"pay": "plugin://myPlugin/pay"
+					}
+				}
 			}
 		},
 		{
@@ -203,6 +226,7 @@
             }
             
         }
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -227,6 +251,9 @@
 			},
 			{
 				"pagePath": "pages/user/user"
+			},
+			{
+				"pagePath": "pages/activity/sign"
 			}
 		],
 		"custom": true

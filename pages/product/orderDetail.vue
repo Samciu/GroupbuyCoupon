@@ -17,7 +17,15 @@
       ></uni-nav-bar>
       <view class="order-status">
         <view class="status">{{
-          ["未知", "待付款", "待发货", "已完成", "已关闭", "退款/售后", "已退款"][detail.status]
+          [
+            "未知",
+            "待付款",
+            "待发货",
+            "已完成",
+            "已关闭",
+            "退款/售后",
+            "已退款",
+          ][detail.status]
         }}</view>
       </view>
       <image
@@ -32,18 +40,32 @@
         :key="index"
       >
         <view class="title">卡号</view>
-        <view class="code" @click="copy(cardItem.card_number)">{{cardItem.card_number}}</view>
+        <view class="code" @click="copy(cardItem.card_number)">{{
+          cardItem.card_number
+        }}</view>
         <view v-if="cardItem.card_pwd" style="margin-top: 32rpx">
           <view class="title">密码</view>
-          <view class="code" @click="copy(cardItem.card_pwd, '密码')">{{cardItem.card_pwd}}</view>
+          <view class="code" @click="copy(cardItem.card_pwd, '密码')">{{
+            cardItem.card_pwd
+          }}</view>
         </view>
-        <view class="time" v-if="cardItem.card_deadline">有效期至：{{ cardItem.card_deadline }}</view>
+        <view class="time" v-if="cardItem.card_deadline"
+          >有效期至：{{ cardItem.card_deadline }}</view
+        >
         <view class="control">
           <view class="btn" @click="copy(cardItem.card_number)">复制</view>
-          <view class="btn" @click="showQrCode(cardItem.card_number)">二维码</view>
+          <view class="btn" @click="showQrCode(cardItem.card_number)"
+            >二维码</view
+          >
         </view>
         <view class="mask" v-if="qrCode" @click="hideQrcode">
-          <tki-qrcode :val="cardItem.card_number" size="400" :onval="onval" :loadMake="true" :usingComponents="true" />
+          <tki-qrcode
+            :val="cardItem.card_number"
+            size="400"
+            :onval="onval"
+            :loadMake="true"
+            :usingComponents="true"
+          />
         </view>
       </view>
       <view class="product-info">
@@ -113,12 +135,21 @@
         @click="orderCancel(detail.out_trade_no)"
         >取消订单</view
       >
-      <view
-        class="btn btn-enter"
-        v-if="detail.status == 1"
-        @click="orderPay(detail.out_trade_no)"
-        >立即支付</view
-      >
+      <block v-if="detail.status == 1">
+        <pay
+          class="btn btn-enter"
+          v-if="usePlugin"
+          :args="args(detail.out_trade_no)"
+          @paymentSuccess="paymentSuccess"
+          @paymentFailed="paymentFailed"
+        >
+          立即支付
+        </pay>
+        <view v-else class="btn btn-enter" @click="orderPay(detail.out_trade_no)"
+          >立即支付</view
+        >
+      </block>
+
       <view
         class="btn btn-enter"
         v-if="detail.status != 1"
@@ -139,8 +170,22 @@ export default {
   data() {
     return {
       detail: {},
-      qrCode: ""
+      qrCode: "",
+      usePlugin: config.usePlugin,
     };
+  },
+  computed: {
+    args() {
+      return ({out_trade_no, money}) => ({
+        fee: money, // 支付金额，单位为分
+        paymentArgs: {
+          out_trade_no,
+          appid: config.Appid,
+          token: store.state.token,
+          paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
+        }, // 将传递到功能页函数的自定义参数
+      });
+    },
   },
   onLoad(option) {
     const { out_trade_no } = option;
@@ -168,7 +213,7 @@ export default {
       });
     },
     hideQrcode() {
-      this.qrCode = ""
+      this.qrCode = "";
     },
     showQrCode(code) {
       this.qrCode = code;
@@ -180,8 +225,8 @@ export default {
         confirmText: "确认",
         cancelText: "取消",
       });
-      
-      if (!modalRes.confirm) return
+
+      if (!modalRes.confirm) return;
       const [err, res] = await getCardOrderCancel({ out_trade_no });
       if (res.data.code == 200) {
         uni.showToast({
@@ -211,6 +256,17 @@ export default {
         url: `/pages/product/checkout?gcode=${this.detail.goods.code}`,
       });
     },
+    paymentSuccess() {
+      uni.showToast({
+        title: "支付成功"
+      })
+    },
+    paymentFailed() {
+      uni.showToast({
+        icon: "none",
+        title: "支付失败"
+      })
+    }
   },
 };
 </script>

@@ -45,7 +45,7 @@ const cloudRequest = ({name, data = {}}) => {
 
 export const getRecommand = (data) => {
     return request({
-        url: '/minapp/v1/takeout/shop/recommand?lat=32.16046142578125&lng=118.72357177734375',
+        url: '/minapp/v1/takeout/shop/recommand',
         data
     });
 }
@@ -297,4 +297,33 @@ export const getUserServiceInfo = async data => {
     });
 
     return [null, res]
+}
+
+export const getTaskSignInfo = async data => {
+    return request({
+        url: "/minapp/v1/task/sign/info",
+        data
+    })
+}
+
+export const getTaskSignDo = async data => {
+    return request({
+        url: "/minapp/v1/task/sign/do",
+        data,
+        method: "POST"
+    })
+}
+
+export const getHomePopup = async data => {
+    return request({
+        url: "/minapp/v1/home/popup",
+        data,
+    })
+}
+
+export const getInviteList = async data => {
+    return request({
+        url: "/minapp/v1/task/sign/invite/list",
+        data,
+    })
 }

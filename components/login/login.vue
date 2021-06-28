@@ -122,7 +122,7 @@ export default {
       const { token, user } = res.data.data;
       this.setUserData({ token, user });
       this.setLoginShow(false);
-      uni.reLaunch({ url: `/${getCurrentPageUrlWithArgs()}` });
+      uni.reLaunch({ url: `${getCurrentPageUrlWithArgs()}` });
     },
   },
 };

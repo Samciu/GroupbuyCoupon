@@ -56,7 +56,15 @@
           <view class="btn" @click="orderCancel(item.out_trade_no)"
             >取消订单</view
           >
-          <view class="btn btn-yellow" @click="orderPay(item.out_trade_no)"
+          <pay
+            v-if="usePlugin"
+            :args="args(item)"
+            @paymentSuccess="paymentSuccess"
+            @paymentFailed="paymentFailed"
+          >
+            <view class="btn btn-yellow">立即支付</view>
+          </pay>
+          <view v-else class="btn btn-yellow" @click="orderPay(item.out_trade_no)"
             >立即支付</view
           >
         </view>
@@ -87,12 +95,13 @@ export default {
         { name: "已完成", id: 3 },
         { name: "已关闭", id: 4, noShow: 1 },
         { name: "退款/售后", id: 5 },
-        { name: "已退款", id: 6, noShow: 1 }
+        { name: "已退款", id: 6, noShow: 1 },
       ],
       tabNum: 0,
       p: 1,
       loading: false,
       isListEmpty: false,
+      usePlugin: config.usePlugin
     };
   },
   computed: {
@@ -100,7 +109,18 @@ export default {
       return (id) => this.statusList.find((item) => item.id == id).name;
     },
     statusBar() {
-      return this.statusList.filter(item => !item.noShow)
+      return this.statusList.filter((item) => !item.noShow);
+    },
+    args() {
+      return ({out_trade_no, money}) => ({
+        fee: money, // 支付金额，单位为分
+        paymentArgs: {
+          out_trade_no,
+          appid: config.Appid,
+          token: store.state.token,
+          paymentURL: `${config.baseUrl}/minapp/v1/card/order/confirm`,
+        }, // 将传递到功能页函数的自定义参数
+      })
     }
   },
   onLoad(option) {
@@ -196,6 +216,19 @@ export default {
         path: `pages/pay/pay?args=${encodeURIComponent(JSON.stringify(args))}`,
       });
     },
+
+    paymentSuccess() {
+      uni.showToast({
+        title: "支付成功"
+      })
+    },
+
+    paymentFailed() {
+      uni.showToast({
+        icon: "none",
+        title: "支付失败"
+      })
+    }
   },
 };
 </script>
