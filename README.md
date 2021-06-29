@@ -28,11 +28,13 @@ DCloud [2021年插件大赛](https://mp.weixin.qq.com/s/LWYTbEuMV-ixcrwSD6BMmw)�
 1. 将[权益卡分销平台-小程序端](https://ext.dcloud.net.cn/plugin?id=5197)代码，导入到 HBuilderX
 2. 根目录右键创建uniCloud云开发环境，右键uniCloud目录关联到与管理后台同一个服务空间
 3. 复制众佣 Appid，在 `config.js` 中配置
-4. 在小程序开发管理中配置服务器request合法域名：https://api.bspapp.com、https://zy-api.wxthe.com
-5. 在HBuilderX顶部菜单点击发行 -> 发行到微信小程序（注意鼠标先选中这个前端项目发行，不要选中后台项目哦）
-6. 上传版本并提交审核
+4. 在小程序后台，开发管理中配置服务器request合法域名：https://api.bspapp.com、https://zy-api.wxthe.com
+5. 在小程序后台，`设置`->`第三方设置`->`插件管理`中，添加`支付收银台`插件
+6. 在HBuilderX顶部菜单点击发行 -> 发行到微信小程序（注意鼠标先选中这个前端项目发行，不要选中后台项目哦）
+7. 上传版本并提交审核
 
 - 注意：manifest.json 中微信小程序权限配置 `位置接口` 需要勾选上
+- 注意：个人主体的小程序请将`config.js`里`usePlugin`配置为`false`
 
 ### 重要
 如有任何问题请加我微信交流： `samciu`，购买授权后加入小程序玩法交流群
