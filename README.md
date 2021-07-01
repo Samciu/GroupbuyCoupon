@@ -2,6 +2,10 @@
 
 涵盖话费、视频会员、加油卡、礼品卡等多种品类折扣权益，吃、喝、玩、乐、购五大消费场景覆盖的综合权益卡券小程序，用户折扣购、平台赚佣金，个人、企业流量变现平台。
 
+### DEMO
+
+<img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/1df50047-7a62-44d2-ae71-63b49888120c.jpeg" width="250" />
+
 ### 介绍
 
 DCloud [2021年插件大赛](https://mp.weixin.qq.com/s/LWYTbEuMV-ixcrwSD6BMmw)一等奖项目。本仓库是小程序前端代码，[管理后台](https://ext.dcloud.net.cn/plugin?id=5196)需要在插件市场上购买授权。
