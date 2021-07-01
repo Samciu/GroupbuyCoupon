@@ -3,4 +3,5 @@ unpackage
 .vscode
 .DS_Store
 uniCloud-aliyun
+uniCloud-tcb
 uni_modules

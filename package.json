@@ -1,0 +1,75 @@
+{
+    "id": "zy-card-app",
+    "name": "权益卡分销平台-小程序端",
+    "version": "1.8.3",
+    "description": "【2021年插件大赛一等奖项目】涵盖话费、视频会员、加油卡、礼品卡等多种品类折扣权益，吃、喝、玩、乐、购五大消费场景覆盖的综合权益卡券小程序，用户折扣购、平台赚佣金，个人、企业流量变现平台。",
+    "keywords": [
+        "外卖CPS",
+        "吃喝玩乐",
+        "电商导购",
+        "卡券优惠"
+    ],
+    "displayName": "权益卡分销平台-小程序端",
+    "repository": "https://github.com/Samciu",
+    "dcloudext": {
+        "category": [
+            "uniCloud",
+            "云端一体项目模板"
+        ],
+        "sale": {
+            "regular": {
+                "price": "0.00"
+            },
+            "sourcecode": {
+                "price": "0.00"
+            }
+        },
+        "contact": {
+            "qq": ""
+        },
+        "declaration": {
+            "ads": "无",
+            "data": "无",
+            "permissions": "无"
+        },
+        "npmurl": ""
+    },
+    "uni_modules": {
+        "platforms": {
+            "cloud": {
+                "tcb": "n",
+                "aliyun": "y"
+            },
+            "client": {
+                "App": {
+                    "app-vue": "u",
+                    "app-nvue": "u"
+                },
+                "H5-mobile": {
+                    "Safari": "u",
+                    "Android Browser": "u",
+                    "微信浏览器(Android)": "u",
+                    "QQ浏览器(Android)": "u"
+                },
+                "H5-pc": {
+                    "Chrome": "u",
+                    "IE": "u",
+                    "Edge": "u",
+                    "Firefox": "u",
+                    "Safari": "u"
+                },
+                "小程序": {
+                    "微信": "y",
+                    "阿里": "u",
+                    "百度": "u",
+                    "字节跳动": "u",
+                    "QQ": "u"
+                },
+                "快应用": {
+                    "华为": "u",
+                    "联盟": "u"
+                }
+            }
+        }
+    }
+}
