@@ -543,6 +543,7 @@ page {
   image {
     position: relative;
     z-index: 1;
+    width: 680rpx;
   }
 
   .closed {
