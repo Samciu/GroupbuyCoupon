@@ -49,7 +49,7 @@
                   src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/5a9bcf2f-d347-4a1e-a5f1-215b358c53b5.png"
                 ></image>
                 <view class="task_first_top_title">
-                  累计打卡（<text class="task_first_top_title_red">{{info.user.signAllCount}}</text>/{{info.period.monthDay}}天）
+                  累计打卡（<text class="task_first_top_title_red">{{info.user.signMonthCount}}</text>/{{info.period.monthDay}}天）
                 </view>
                 <!-- <view class="task_first_top_score">
                   <text class="redcolor">{{ info.user.signMonthCount }}</text
