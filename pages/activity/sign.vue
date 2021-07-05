@@ -80,7 +80,7 @@
               <view class="part1">
                 <block v-for="(item, index) in info.taskSignList" :key="index">
                   <view class="line" v-if="index > 0"></view>
-                  <view class="item" @click="jump(item)">
+                  <view class="item" @click="sign(item)">
                     <image class="" :src="item.logo"></image>
                     <text class="">{{ item.name }}</text>
                     <view class="btn-black">立即领取</view>
@@ -170,27 +170,34 @@
         <contactBox @closeExchange="closeExchange" :info="info" />
       </uni-popup>
     </loginWrap>
+    <subscribeGuide v-show="showGide" />
     <customTabBar tab="sign"></customTabBar>
   </view>
 </template>
 
 <script>
-import { getTaskSignInfo, getTaskSignDo, getInviteList } from "@/request";
+import { getTaskSignInfo, getTaskSignDo, getInviteList, getSignSubscribe } from "@/request";
 import rulesBox from "./components/rulesBox/rulesBox.vue";
 import contactBox from "./components/contactBox/contactBox.vue";
+import subscribeGuide from "./components/subscribeGuide/subscribeGuide.vue";
 
 export default {
   data() {
     return {
       info: {},
       inviteList: [],
+      templateIds: [],
+      showGide: false
     };
   },
   components: {
     rulesBox,
     contactBox,
+    subscribeGuide
   },
-  onLoad() {},
+  onLoad() {
+    this.getSignSubscribe();
+  },
   onShow(e) {
     console.log("onShow", e);
     this.getTaskSignInfo();
@@ -208,8 +215,29 @@ export default {
       console.log("inviteList", res.data.data);
     },
 
+    async getSignSubscribe() {
+      const [err, res] = await getSignSubscribe();
+      this.templateIds = res.data.data.templateIds
+    },
+
     async getTaskSignDo(data) {
       const [err, res] = await getTaskSignDo(data);
+    },
+
+    async sign(item) {
+      // 发起申请订阅权限界面
+      const templateIds = this.templateIds;
+      this.showGide = true;
+      const [error, res] = await uni.requestSubscribeMessage({
+        tmplIds: templateIds,
+      });
+      this.showGide = false;
+
+      // 判断是否订阅至少一条
+      // const hasSubscribed = !error && Object.keys(res).some(key => res[key] == "accept")
+
+      // if (!hasSubscribed) return;
+      this.jump(item)
     },
 
     async jump(item) {
