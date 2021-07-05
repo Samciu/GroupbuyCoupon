@@ -327,3 +327,10 @@ export const getInviteList = async data => {
         data,
     })
 }
+
+export const getSignSubscribe = async data => {
+    return request({
+        url: "/minapp/v1/task/sign/subscribe",
+        data,
+    })
+}
