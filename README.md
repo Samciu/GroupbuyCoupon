@@ -49,7 +49,9 @@ DCloud [2021年插件大赛](https://mp.weixin.qq.com/s/LWYTbEuMV-ixcrwSD6BMmw)�
    - 消息加密方式：明文模式
    - 数据格式：XML    
 3. 在小程序后台添加 `报价/比价` 类目，订阅消息公共模板库中选用模版编号为`10969`的签到提醒模版，详细内容选中 `活动天数`、`签到天数`、`签到奖励`、`温馨提示`
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/639b4ce9-84c1-42fc-9352-ab920da95f22.jpg)
+
+
+<img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/639b4ce9-84c1-42fc-9352-ab920da95f22.jpg" width="500" />
 
 4. 复制 `模板ID`，在众佣后台 `应用管理/权益卡小程序/订阅消息` 添加
 
