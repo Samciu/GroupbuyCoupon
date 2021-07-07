@@ -40,6 +40,21 @@ DCloud [2021年插件大赛](https://mp.weixin.qq.com/s/LWYTbEuMV-ixcrwSD6BMmw)�
 - 注意：manifest.json 中微信小程序权限配置 `位置接口` 需要勾选上
 - 注意：个人主体的小程序请将`config.js`里`usePlugin`配置为`false`
 
+#### 三、订阅消息配置
+1. 更新小程序端到 1.8.8 版本及以上
+2. 在小程序后台设置`开发管理`—>`开发设置`—>`消息推送`
+   - URL：https://zy-api.wxthe.com/minapp/v1/mp/server/xxx (xxx为你的众佣Appid)
+   - Token：zhongyong
+   - EncodingAESKey：随机生成
+   - 消息加密方式：明文模式
+   - 数据格式：XML    
+3. 在小程序后台添加 `报价/比价` 类目，订阅消息公共模板库中选用模版编号为`10969`的签到提醒模版，详细内容选中 `活动名称`、`签到天数`、`签到奖励`、`温馨提示`
+
+
+<img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf26384b-87c0-45b4-a7e2-8a03c1243555/639b4ce9-84c1-42fc-9352-ab920da95f22.jpg" width="500" />
+
+4. 复制 `模板ID`，在众佣后台 `应用管理/权益卡小程序/订阅消息` 添加
+
 ### 重要
 如有任何问题请加我微信交流： `samciu`，购买授权后加入小程序玩法交流群
 
@@ -63,6 +78,6 @@ iOS 上不能展示虚拟支付类商品，否则过不了平台审核，接口�
 
 #### 微信审核不通过 审核不通过原因如下图所示：
 
-<img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-38bad291-5aad-4157-9cbe-615aac906e6a/a2677a70-f1a9-4809-ae2f-40c780bb4aea.png"  />
+![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-38bad291-5aad-4157-9cbe-615aac906e6a/a2677a70-f1a9-4809-ae2f-40c780bb4aea.png)
 
 众佣后台=>应用管理=>吃喝玩乐小程序=>类目配置 将所有类目全部关闭 只留下餐饮。
