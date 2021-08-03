@@ -139,7 +139,7 @@
         <pay
           class="btn btn-enter"
           v-if="usePlugin"
-          :args="args(detail.out_trade_no)"
+          :args="args(detail)"
           @paymentSuccess="paymentSuccess"
           @paymentFailed="paymentFailed"
         >
